@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) Haulmont 2025. All Rights Reserved.
+ * Use is subject to license terms.
+ */
+
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+    width: 100%;
+    height: 100vh;
+}
+
+#root {
+    --task-table-cell-border-color: rgba(186, 224, 255, 0.75);
+
+    --task-table-scroll-background-color: #e1e6e6;
+    --task-table-scroll-color: rgba(66, 132, 245, 0.3);
+    --task-table-scroll-border-radius: 6px;
+    --task-table-scroll-width: 0.5em;
+
+    --task-table-sort-icon-color: #A9C5F5;
+    --task-table-sort-icon-active-color: #fff;
+}
+

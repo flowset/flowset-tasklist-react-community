@@ -1,0 +1,42 @@
+/*
+ * Copyright (c) Haulmont 2025. All Rights Reserved.
+ * Use is subject to license terms.
+ */
+
+import {PlayCircleOutlined} from "@ant-design/icons";
+import {useCallback, useState} from "react";
+import {StartProcessDialog} from "./StartProcessDialog.tsx";
+import {useTranslation} from "react-i18next";
+import {createStyles} from "antd-style";
+import type {ProcessDefinition} from "../../../types/common.ts";
+import { Button } from "antd";
+
+const useStyles = createStyles(({css}) => ({
+    startProcessButton: css`
+        float: left;
+        margin-left: 1em;
+    `,
+}));
+
+interface OpenStartProcessDialogButtonProps {
+    processDefinition: ProcessDefinition;
+}
+
+export const OpenStartProcessDialogButton = ({processDefinition}: OpenStartProcessDialogButtonProps) => {
+    const [open, setOpen] = useState(false);
+    const {t: translate} = useTranslation(["process"]);
+    const {styles} = useStyles();
+
+
+    const handleStartClick = useCallback(() => setOpen(true), []);
+    const handleDialogClose = useCallback(() => setOpen(false), []);
+
+    return (
+        <>
+            <Button type="primary" icon={<PlayCircleOutlined/>} className={styles.startProcessButton}
+                    onClick={handleStartClick}>{translate("listPage.startProcess")}</Button>
+            <StartProcessDialog processDefinition={processDefinition} open={open} onClose={handleDialogClose}/>
+        </>
+    );
+};
+
