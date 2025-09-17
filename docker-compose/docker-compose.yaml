@@ -9,6 +9,6 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_APP_LOCALE=ru # available values: en, de, es, ru
+      - VITE_APP_LOCALE=en # available values: en, de, es, ru
       - VITE_BPM_ENGINE_API_URL=http://localhost:8082/engine-rest # URL for BPM engine REST API
       - VITE_BPM_ENGINE_TYPE=CAMUNDA_7 # available engine types: CAMUNDA_7, OPERATON.
