@@ -151,7 +151,10 @@ export const es = {
             'maxLength': 'El campo debe tener una longitud máxima de {{maxLength}}',
             'invalidPhoneNumber': 'El campo debe ser un número de teléfono internacional válido (ej. +4930664040900)',
             'invalidEmail': 'El campo debe ser un correo electrónico válido',
-        }
+        },
+        'importError': 'Error al importar el formulario: {{error}}',
+        'datePicker.placeholder': 'dd.mm.aaaa',
+        'select.placeholder': 'Seleccionar',
     },
     aboutProduct: {
         'productVersion.title': 'Versión del producto',

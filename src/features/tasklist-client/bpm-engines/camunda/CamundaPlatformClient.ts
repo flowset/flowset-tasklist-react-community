@@ -254,7 +254,7 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
             converter: (data?: unknown) => convertCountDtoToCount(data)
         }
         const upcomingTasksRequest: RequestData<UserTask[]> = {
-            promise: this.post(`${this.taskUri}?firstResult=0&maxResults=5`, createUpcomingTasksRequest(params.username)),
+            promise: this.post(`${this.taskUri}?firstResult=0&maxResults=5`, createUpcomingTasksRequest(params.username, currentDate)),
             converter: (data?: unknown) => convertUserTasks(data as CamundaTask[] || [])
         }
         const recentTasksRequest: RequestData<UserTask[]> = {

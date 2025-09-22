@@ -17,8 +17,17 @@ import type {
     SubmitEventResult
 } from "./types/FormJsFormViewer.ts";
 import Validator from "./validator";
+import flatpickr from "flatpickr"
+import {english as en} from "flatpickr/dist/l10n/default.js"
+import {Russian as ru} from "flatpickr/dist/l10n/ru.js"
+import {German as de} from "flatpickr/dist/l10n/de.js"
+import {Spanish as es} from "flatpickr/dist/l10n/es.js"
+import {getEnv} from "../../../utils/env/env.ts";
+import {useTranslation} from "react-i18next";
 
 const {Text} = Typography;
+
+const APP_LOCALE = getEnv("VITE_APP_LOCALE", "en");
 
 export interface FormJsFormProps {
     form?: ProcessFormData | null;
@@ -47,6 +56,17 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
     const formViewerRef = useRef<Form>(null);
     const {schema, initialData} = useFormJsForm({formData: form, initialData: formData});
     const [importSchemaError, setImportSchemaError] = useState<unknown>();
+    const {t: translate} = useTranslation(["formJs"]);
+
+    if (APP_LOCALE === "ru") {
+        flatpickr.localize(ru);
+    } else if (APP_LOCALE === "de") {
+        flatpickr.localize(de);
+    } else if (APP_LOCALE === "es") {
+        flatpickr.localize(es);
+    } else {
+        flatpickr.localize(en);
+    }
 
     useEffect(() => {
         const currentForm = (formViewerRef.current = new Form({
@@ -64,6 +84,35 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
                 onSubmit(event);
             });
         }
+
+
+        currentForm.on("import.done", (_event: SubmitEventData) => {
+            function updatePlaceholders() {
+                const datePickers = formContainerRef.current?.querySelectorAll(".flatpickr-input");
+                if (datePickers) {
+                    for (let datePicker of datePickers) {
+                        const inputDatePicker = datePicker as HTMLInputElement;
+                        if (inputDatePicker.placeholder === 'dd.mm.yyyy') {
+                            inputDatePicker.placeholder = translate("datePicker.placeholder");
+                        }
+                    }
+                }
+
+                const selectList = formContainerRef?.current?.querySelectorAll(".fjs-select-placeholder");
+                if (selectList) {
+                    for (let select of selectList) {
+                        const selectDiv = select as HTMLDivElement;
+                        if (selectDiv.textContent === "Select") {
+                            selectDiv.textContent = translate("select.placeholder");
+                        }
+                    }
+                }
+
+            }
+
+            setTimeout(updatePlaceholders, 50);
+
+        });
 
         return () => {
             currentForm.destroy();
@@ -121,13 +170,16 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
                         onImportError(error);
                     }
                 });
+
         }
     }, [form, schema, initialData, onImportError]);
 
-    //todo: i18n
+
     return (
         <>
-            {importSchemaError !== undefined && <Text type="danger">Unable to import form schema</Text>}
+            {importSchemaError !== undefined && <Text type="danger">{translate("importError", {
+                error: importSchemaError
+            })}</Text>}
             <div id="form-js-form-container" ref={formContainerRef} {...divProps}>
             </div>
         </>

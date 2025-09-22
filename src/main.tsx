@@ -23,7 +23,13 @@ import {getAuthConfigByType} from "./features/auth/config.ts";
 import type {BpmEngineConfig} from "./features/bpm-engine/types.ts";
 import {getEnv} from "./utils/env/env.ts";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: false,
+        }
+    }
+});
 
 const appLocale: string = i18n.language;
 const engineConfig: BpmEngineConfig = getEngineConfig(getEnv("VITE_BPM_ENGINE_API_URL"), getEnv("VITE_BPM_ENGINE_TYPE"));

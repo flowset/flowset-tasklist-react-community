@@ -48,7 +48,7 @@ export interface CustomTaskFormProps<InputVariables = FormData, OutputVariables 
     /**
      * Optional callback function for form cancellation, e.g. to close the task
      */
-    onCancel?: () => void;
+    onCancel: () => void;
 
     /**
      * Boolean indicating if task completing is in progress
@@ -83,9 +83,9 @@ export interface CustomStartFormProps<OutputVariables = FormData> {
     submitInProgress?: boolean;
 
     /**
-     * Optional callback function for form cancellation, e.g. to close Start process dialog
+     * Optional callback function for form cancellation, e.g., to close the Start process dialog
      */
-    onCancel?: () => void;
+    onCancel: () => void;
 
     /**
      * Process definition data associated with the form

@@ -29,7 +29,7 @@ const useStyles = createStyles(({css, prefixCls, token, responsive}) => ({
         }
 
         & > .${prefixCls}-card-body {
-            padding-top: 1em;
+            padding-top: 0;
             padding-bottom: 1em;
 
             height: 10em;
@@ -44,6 +44,10 @@ const useStyles = createStyles(({css, prefixCls, token, responsive}) => ({
         }
     `,
 
+    bodyContentContainer: css`
+     gap: 0.5em;
+    `
+    ,
     processDescription: css`
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -83,7 +87,7 @@ export const ProcessCard = ({item}: ProcessDefinitionCardProps) => {
                   hoverable={true}
                   actions={processActions} variant={"outlined"}>
 
-                <Flex vertical={true} wrap={true}>
+                <Flex vertical={true} wrap={true} className={styles.bodyContentContainer}>
                     <Flex gap="small">
                         <Text>{translate("key")}: </Text>
                         <Text type="secondary">{key}</Text>

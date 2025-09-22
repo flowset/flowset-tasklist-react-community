@@ -157,12 +157,11 @@ const handleJsonResponse = async (response: Response) => {
 /**
  * Handles raw response, checking for HTTP errors
  * @param response - response object to handle
- * @returns Promise resolving to Response object if successful
+ * @returns Promise resolving to the Response object if successful
  */
 const handleResponse = async (response: Response): Promise<Response> => {
     if (!response.ok) {
         console.error(`Error response: ${response.status} ${response.statusText} by URL ${response.url}`);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
     return response;
 };

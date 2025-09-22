@@ -110,6 +110,7 @@ export const ru = {
         'detailPage.error.taskNotFound.description': 'Задача не существует или завершена',
         'detailPage.error.internalError.description': 'Что-то пошло не так во время загрузки задачи',
         'detailPage.customFormNotConfigured': 'Пользовательская форма не настроена',
+        'actions.complete': 'Завершить'
     },
     loginForm: {
         'username.label': 'Имя пользователя',
@@ -153,7 +154,10 @@ export const ru = {
             'maxLength': 'Максимальное количество символов: {{maxLength}}',
             'invalidPhoneNumber': 'Номер телефона должен быть в международном формате (например, +4930664040900)',
             'invalidEmail': 'Некорректный email',
-        }
+        },
+        'importError': 'Ошибка во время импорта формы: {{error}}',
+        'datePicker.placeholder': 'дд.мм.гггг',
+        'select.placeholder': 'Выберите',
     },
     aboutProduct: {
         'productVersion.title': 'Версия продукта',

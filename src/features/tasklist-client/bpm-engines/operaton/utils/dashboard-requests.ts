@@ -23,9 +23,10 @@ export const createOverdueTasksCountRequest = (assignee: string, currentDate: Da
     }
 };
 
-export const createUpcomingTasksRequest = (assignee: string): OperatonUserTaskRequest => {
+export const createUpcomingTasksRequest = (assignee: string, currentDate: Dayjs): OperatonUserTaskRequest => {
     return {
         assignee: assignee,
+        dueAfter: formatOffsetDateTime(currentDate),
         sorting: [{sortBy: "dueDate", sortOrder: "asc"}, {sortBy: "priority", sortOrder: "desc"}]
     }
 };

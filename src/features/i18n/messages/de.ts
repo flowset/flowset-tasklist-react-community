@@ -150,7 +150,10 @@ export const de = {
             'maxLength': 'Feld darf eine Maximallänge von {{maxLength}} Zeichen nicht überschreiten',
             'invalidPhoneNumber': 'Feld muss eine gültige internationale Telefonnummer sein (z.B. +4930664040900)',
             'invalidEmail': 'Feld muss eine gültige E-Mail-Adresse sein',
-        }
+        },
+        'importError': 'Fehler beim Importieren des Formulars: {{error}}',
+        'datePicker.placeholder': 'tt.mm.jjjj',
+        'select.placeholder': 'Wählen',
     },
     aboutProduct: {
         'productVersion.title': 'Produktversion',

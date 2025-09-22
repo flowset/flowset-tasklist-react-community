@@ -90,6 +90,7 @@ export const convertProcessDefinition = (processDefinition: CamundaProcessDefini
     return {
         id: processDefinition.id,
         key: processDefinition.key,
+        description: processDefinition.description,
         version: processDefinition.version,
         name: processDefinition.name,
         versionTag: processDefinition.versionTag

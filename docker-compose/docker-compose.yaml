@@ -1,14 +1,14 @@
 services:
   openbpm-tasklist-react:
     container_name: "openbpm-tasklist-react"
-    image: openbpm/openbpm-tasklist-react:1.0.0-beta1
+    image: openbpm-platform/openbpm-tasklist-react:${OPENBPM_TASKLIST_VERSION}
     build:
       context: ..
       args:
-        - VITE_APP_VERSION=1.0.0-beta1
+        - VITE_APP_VERSION=${OPENBPM_TASKLIST_VERSION}
     ports:
       - "80:80"
     environment:
-      - VITE_APP_LOCALE=en # available values: en, de, es, ru
-      - VITE_BPM_ENGINE_API_URL=http://localhost:8082/engine-rest # URL for BPM engine REST API
-      - VITE_BPM_ENGINE_TYPE=CAMUNDA_7 # available engine types: CAMUNDA_7, OPERATON.
+      - VITE_APP_LOCALE=${OPENBPM_TASKLIST_LOCALE}
+      - VITE_BPM_ENGINE_API_URL=${BPM_ENGINE_API_URL}
+      - VITE_BPM_ENGINE_TYPE=${BPM_ENGINE_TYPE}

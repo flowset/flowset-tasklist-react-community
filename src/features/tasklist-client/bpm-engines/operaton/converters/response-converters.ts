@@ -80,6 +80,7 @@ export const convertProcessDefinition = (processDefinition: OperatonProcessDefin
     return {
         id: processDefinition.id,
         key: processDefinition.key,
+        description: processDefinition.description,
         version: processDefinition.version,
         name: processDefinition.name,
         versionTag: processDefinition.versionTag

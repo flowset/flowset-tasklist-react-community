@@ -30,12 +30,14 @@ export const createOverdueTasksCountRequest = (assignee: string, currentDate: Da
 };
 
 /**
- * Creates request to load a list of user tasks with the nearest due date from the Camunda.
+ * Creates a request to load a list of user tasks with the nearest due date from the Camunda.
  * @param assignee task assignee
+ * @param currentDate current date
  */
-export const createUpcomingTasksRequest = (assignee: string): CamundaUserTaskRequest => {
+export const createUpcomingTasksRequest = (assignee: string, currentDate: Dayjs): CamundaUserTaskRequest => {
     return {
         assignee: assignee,
+        dueAfter: formatOffsetDateTime(currentDate),
         sorting: [{sortBy: "dueDate", sortOrder: "asc"}, {sortBy: "priority", sortOrder: "desc"}]
     }
 };

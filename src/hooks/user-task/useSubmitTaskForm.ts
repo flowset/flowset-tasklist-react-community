@@ -5,9 +5,11 @@
 
 import {useMutation, type UseMutationOptions, type UseMutationResult, useQueryClient} from "@tanstack/react-query";
 import {useRef} from "react";
-import { useTasklistClient } from "../useTasklistClient.ts";
-import type {CompleteTaskParams} from "../../features/tasklist-client/types/request.ts";
-import type { CompeteUserTaskResult } from "../../features/tasklist-client/types/response.ts";
+import {useTasklistClient} from "../useTasklistClient.ts";
+import type {CompleteTaskData, CompleteTaskParams} from "../../features/tasklist-client/types/request.ts";
+import type {CompeteUserTaskResult} from "../../features/tasklist-client/types/response.ts";
+import dayjs from "dayjs";
+import {formatOffsetDateTime} from "../../utils/format/formatOffsetDateTime.ts";
 
 /**
  * Hook to get an array containing a function to submit a user task form and the result of the mutation execution.
@@ -21,6 +23,19 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
     const {onSuccess, ...restOptions} = mutationOptions;
     const queryClient = useQueryClient();
 
+    const transformData = (data?: CompleteTaskData) => {
+        if (!data) {
+            return undefined;
+        }
+        Object.entries(data).forEach(([key, value]) => {
+            if (dayjs.isDayjs(value)) {
+                data[key] = formatOffsetDateTime(value);
+            }
+        });
+
+        return data;
+    }
+
     return useMutation<CompeteUserTaskResult, Error, UseSubmitTaskFormParams>({
         mutationFn: (callTimeParams) => {
             const callTimeId = typeof callTimeParams === "object" ? callTimeParams.taskId : undefined;
@@ -28,7 +43,7 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
 
             return taskListClient.submitTaskForm({
                 taskId: callTimeId || paramsRef.current.taskId || "",
-                data: callTimeData || paramsRef.current.data,
+                data: transformData(callTimeData || paramsRef.current.data),
             })
         },
         onSuccess: async (data, variables, context) => {
