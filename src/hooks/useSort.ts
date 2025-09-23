@@ -85,8 +85,8 @@ export const useSort = (props?: UseSortProps): UseSortResult => {
         const sortFieldChanged = sortData?.property && sortData.property !== newSortField;
         if (sortDirectionChanged || sortFieldChanged) {
             setSortParams({
-                SORT_ORDER_URL_PARAM_NAME: newSortOrder,
-                SORT_BY_URL_PARAM_NAME: newSortField,
+                [SORT_ORDER_URL_PARAM_NAME]: newSortOrder,
+                [SORT_BY_URL_PARAM_NAME]: newSortField,
             });
             setSortData({
                 property: newSortField,

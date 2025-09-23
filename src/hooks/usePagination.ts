@@ -46,9 +46,9 @@ export const usePagination = (props?: UsePaginationProps): UsePaginationHookValu
 
     const setPageDataParams = (page?: number, size?: number) => {
         setPaginationParams({
-            PAGE_URL_PARAM_NAME: String(page),
-            PAGE_SIZE_URL_PARAM_NAME: String(size)
-        })
+            [PAGE_URL_PARAM_NAME]: String(page),
+            [PAGE_SIZE_URL_PARAM_NAME]: String(size)
+        });
     }
 
     const setPageData = (pagination: PaginationPayload) => {
