@@ -50,6 +50,8 @@ export const es = {
         'nextDatePeriod_few': 'Próximos {{days}} días',
         'page404.subtitle': 'Lo sentimos, no pudimos encontrar la página que buscabas',
         'backBtn.text': 'Atrás',
+        'customFormNotConfigured': 'Formulario personalizado no configurado',
+        'customFormNotConfigured.description': '¿Cómo agregar un formulario personalizado?',
     },
     userPanel: {
         'logoutBtn.title': 'Cerrar sesión',
@@ -118,7 +120,6 @@ export const es = {
         'detailPage.error.taskNotFound.title': 'No encontrada',
         'detailPage.error.taskNotFound.description': 'La tarea no existe o ya está completada',
         'detailPage.error.internalError.description': 'Lo sentimos, ocurrió un error al cargar los detalles de la tarea',
-        'detailPage.customFormNotConfigured': 'Formulario personalizado no configurado',
         'actions.complete': 'Completar'
     },
     process: {

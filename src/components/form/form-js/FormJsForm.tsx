@@ -98,16 +98,6 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
                     }
                 }
 
-                const selectList = formContainerRef?.current?.querySelectorAll(".fjs-select-placeholder");
-                if (selectList) {
-                    for (let select of selectList) {
-                        const selectDiv = select as HTMLDivElement;
-                        if (selectDiv.textContent === "Select") {
-                            selectDiv.textContent = translate("select.placeholder");
-                        }
-                    }
-                }
-
             }
 
             setTimeout(updatePlaceholders, 50);

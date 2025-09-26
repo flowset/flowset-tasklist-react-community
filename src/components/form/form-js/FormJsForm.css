@@ -7,6 +7,13 @@
     padding: 0;
 }
 
+.fjs-select-display:not(.fjs-select-placeholder) {
+    visibility: visible;
+}
+
+.fjs-select-display.fjs-select-placeholder {
+    visibility: hidden;
+}
 
 .openbpm-tasklist .cds--grid {
     padding: 0;

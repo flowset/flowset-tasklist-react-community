@@ -52,6 +52,8 @@ export const ru = {
         'lastDatePeriod': 'Последние {{days}} дней',
         'nextDatePeriod': 'Следующие {{days}} дней',
         'nextDatePeriod_few': 'Следующие {{days}} дня',
+        'customFormNotConfigured': 'Пользовательская форма не настроена',
+        'customFormNotConfigured.description': 'Как добавить пользовательскую форму?',
     },
     userPanel: {
         'logoutBtn.title': 'Выйти',
@@ -109,7 +111,6 @@ export const ru = {
         'detailPage.error.taskNotFound.title': 'Не найдена',
         'detailPage.error.taskNotFound.description': 'Задача не существует или завершена',
         'detailPage.error.internalError.description': 'Что-то пошло не так во время загрузки задачи',
-        'detailPage.customFormNotConfigured': 'Пользовательская форма не настроена',
         'actions.complete': 'Завершить'
     },
     loginForm: {

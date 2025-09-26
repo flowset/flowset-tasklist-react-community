@@ -49,6 +49,8 @@ export const en = {
         'nextDatePeriod_few': 'Next {{days}} days',
         'page404.subtitle': 'Sorry, we couldn\'t find the page you were looking for',
         'backBtn.text': 'Back',
+        'customFormNotConfigured': 'Custom form not configured',
+        'customFormNotConfigured.description': 'How to add a custom form?',
     },
     userPanel: {
         'logoutBtn.title': 'Logout',
@@ -118,8 +120,7 @@ export const en = {
         'detailPage.error.taskNotFound.title': 'Not found',
         'detailPage.error.taskNotFound.description': 'Task does not exist or already completed',
         'detailPage.error.internalError.description': 'Sorry, something went wrong during task details loading',
-        'detailPage.customFormNotConfigured': 'Custom form not configured',
-        'actions.complete': 'Complete'
+        'actions.complete': 'Complete',
     },
     process: {
         'key': 'Key',

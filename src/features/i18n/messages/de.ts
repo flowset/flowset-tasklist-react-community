@@ -49,6 +49,8 @@ export const de = {
         'nextDatePeriod_few': 'Nächste {{days}} Tage',
         'page404.subtitle': 'Entschuldigung, die von Ihnen gesuchte Seite konnte nicht gefunden werden',
         'backBtn.text': 'Zurück',
+        'customFormNotConfigured': 'Benutzerdefiniertes Formular nicht konfiguriert',
+        'customFormNotConfigured.description': 'Wie füge ich ein benutzerdefiniertes Formular hinzu?',
     },
     userPanel: {
         'logoutBtn.title': 'Abmelden',
@@ -117,7 +119,6 @@ export const de = {
         'detailPage.error.taskNotFound.title': 'Nicht gefunden',
         'detailPage.error.taskNotFound.description': 'Aufgabe existiert nicht oder ist bereits abgeschlossen',
         'detailPage.error.internalError.description': 'Entschuldigung, beim Laden der Aufgabendetails ist ein Fehler aufgetreten',
-        'detailPage.customFormNotConfigured': 'Benutzerdefiniertes Formular nicht konfiguriert',
         'actions.complete': 'Abschließen'
     },
     process: {

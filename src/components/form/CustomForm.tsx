@@ -5,10 +5,13 @@
 
 import {useCustomForms} from "../../hooks/useCustomForms.ts";
 import type {CustomFormProps} from "../../features/custom-forms/types.ts";
-import {Typography} from "antd";
+import {Alert, Anchor, Space} from "antd";
 import {useTranslation} from "react-i18next";
 
-const {Text} = Typography;
+const {Link} = Anchor;
+
+//TODO: change on merge
+const HELP_LINK = "https://github.com/openbpm-platform/openbpm-tasklist-react/tree/initial-commit?tab=readme-ov-file#custom-forms-support-";
 
 /**
  * A wrapper component to show a custom start or task form registered with the key.
@@ -21,14 +24,19 @@ const {Text} = Typography;
 export const CustomForm = (props: CustomFormProps) => {
     const {formData} = props;
     const {getForm} = useCustomForms();
-    const {t: translate} = useTranslation("userTask");
+    const {t: translate} = useTranslation("common");
 
     const customForm = getForm(formData.formKey);
 
     if (!customForm) {
-        return <Text>
-            {translate("detailPage.customFormNotConfigured")}
-        </Text>;
+        return <Space direction="vertical" style={{width: "100%"}}>
+            <Alert style={{width: "100%"}}
+                   description={import.meta.env.DEV ? <Link title={translate("customFormNotConfigured.description")}
+                                                            target="_blank"
+                                                            href={HELP_LINK}>
+                   </Link> : undefined}
+                   message={translate("customFormNotConfigured")} type="warning" showIcon/>
+        </Space>;
     }
 
     const FormComponent = customForm.component;

@@ -28,7 +28,7 @@ export interface TaskFormCardProps {
     formData?: ProcessFormData | null;
     initialData?: InitialData;
     onTaskCompleteSuccess: (task: UserTask) => void;
-    onTaskClose?: () => void;
+    onTaskClose: () => void;
 }
 
 export const TaskFormCard = (props: TaskFormCardProps) => {

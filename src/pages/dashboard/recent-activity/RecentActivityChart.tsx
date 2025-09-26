@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import {Card, Descriptions, type DescriptionsProps, theme} from "antd";
+import {Card, theme, Flex, Typography} from "antd";
 import dayjs from "dayjs";
 import {type BarDatum, type BarTooltipProps, type ComputedDatum, ResponsiveBar} from "@nivo/bar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
@@ -16,6 +16,7 @@ import {renderDayMonth} from "../../../utils/format/renderDayMonth.ts";
 import {createStyles} from "antd-style";
 import type {TaskExecutionPeriodStatistics} from "../../../types/common.ts";
 
+const { Text } = Typography;
 export interface RecentActivityChartProps {
     data: TaskExecutionPeriodStatistics;
 }
@@ -146,23 +147,10 @@ const BarTooltip = (props: BarTooltipProps<BarDatum>) => {
     const {t: translate} = useTranslation("dashboard");
     const {styles} = useStyles();
 
-    const items: DescriptionsProps['items'] = [
-        {
-            key: 'date',
-            label: translate("recentActivityCard.bar.date"),
-            children: renderDate(props.indexValue as string),
-        },
-        {
-            key: 'count',
-            label: translate("recentActivityCard.bar.count"),
-            children: props.value,
-        },
-    ];
     return (
         <>
             <Card className={styles.barTooltipCard}>
-                <Descriptions items={items}/>;
-                {/*<Flex vertical={true} gap={5}>
+                <Flex vertical={true} gap={5}>
                     <Text strong={true}>{props.id}</Text>
                     <Flex gap={5}>
                         <Text strong>{translate("recentActivityCard.bar.date")}:</Text>
@@ -172,7 +160,7 @@ const BarTooltip = (props: BarTooltipProps<BarDatum>) => {
                         <Text strong>{translate("recentActivityCard.bar.count")}:</Text>
                         <Text>{props.value}</Text>
                     </Flex>
-                </Flex>*/}
+                </Flex>
             </Card>
         </>
     );
