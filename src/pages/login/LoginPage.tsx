@@ -90,6 +90,12 @@ interface LoginErrorProps {
     error: Error;
 }
 
+const httpErrorMessages: Record<number, string> = {
+    401: "httpError.401.description",
+    403: "httpError.403.description",
+    500: "httpError.500.description",
+};
+
 const LoginErrorText = ({error}: LoginErrorProps) => {
     const isHttpError = error instanceof HttpError;
     const {t: translate} = useTranslation("loginForm");
@@ -97,14 +103,8 @@ const LoginErrorText = ({error}: LoginErrorProps) => {
 
     if (!isHttpError) {
         errorMessage = error.message;
-    } else if (error.status === 401) {
-        errorMessage = translate("httpError.401.description");
-    } else if (error.status === 403) {
-        errorMessage = translate("httpError.403.description")
-    } else if (error.status === 500) {
-        errorMessage = translate("httpError.500.description");
     } else {
-        errorMessage = `${error.status} ${error.statusText}`;
+        errorMessage = httpErrorMessages[error.status] ? translate(httpErrorMessages[error.status]) : `${error.status} ${error.statusText}`;
     }
 
     return (

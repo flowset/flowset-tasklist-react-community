@@ -58,14 +58,19 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
     const [importSchemaError, setImportSchemaError] = useState<unknown>();
     const {t: translate} = useTranslation(["formJs"]);
 
-    if (APP_LOCALE === "ru") {
-        flatpickr.localize(ru);
-    } else if (APP_LOCALE === "de") {
-        flatpickr.localize(de);
-    } else if (APP_LOCALE === "es") {
-        flatpickr.localize(es);
-    } else {
-        flatpickr.localize(en);
+    switch (APP_LOCALE) {
+        case "ru":
+            flatpickr.localize(ru);
+            break;
+        case "de":
+            flatpickr.localize(de);
+            break;
+        case "es":
+            flatpickr.localize(es);
+            break;
+        default:
+            flatpickr.localize(en);
+            break;
     }
 
     useEffect(() => {

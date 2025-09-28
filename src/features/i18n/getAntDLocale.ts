@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import ruRu from "antd/locale/ru_RU";
+import ru_Ru from "antd/locale/ru_RU";
 import en_US from "antd/locale/en_US";
 import es_ES from "antd/locale/es_ES";
 import de_DE from "antd/locale/de_DE";
@@ -18,7 +18,7 @@ export const getAntDLocale = (locale?: string) => {
         return en_US;
     }
     if (locale === "ru") {
-        return ruRu;
+        return ru_Ru;
     }
 
     if (locale === "es") {
