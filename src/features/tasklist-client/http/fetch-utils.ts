@@ -32,7 +32,7 @@ export type RequestDataMap = Record<string, RequestData>;
  * @returns Promise resolving to Response object
  */
 export const fetchGet = (url: string, headers?: RequestHeaders) => {
-    return fetch(url, {method: "get", headers: headers})
+    return fetch(getEnvUrl(url), {method: "get", headers: headers})
         .then(response => handleResponse(response))
         .catch(reason => handleError(reason, url));
 }
@@ -45,7 +45,7 @@ export const fetchGet = (url: string, headers?: RequestHeaders) => {
  * @returns Promise resolving to Response object
  */
 export const fetchPost = (url: string, data?: unknown, headers?: RequestHeaders) => {
-    return fetch(url, {
+    return fetch(getEnvUrl(url), {
         method: "post",
         headers: headers,
         body: data ? JSON.stringify(data) : undefined
@@ -61,7 +61,7 @@ export const fetchPost = (url: string, data?: unknown, headers?: RequestHeaders)
  * @returns Promise resolving to parsed JSON data
  */
 export const fetchGetJson = <TRESULT = unknown>(url: string, headers?: RequestHeaders) => {
-    return fetch(url, {
+    return fetch(getEnvUrl(url), {
         method: "get",
         headers: headers
     }).then(response => {
@@ -79,7 +79,7 @@ export const fetchGetJson = <TRESULT = unknown>(url: string, headers?: RequestHe
  * @returns  parsed JSON data
  */
 export const fetchPostJson = async <TRESULT = unknown>(url: string, data?: unknown, headers?: RequestHeaders) => {
-    return fetch(url, {
+    return fetch(getEnvUrl(url), {
         method: "post",
         headers: headers,
         body: data ? JSON.stringify(data) : undefined
@@ -175,3 +175,11 @@ const handleError = (error: unknown, url: string): never => {
     console.error(`Error while executing request ${url}`, error);
     throw error;
 };
+
+const getEnvUrl = (url: string) => {
+    if (import.meta.env.DEV) {
+        return new URL(url).pathname;
+    }
+
+    return url;
+}
