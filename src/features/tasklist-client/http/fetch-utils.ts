@@ -176,7 +176,7 @@ const handleError = (error: unknown, url: string): never => {
     throw error;
 };
 
-const getEnvUrl = (url: string) => {
+export const getEnvUrl = (url: string) => {
     if (import.meta.env.DEV) {
         return new URL(url).pathname;
     }

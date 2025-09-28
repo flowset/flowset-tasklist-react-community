@@ -7,6 +7,7 @@ import {type EngineBasicAuthService, TasklistAuthType, type User, type UserCrede
 import {type BpmEngineConfig, EngineType} from "../../bpm-engine/types.ts";
 import {HttpError} from "../errors/HttpError.ts";
 import {sessionUtils} from "../utils/sessionUtils.ts";
+import { getEnvUrl } from "../../tasklist-client/http/fetch-utils.ts";
 
 const encodeCredentials = (credentials: UserCredentials) => {
     const encoder = new TextEncoder();
@@ -41,7 +42,7 @@ export const engineBasicAuthService: EngineBasicAuthService = {
         }
 
         try {
-            const response = await fetch(userEndpoint!!, {
+            const response = await fetch(getEnvUrl(userEndpoint), {
                 method: 'GET',
                 headers: {
                     'Authorization': `Basic ${basicAuthValues}`
