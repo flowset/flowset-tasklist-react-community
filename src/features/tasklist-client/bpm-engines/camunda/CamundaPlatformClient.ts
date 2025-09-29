@@ -68,6 +68,7 @@ import type {
     StartProcessResult
 } from "../../types/response.ts";
 import {BaseHttpTasklistClient} from "../../http/BaseHttpTasklistClient.ts";
+import { filterNullish } from "../../../../utils/filtering/filterNullish.ts";
 
 /**
  * Tasklist Client implementation for Camunda 7 engine and using Camunda 7 REST API.
@@ -106,7 +107,7 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
                 const userTasks = value.userTasks || [];
                 const totalElements = value.userCount || 0;
 
-                const processDefinitionIds = userTasks.map(task => task.processDefinition?.id!!);
+                const processDefinitionIds = userTasks.map(task => task.processDefinition?.id).filter(filterNullish);
                 if (!processDefinitionIds || processDefinitionIds.length === 0) {
                     return {
                         data: userTasks || [],
@@ -182,7 +183,7 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
         const sort = params?.sort;
         const filter = params?.filter;
 
-        let queryParams = {
+        const queryParams = {
             'latestVersion': 'true',
             'startableInTasklist': 'true',
             'active': 'true'

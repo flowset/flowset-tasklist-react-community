@@ -64,8 +64,8 @@ export const useSort = (props?: UseSortProps): UseSortResult => {
             return undefined;
         }
         return {
-            order: sortPayloadParam[SORT_ORDER_URL_PARAM_NAME]!!,
-            property: sortPayloadParam[SORT_BY_URL_PARAM_NAME]!!,
+            order: sortPayloadParam[SORT_ORDER_URL_PARAM_NAME]!,
+            property: sortPayloadParam[SORT_BY_URL_PARAM_NAME]!,
         };
     }
 

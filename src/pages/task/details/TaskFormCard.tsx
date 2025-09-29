@@ -76,7 +76,7 @@ export const TaskFormCard = (props: TaskFormCardProps) => {
                                                                       onTaskComplete={completeTaskWithVariables}
                                                                       completeInProgress={isPending}
                 />}
-                {formType == FormType.CUSTOM && <CustomForm formData={formData!!}
+                {formType == FormType.CUSTOM && <CustomForm formData={formData!}
                                                             task={task}
                                                             inputVariables={initialData}
                                                             onCancel={onTaskClose}

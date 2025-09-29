@@ -114,7 +114,7 @@ export const StartProcessDialog = ({processDefinition, open, onClose}: StartProc
                     <CustomForm onSubmit={startProcess}
                                 onCancel={onClose}
                                 process={processDefinition}
-                                formData={startFormData!!}/>
+                                formData={startFormData!}/>
                 }
             </Modal>
         </>

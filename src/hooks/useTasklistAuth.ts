@@ -11,5 +11,5 @@ export const useTasklistAuth = () => {
     if (!context) {
         throw new Error('useTasklistAuth must be used within an TasklistAuthProvider');
     }
-    return context!!;
+    return context!;
 };

@@ -67,6 +67,7 @@ import type {
 import {convertToInputVariablesMap, convertToUserTaskRequest} from "./converters/request-converters.ts";
 import {fetchParallel, type RequestData} from "../../http/fetch-utils.ts";
 import {buildUrl} from "../camunda/utils/camunda-url-builder.ts";
+import { filterNullish } from "../../../../utils/filtering/filterNullish.ts";
 
 /**
  * Tasklist Client implementation for Operaton engine and using Operaton REST API.
@@ -77,7 +78,7 @@ export class OperatonClient extends CamundaPlatformClient {
         const sort = params?.sort;
         const filter = params?.filter;
 
-        let queryParams = {
+        const queryParams = {
             'latestVersion': 'true',
             'startableInTasklist': 'true'
         };
@@ -242,7 +243,7 @@ export class OperatonClient extends CamundaPlatformClient {
                 const userTasks = value.userTasks || [];
                 const totalElements = value.userCount || 0;
 
-                const processDefinitionIds = userTasks.map(task => task.processDefinition?.id!!);
+                const processDefinitionIds = userTasks.map(task => task.processDefinition?.id).filter(filterNullish);
                 if (!processDefinitionIds || processDefinitionIds.length === 0) {
                     return {
                         data: userTasks || [],

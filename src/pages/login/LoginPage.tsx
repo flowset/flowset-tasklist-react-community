@@ -21,8 +21,8 @@ export const LoginPage = () => {
 
     const onFinish: FormProps<UserCredentials>["onFinish"] = (values) => {
         login({
-            username: values.username!!,
-            password: values.password!!,
+            username: values.username!,
+            password: values.password!,
         });
     };
 

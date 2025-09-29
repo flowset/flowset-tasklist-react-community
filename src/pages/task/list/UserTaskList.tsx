@@ -32,7 +32,7 @@ const useStyles = createStyles(({token, css}) => ({
         width: 100%;
         background-color: ${token.colorWhite};
         padding-inline: 2em;
-        border: 1px solid ${token.colorBorderSecondary}
+        border: 1px solid ${token.colorBorderSecondary};
         border-radius: 10px;
         padding-bottom: 1em;
     `,
@@ -97,15 +97,15 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
         setPageNumber(1);
     }, [setPageNumber]);
 
+    const onRefreshButtonClick = useCallback(() => {
+        refetch();
+    }, [refetch]);
+
     if (error) {
         return <InternalError/>
     }
 
     const loading = isLoading || isRefetching;
-
-    const onRefreshButtonClick = useCallback(() => {
-        refetch();
-    }, [refetch]);
 
     return (
         <>

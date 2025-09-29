@@ -17,5 +17,5 @@ export const useTasklistClient = (): ITasklistClient => {
         throw new Error("ITasklistClient is not configured in the context or not passed as params");
     }
 
-    return client!!;
+    return client!;
 }

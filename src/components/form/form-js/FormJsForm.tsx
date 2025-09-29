@@ -95,7 +95,7 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
             function updatePlaceholders() {
                 const datePickers = formContainerRef.current?.querySelectorAll(".flatpickr-input");
                 if (datePickers) {
-                    for (let datePicker of datePickers) {
+                    for (const datePicker of datePickers) {
                         const inputDatePicker = datePicker as HTMLInputElement;
                         if (inputDatePicker.placeholder === 'dd.mm.yyyy') {
                             inputDatePicker.placeholder = translate("datePicker.placeholder");

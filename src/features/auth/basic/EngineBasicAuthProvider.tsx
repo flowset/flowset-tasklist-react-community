@@ -31,7 +31,7 @@ export const EngineBasicAuthProvider = ({children, config}: TasklistAuthProvider
      */
     const login = async (credentials?: UserCredentials): Promise<boolean> => {
         setIsLoading(true);
-        return await engineBasicAuthService.login(credentials!!, bpmEngine?.selectedEngine)
+        return await engineBasicAuthService.login(credentials!, bpmEngine?.selectedEngine)
             .then(result => {
                 setLoginError(null);
                 if (result) {

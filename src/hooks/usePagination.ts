@@ -34,8 +34,8 @@ export const usePagination = (props?: UsePaginationProps): UsePaginationHookValu
             return undefined;
         }
         return {
-            page: Number(paginationParams[PAGE_URL_PARAM_NAME]!!),
-            size: Number(paginationParams[PAGE_SIZE_URL_PARAM_NAME]!!),
+            page: Number(paginationParams[PAGE_URL_PARAM_NAME]!),
+            size: Number(paginationParams[PAGE_SIZE_URL_PARAM_NAME]!),
         };
     }
 

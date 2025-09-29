@@ -134,7 +134,7 @@ export const convertHistoricTasksToStatistics = (tasks?: OperatonHistoricTask[])
     const completedTasks: Map<string, number> = groupTasksByDate(tasks || [], task => task.endTime);
 
     const items: TaskExecutionDateStatistics[] = [];
-    let lastDate = new Date();
+    const lastDate = new Date();
     lastDate.setDate(lastDate.getDate() - 6);
 
     for (let i = 0; i < 7; i++) {
