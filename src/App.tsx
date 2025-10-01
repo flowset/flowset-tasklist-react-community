@@ -3,14 +3,14 @@
  * Use is subject to license terms.
  */
 
-import './App.css'
-import {AppLayout} from "./components/layout/AppLayout.tsx";
-import {useTasklistAuth} from "./hooks/useTasklistAuth.ts";
-import {TasklistAuthType} from "./features/auth/types.ts";
+import "./App.css"
+import {AppLayout} from "@components/layout/AppLayout.tsx";
+import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
+import {TasklistAuthType} from "@features/auth/types.ts";
 import {LoginPage} from "./pages/login/LoginPage.tsx";
-import {SplashScreen} from "./components/auth/SplashScreen.tsx";
+import {SplashScreen} from "@components/auth/SplashScreen.tsx";
 import {useTranslation} from "react-i18next";
-import {Button, Space, Typography} from 'antd';
+import {Button, Space, Typography} from "antd";
 import {useCallback} from "react";
 
 const {Title, Text} = Typography;

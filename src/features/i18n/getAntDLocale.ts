@@ -30,4 +30,4 @@ export const getAntDLocale = (locale?: string) => {
     }
 
     return en_US;
-}
+};

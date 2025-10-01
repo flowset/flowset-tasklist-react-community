@@ -4,7 +4,7 @@
  */
 
 import {useContext} from "react";
-import { BpmEngineContext } from "../features/bpm-engine/context/BpmEngineContext";
+import { BpmEngineContext } from "@features/bpm-engine/context/BpmEngineContext";
 
 /**
  * Custom hook to access the BPM engine context
@@ -17,7 +17,7 @@ import { BpmEngineContext } from "../features/bpm-engine/context/BpmEngineContex
 export const useBpmEngine = () => {
     const context = useContext(BpmEngineContext);
     if (context === undefined) {
-        throw new Error('useBpmEngine must be used within an BpmEngineProvider');
+        throw new Error("useBpmEngine must be used within an BpmEngineProvider");
     }
     return context;
 };

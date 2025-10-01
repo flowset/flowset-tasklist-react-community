@@ -8,7 +8,7 @@ import {createStyles} from "antd-style";
 /**
  * AntDesign styles for {@link ProcessListPage}.
  */
-export const useProcessListPageStyles = createStyles(({css, token}) => ({
+export const useProcessListPageStyles = createStyles(({css, token, responsive}) => ({
     pageRoot: css`
         height: 100%;
         justify-content: center;
@@ -35,6 +35,29 @@ export const useProcessListPageStyles = createStyles(({css, token}) => ({
     headerTotalElements: css`
         margin-bottom: 0;
         margin-top: 0;
-        font-weight: "bold";
+        font-weight: bold;
+    `,
+    sortFilterPaginationContainer: css`
+        flex-direction: row;
+        width: 100%;
+
+        ${responsive.xs} {
+            flex-direction: column;
+        }
+
+        ${responsive.sm} {
+            flex-direction: column;
+        }
+
+        ${responsive.md} {
+            flex-direction: column;
+        }
+
+        ${responsive.lg} {
+            flex-direction: column;
+        }
+    `,
+    sortFilterContainer: css`
+        width: 100%;
     `
 }));

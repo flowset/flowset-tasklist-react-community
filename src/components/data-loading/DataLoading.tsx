@@ -29,4 +29,4 @@ export const DataLoading = ({text}: DataLoadingProps) => {
             <Title level={3}>{text || translate("dataLoading.text")}</Title>
         </Flex>
     </Flex>
-}
+};

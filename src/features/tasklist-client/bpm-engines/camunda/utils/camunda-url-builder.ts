@@ -3,8 +3,8 @@
  * Use is subject to license terms.
  */
 
-import type {PaginationPayload, SortPayload} from "../../../../../types/common";
-import {buildUrlWithSearchParameters} from "../../../http/url-builder.ts";
+import type {PaginationPayload, SortPayload} from "@models/common.ts";
+import {buildUrlWithSearchParameters} from "@features/tasklist-client/http/url-builder.ts";
 
 /**
  * Builds a URL with pagination, sorting, and custom query parameters using Camunda-specific parameter names.
@@ -27,7 +27,7 @@ export const buildUrl = (baseUrl: string, pagination?: PaginationPayload, sort?:
     }
 
     return buildUrlWithSearchParameters(baseUrl, searchParams);
-}
+};
 
 const addPaginationQueryParam = (searchParams: URLSearchParams, pagination?: PaginationPayload) => {
     if (pagination) {
@@ -35,7 +35,7 @@ const addPaginationQueryParam = (searchParams: URLSearchParams, pagination?: Pag
         searchParams.set("firstResult", String(firstResult));
         searchParams.set("maxResults", String(pagination.size));
     }
-}
+};
 
 const addSortQueryParam = (searchParams: URLSearchParams, sortBy?: string, sortOrder?: string) => {
     if (sortBy) {
@@ -44,7 +44,7 @@ const addSortQueryParam = (searchParams: URLSearchParams, sortBy?: string, sortO
     if (sortOrder) {
         searchParams.set("sortOrder", sortOrder);
     }
-}
+};
 
 
 

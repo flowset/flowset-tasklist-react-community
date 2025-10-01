@@ -4,10 +4,8 @@
  */
 
 import dayjs, {Dayjs} from "dayjs";
-import duration from 'dayjs/plugin/duration';
-
-import i18n from '../../features/i18n/config';
-import 'intl-pluralrules';
+import duration from "dayjs/plugin/duration";
+import i18n from "@features/i18n/config";
 
 dayjs.extend(duration);
 
@@ -20,7 +18,7 @@ export const renderRelativeDateTime = (date1?: string | number, date2?: string |
     const value2 = dayjs(date2);
 
     return getDateTimeDiff(value1, value2);
-}
+};
 
 const getDateTimeDiff = (date1: Dayjs, date2: Dayjs) => {
     const diff = dayjs.duration(date1.diff(date2));
@@ -30,21 +28,21 @@ const getDateTimeDiff = (date1: Dayjs, date2: Dayjs) => {
     const seconds = diff.seconds();
 
     if (days > 0) {
-        return i18n.t('common:relativeDate.days', {count: days});
+        return i18n.t("common:relativeDate.days", {count: days});
     }
     if (hours > 0) {
-        return i18n.t('common:relativeDate.hours', {count: hours});
+        return i18n.t("common:relativeDate.hours", {count: hours});
     }
 
     if (minutes > 0) {
-        return i18n.t('common:relativeDate.min', {count: minutes});
+        return i18n.t("common:relativeDate.min", {count: minutes});
     }
 
     if (seconds > 0) {
-        return i18n.t('common:relativeDate.sec', {count: seconds});
+        return i18n.t("common:relativeDate.sec", {count: seconds});
     }
 
     if (days === 0 && hours === 0 && minutes === 0 && hours === 0) {
-        return i18n.t('common:relativeDate.now');
+        return undefined;
     }
-}
+};

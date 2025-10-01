@@ -5,8 +5,8 @@
 
 import {useQuery, type UseQueryOptions, type UseQueryResult} from "@tanstack/react-query";
 import {useTasklistClient} from "../useTasklistClient.ts";
-import type {GetStartFormResult, GetTaskFormResult} from "../../features/tasklist-client/types/response.ts";
-import type {GetStartFormDataParams} from "../../features/tasklist-client/types/request.ts";
+import type {GetStartFormResult, GetTaskFormResult} from "@features/tasklist-client/types/response.ts";
+import type {GetStartFormDataParams} from "@features/tasklist-client/types/request.ts";
 
 
 export type UseGetStartFormDataQueryOptions = Omit<UseQueryOptions<GetStartFormResult, Error, GetStartFormResult>, "queryKey" | "queryFn">;
@@ -29,4 +29,4 @@ export const useGetStartFormData = (requestParams: GetStartFormDataParams, query
         ...queryOptions
     });
     return query as UseGetStartFormDataResult;
-}
+};

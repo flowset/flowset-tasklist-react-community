@@ -4,32 +4,25 @@
  */
 
 import type {TableProps} from "antd";
-import {Table, type TablePaginationConfig, Typography} from "antd";
+import {type TablePaginationConfig, Typography} from "antd";
 import Button from "antd/es/button";
 import {FormOutlined} from "@ant-design/icons";
 import {useCallback} from "react";
-import {
-    getProcessDefinitionRecordRepresentation
-} from "../../../utils/record-representation/getProcessDefinitionRecordRepresentation.ts";
-import {renderDateTime} from "../../../utils/format/renderDateTime.ts";
-import {TaskDueDate} from "../../../components/user-task/TaskDueDate.tsx";
-import {TaskPriority} from "../../../components/user-task/TaskPriority.tsx";
-import {convertStringToTableSortOrder} from "../../../utils/sort/convertStringToTableSortOrder.ts";
-import {
-    type PaginationPayload,
-    SortOrder,
-    type SortPayload,
-    type UserTask
-} from "../../../types/common.ts";
-import type {SorterResult, TableCurrentDataSource} from "antd/lib/table/interface";
-import i18n from "../../../features/i18n/config.ts";
+import {getProcessDefinitionRecordRepresentation} from "@utils/record-representation";
+import {renderDateTime} from "@utils/format";
+import {TaskDueDate} from "@components/user-task/TaskDueDate.tsx";
+import {TaskPriority} from "@components/user-task/TaskPriority.tsx";
+import {convertStringToTableSortOrder} from "@utils/sort";
+import {type PaginationPayload, SortOrder, type SortPayload} from "@models/common.ts";
+import type {SorterResult} from "antd/lib/table/interface";
 import {useTranslation} from "react-i18next";
-import {usePagination} from "../../../hooks/usePagination.ts";
-import {useSort} from "../../../hooks/useSort.ts";
-import {useTaskDataTableStyles} from "./useTaskDataTableStyles.ts";
-import {useTaskSelection} from "../../../hooks/user-task/useTaskSelection.ts";
+import {usePagination} from "@hooks/usePagination.ts";
+import {useSort} from "@hooks/useSort.ts";
+import {useTaskSelection} from "@hooks/user-task";
+import type {UserTask} from "@models/user-task.ts";
+import {StyledTable} from "@components/table/StyledTable.tsx";
 
-type OnChange = NonNullable<TableProps<UserTask>["onChange"]>;
+type OnChange = TableProps<UserTask>["onChange"]
 const {Text} = Typography;
 
 interface TaskDataTableProps {
@@ -41,34 +34,37 @@ interface TaskDataTableProps {
     onSortChange: (sort?: SortPayload) => void;
 }
 
+const defaultPagination: PaginationPayload = {
+    page: 1,
+    size: 10
+};
+
 export const TaskDataTable = ({
-                              totalElements,
-                              data,
-                              loading,
-                              onTaskSelect,
-                              onPaginationChange,
-                              onSortChange
-                          }: TaskDataTableProps) => {
+                                  totalElements,
+                                  data,
+                                  loading,
+                                  onTaskSelect,
+                                  onPaginationChange,
+                                  onSortChange
+                              }: TaskDataTableProps) => {
     const {selectedTaskId} = useTaskSelection();
 
-    const {currentPageSize, currentPage} = usePagination();
+    const {currentPageSize, currentPage} = usePagination({defaultPagination});
     const {currentSortData} = useSort();
 
     const tableOrder = convertStringToTableSortOrder(currentSortData?.order);
 
     const {t: translate} = useTranslation(["userTask"]);
-    const {styles} = useTaskDataTableStyles();
-
     const columns: TableProps<UserTask>["columns"] = [
         {
-            title: i18n.t("userTask:name"),
+            title: translate("userTask:name"),
             dataIndex: "name",
             key: "name",
             sorter: true,
             sortOrder: currentSortData?.property === "name" ? tableOrder : undefined
         },
         {
-            title: i18n.t("userTask:processDefinition"),
+            title: translate("userTask:processDefinition"),
             dataIndex: "processDefinition",
             key: "processDefinition",
             render: (_, {processDefinition}) =>
@@ -76,7 +72,7 @@ export const TaskDataTable = ({
             responsive: ["md"],
         },
         {
-            title: i18n.t("userTask:createDate"),
+            title: translate("userTask:createDate"),
             dataIndex: "createDate",
             key: "createDate",
             render: (_, {createDate}) => <Text>{renderDateTime(createDate)}</Text>,
@@ -84,7 +80,7 @@ export const TaskDataTable = ({
             sortOrder: currentSortData?.property === "createDate" ? tableOrder : undefined
         },
         {
-            title: i18n.t("userTask:dueDate"),
+            title: translate("userTask:dueDate"),
             dataIndex: "dueDate",
             key: "dueDate",
             render: (_, {dueDate}) => <TaskDueDate value={dueDate}/>,
@@ -93,13 +89,14 @@ export const TaskDataTable = ({
             sortOrder: currentSortData?.property === "dueDate" ? tableOrder : undefined
         },
         {
-            title: i18n.t("userTask:priority"),
+            title: translate("userTask:priority"),
             key: "priority",
             dataIndex: "priority",
             render: (_, {priority}) => priority ? <TaskPriority value={priority}/> : undefined,
             responsive: ["xl"],
             sorter: true,
             sortOrder: currentSortData?.property === "priority" ? tableOrder : undefined,
+            width: "15%"
 
         },
         {
@@ -109,6 +106,7 @@ export const TaskDataTable = ({
                     <FormOutlined/>
                 </Button>
             ),
+            width: "7%"
         }
     ];
 
@@ -130,7 +128,8 @@ export const TaskDataTable = ({
             const order = sorter.order === "descend" ? SortOrder.Desc : SortOrder.Asc;
             const property = sorter.field as string;
 
-            onSortChange({order: order, property: property});
+            const sort = {order: order, property: property};
+            onSortChange(sort);
         }
     }, [onSortChange]);
 
@@ -139,44 +138,43 @@ export const TaskDataTable = ({
     }, [onPaginationChange]);
 
     const handleTableChange: OnChange = useCallback((pagination: TablePaginationConfig, _filters: Record<string, unknown>,
-                                                         sorter: SorterResult<UserTask> | SorterResult<UserTask>[], _extra: TableCurrentDataSource<unknown>) => {
+                                                     sorter: SorterResult<UserTask> | SorterResult<UserTask>[]) => {
         if (pagination && pagination.current !== currentPage || pagination.pageSize !== currentPageSize) {
             handlePaginationChange(pagination);
         }
         if (sorter && !Array.isArray(sorter)) {
             handleColumnSortChange(sorter);
         }
-    }, [handleColumnSortChange, currentPage, handlePaginationChange]);
+    }, [handleColumnSortChange, currentPage, handlePaginationChange, currentPageSize]);
 
     const tableScroll = totalElements && totalElements > 5 ? "20em" : undefined;
 
     return (
         <>
-            <Table columns={columns} rowKey="id"
-                   size="small"
-                   className={styles.taskTable}
-                   scroll={{y: tableScroll}}
-                   loading={loading}
-                   rowClassName={record => record.id === selectedTaskId ? "ant-table-row-selected" : ""}
-                   dataSource={data}
-                   pagination={{
-                       position: ["topRight", "none"],
-                       total: totalElements && totalElements > 0 ? totalElements : 1, //if total is 0, pagination is hidden
-                       showTotal: (total, range) =>
-                           totalElements && totalElements > 0 ? translate("listPage.tasksTable.paginationTotal",
-                               {
-                                   startItem: range[0],
-                                   endItem: range[1],
-                                   total
-                               }) : undefined,
-                       defaultCurrent: currentPage,
-                       current: currentPage,
-                       defaultPageSize: currentPageSize,
-                       pageSize: currentPageSize,
-                       showSizeChanger: true,
-                   }}
-                   onRow={getTaskRowProps} rowHoverable={true} showSorterTooltip={{target: "sorter-icon"}}
-                   onChange={handleTableChange}/>
+            <StyledTable columns={columns}
+                         rowKey="id"
+                         scroll={{y: tableScroll}}
+                         loading={loading}
+                         rowClassName={record => record.id === selectedTaskId ? "ant-table-row-selected" : ""}
+                         dataSource={data}
+                         pagination={{
+                             position: ["topRight", "none"],
+                             total: totalElements && totalElements > 0 ? totalElements : 1, //if the total is 0, pagination is hidden
+                             showTotal: (total, range) =>
+                                 totalElements && totalElements > 0 ? translate("listPage.tasksTable.paginationTotal",
+                                     {
+                                         startItem: range[0],
+                                         endItem: range[1],
+                                         total
+                                     }) : undefined,
+                             defaultCurrent: currentPage,
+                             current: currentPage,
+                             defaultPageSize: currentPageSize,
+                             pageSize: currentPageSize,
+                             showSizeChanger: true,
+                         }}
+                         onRow={getTaskRowProps} rowHoverable={true} showSorterTooltip={{target: "sorter-icon"}}
+                         onChange={handleTableChange}/>
         </>
     );
 };

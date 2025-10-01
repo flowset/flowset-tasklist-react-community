@@ -4,13 +4,13 @@
  */
 
 import {useCallback, useRef} from "react";
-import type {FormJsFormViewer, SubmitEventData} from "../../../../components/form/form-js/types/FormJsFormViewer.ts";
+import type {FormJsFormViewer, SubmitEventData} from "@components/form/form-js/types/FormJsFormViewer.ts";
 import {Flex, Space} from "antd";
-import {FormJsForm} from "../../../../components/form/form-js/FormJsForm.tsx";
-import {StartProcessButton} from "../../../../components/button/StartProcessButton.tsx";
-import {CancelButton} from "../../../../components/button/CancelButton.tsx";
+import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
+import {StartProcessButton} from "@components/button/StartProcessButton.tsx";
+import {CancelButton} from "@components/button/CancelButton.tsx";
 import {createStyles} from "antd-style";
-import type {ProcessFormData} from "../../../../types/common.ts";
+import type {ProcessFormData} from "@models/form.ts";
 
 const useStyles = createStyles(({css}) => ({
     formContainer: css`

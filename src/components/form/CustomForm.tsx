@@ -3,19 +3,18 @@
  * Use is subject to license terms.
  */
 
-import {useCustomForms} from "../../hooks/useCustomForms.ts";
-import type {CustomFormProps} from "../../features/custom-forms/types.ts";
+import {useCustomForms} from "@hooks/useCustomForms.ts";
+import type {CustomFormProps} from "@features/custom-forms/types.ts";
 import {Alert, Anchor, Space} from "antd";
 import {useTranslation} from "react-i18next";
 
 const {Link} = Anchor;
 
-//TODO: change on merge
-const HELP_LINK = "https://github.com/openbpm-platform/openbpm-tasklist-react/tree/initial-commit?tab=readme-ov-file#custom-forms-support-";
+const HELP_LINK = "https://github.com/openbpm-platform/openbpm-tasklist-react?tab=readme-ov-file#custom-forms-support-";
 
 /**
  * A wrapper component to show a custom start or task form registered with the key.
- * If custom form is not found by form key, null ir returned.
+ * If a custom form not found by a form key, null is returned.
  * @param props a custom form props
  * @constructor
  * @see CustomFormConfig

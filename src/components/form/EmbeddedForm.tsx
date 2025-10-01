@@ -4,14 +4,14 @@
  */
 
 import {Flex, theme, Typography} from "antd";
-import {useBpmEngine} from "../../hooks/useBpmEngine.ts";
+import {useBpmEngine} from "@hooks/useBpmEngine.ts";
 import {useTranslation} from "react-i18next";
 import {WarningFilled} from "@ant-design/icons";
 
 const {Link, Title} = Typography;
 
 /**
- * A component to show embedded task or start form.
+ * A component to show an embedded task or start form.
  * <strong>Note: </strong>Embedded form not supported in OpenBPM Tasklist.
  * @constructor
  */

@@ -22,13 +22,13 @@ export interface ActiveTasksCountCardProps {
 }
 
 export const ActiveTasksCountCard = ({data, isLoading}: ActiveTasksCountCardProps) => {
-    const { t } = useTranslation('dashboard');
+    const { t } = useTranslation("dashboard");
     const {styles} = useStyles();
     return (
         <>
             <Card variant={"outlined"}>
                 <Statistic
-                    title={t('activeTasksCard.title')}
+                    title={t("activeTasksCard.title")}
                     loading={isLoading}
                     className={styles.activeTaskStatistic}
                     value={data}

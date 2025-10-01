@@ -4,7 +4,7 @@
  */
 
 import {type EngineBasicAuthService, TasklistAuthType, type User, type UserCredentials} from "../types.ts";
-import {type BpmEngineConfig, EngineType} from "../../bpm-engine/types.ts";
+import {type BpmEngineConfig, EngineType} from "@features/bpm-engine/types.ts";
 import {HttpError} from "../errors/HttpError.ts";
 import {sessionUtils} from "../utils/sessionUtils.ts";
 
@@ -12,13 +12,13 @@ const encodeCredentials = (credentials: UserCredentials) => {
     const encoder = new TextEncoder();
     const data = encoder.encode(`${credentials.username}:${credentials.password}`);
     return btoa(String.fromCharCode(...data));
-}
+};
 
 const getUserEndpoint = (
     engineType: EngineType,
     username: string
 ): string | undefined => {
-    const endpoints: Record<EngineType, string | undefined> = {
+    const endpoints: Record<EngineType, string> = {
         [EngineType.CAMUNDA_7]: `/user/${username}/profile`,
         [EngineType.OPERATON]: `/user/${username}/profile`
     };
@@ -41,10 +41,10 @@ export const engineBasicAuthService: EngineBasicAuthService = {
         }
 
         try {
-            const response = await fetch(userEndpoint!!, {
-                method: 'GET',
+            const response = await fetch(userEndpoint, {
+                method: "GET",
                 headers: {
-                    'Authorization': `Basic ${basicAuthValues}`
+                    "Authorization": `Basic ${basicAuthValues}`
                 }
             });
 
@@ -57,7 +57,7 @@ export const engineBasicAuthService: EngineBasicAuthService = {
             const resultUser = {
                 ...userData,
                 username: credentials.username,
-            }
+            };
             sessionUtils.saveSession({
                 user: resultUser,
                 token: basicAuthValues,
@@ -67,7 +67,7 @@ export const engineBasicAuthService: EngineBasicAuthService = {
 
         } catch (error) {
             if (!(error instanceof HttpError)) {
-                console.error('Login error:', error);
+                console.error("Login error:", error);
             }
 
             throw error;
@@ -87,8 +87,8 @@ export const engineBasicAuthService: EngineBasicAuthService = {
         let headers: Record<string, string> = {};
         const token = sessionUtils.getToken();
         headers = {
-            'Authorization': `Basic ${token}`
-        }
+            "Authorization": `Basic ${token}`
+        };
         return headers;
     },
 

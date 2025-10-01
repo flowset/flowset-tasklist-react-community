@@ -6,7 +6,7 @@
 import Button from "antd/es/button";
 import {CheckOutlined} from "@ant-design/icons";
 import type {ButtonProps} from "antd/lib";
-import {useSubmitTaskForm} from "../../hooks/user-task/useSubmitTaskForm.ts";
+import {useSubmitTaskForm} from "@hooks/user-task";
 import {useCallback} from "react";
 import {useTranslation} from "react-i18next";
 

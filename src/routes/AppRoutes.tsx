@@ -9,6 +9,7 @@ import {ProcessListPage} from "../pages/process/ProcessListPage.tsx";
 import {UserTasksPage} from "../pages/task/UserTasksPage.tsx";
 import {DashboardPage} from "../pages/dashboard/DashboardPage.tsx";
 import {AboutProductPage} from "../pages/about/AboutProductPage.tsx";
+import {MyActiveInstancesPage} from "@pages/process/active-instances/MyActiveInstancesPage.tsx";
 
 
 export const AppRoutes = () => {
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
                 <Route path="/about" element={<AboutProductPage/>}/>
                 <Route path="*" element={<Page404/>}/>
                 <Route path="/processes" element={<ProcessListPage/>}/>
+                <Route path="/processes/running-processes" element={<MyActiveInstancesPage/>}/>
                 <Route path="/tasks">
                     <Route index={true} element={<UserTasksPage/>}/>
                 </Route>

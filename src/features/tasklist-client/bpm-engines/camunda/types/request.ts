@@ -37,7 +37,7 @@ export interface CamundaInputVariablesMap {
 }
 
 /**
- * A filtering options for runtime user tasks in Camunda
+ * Filtering options for runtime user tasks in Camunda
  */
 export interface CamundaTaskFilter {
     assignee?: string;
@@ -51,4 +51,19 @@ export interface CamundaTaskFilter {
     createdAfter?: string;
     createdBefore?: string;
     active?: boolean;
+}
+
+export interface HistoricProcessInstanceFilter {
+    startedBy?: string;
+    processDefinitionNameLike? : string;
+    processInstanceBusinessKeyLike?: string;
+    unfinished?: boolean;
+    startedAfter?: string;
+    startedBefore?: string;
+    active?: boolean;
+}
+
+export interface CamundaHistoricProcessInstanceRequest extends HistoricProcessInstanceFilter {
+    sorting?: CamundaSort[];
+
 }

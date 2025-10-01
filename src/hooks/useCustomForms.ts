@@ -4,7 +4,7 @@
  */
 
 import {useContext} from "react";
-import { CustomFormsContext } from "../features/custom-forms/context/CustomFormsContext";
+import { CustomFormsContext } from "@features/custom-forms/context/CustomFormsContext";
 
 /**
  * Custom hook to access the custom forms context
@@ -16,7 +16,7 @@ import { CustomFormsContext } from "../features/custom-forms/context/CustomForms
 export const useCustomForms = () => {
     const context = useContext(CustomFormsContext);
     if (context === undefined) {
-        throw new Error('useCustomForms must be used within an CustomFormsProvider');
+        throw new Error("useCustomForms must be used within an CustomFormsProvider");
     }
     return context;
-}
+};

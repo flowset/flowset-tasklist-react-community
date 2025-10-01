@@ -5,14 +5,14 @@
 
 import {useSearchParams} from "react-router-dom";
 
-export interface UseQueryParamProps {
+export interface UseQueryParamsProps {
     /**
      *  Array of query parameter names to manage
      */
     paramNames: string[];
 }
 
-export interface UseQueryParamResult {
+export interface UseQueryParamsResult {
     /**
      * Current values of all managed query parameters
      */
@@ -44,7 +44,7 @@ export interface UseQueryParamResult {
  * Useful for maintaining state in URL for filtering, pagination, or sharing links.
  * @param props props containing names of managed query parameters.
  */
-export const useQueryParams = (props: UseQueryParamProps): UseQueryParamResult => {
+export const useQueryParams = (props: UseQueryParamsProps): UseQueryParamsResult => {
     const {paramNames} = props;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -69,14 +69,14 @@ export const useQueryParams = (props: UseQueryParamProps): UseQueryParamResult =
     const removeAllValues = () => {
         paramNames.forEach((name: string) => {
             searchParams.delete(name);
-        })
+        });
         setSearchParams(searchParams);
     };
 
     const removeValues = (paramNames: string[]) => {
         paramNames.forEach((name: string) => {
             searchParams.delete(name);
-        })
+        });
         setSearchParams(searchParams);
     };
 

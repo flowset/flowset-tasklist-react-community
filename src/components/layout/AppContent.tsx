@@ -4,15 +4,15 @@
  */
 
 import {Flex} from "antd";
-import {AppRoutes} from "../../routes/AppRoutes.tsx";
+import {AppRoutes} from "@routes/AppRoutes.tsx";
 import {createStyles} from "antd-style";
-import {useTaskSelection} from "../../hooks/user-task/useTaskSelection.ts";
+import {useTaskSelection} from "@hooks/user-task";
 
 const useStyles = createStyles(({css}, taskId) => ({
     contentContainer: css`
         min-height: 100%;
         position: relative;
-        padding-bottom: ${taskId ? 0 : '2.5em'};
+        padding-bottom: ${taskId ? 0 : "2.5em"};
     `,
 }));
 

@@ -6,7 +6,7 @@
 import Button from "antd/es/button";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {NotFoundError} from "../components/error/NotFoundError.tsx";
+import {NotFoundError} from "@components/error/NotFoundError.tsx";
 
 export const Page404 = () => {
     const navigate = useNavigate();

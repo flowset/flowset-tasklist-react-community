@@ -3,6 +3,7 @@
  * Use is subject to license terms.
  */
 
+import type {TaskExecutionDateStatistics, TaskExecutionPeriodStatistics, UserTask} from "@models/user-task";
 import type {
     OperatonCountDto,
     OperatonFormData,
@@ -11,15 +12,10 @@ import type {
     OperatonTask,
     OperatonVariablesMap
 } from "../types/response";
-import {
-    FormType,
-    type InitialData,
-    type ProcessDefinition,
-    type ProcessFormData, type TaskExecutionDateStatistics, type TaskExecutionPeriodStatistics,
-    type UserTask
-} from "../../../../../types/common.ts";
 
 import dayjs from "dayjs";
+import type {ProcessDefinition} from "@models/process.ts";
+import {FormType, type InitialData, type ProcessFormData} from "@models/form.ts";
 
 export const convertCountDtoToCount = (value?: OperatonCountDto | unknown): number => {
     const countDto = value as OperatonCountDto;
@@ -27,7 +23,7 @@ export const convertCountDtoToCount = (value?: OperatonCountDto | unknown): numb
         return 0;
     }
     return countDto.count;
-}
+};
 
 export const convertUserTasks = (operatonTasks?: OperatonTask[]): UserTask[] => {
     if (!operatonTasks) {
@@ -94,7 +90,7 @@ export const convertOperatonFormToProcessForm = (operatonForm: OperatonFormData)
         formKey: formKey || formRef?.key,
         version: formRef?.version,
         type: FormType.CUSTOM
-    }
+    };
     if (!formKey && !formRef) {
         return null;
     }
@@ -106,19 +102,7 @@ export const convertOperatonFormToProcessForm = (operatonForm: OperatonFormData)
     }
 
     return baseForm;
-}
-
-export const convertContentTypeToFormType = (contentType?: string | null): FormType => {
-    if (contentType === 'application/json') {
-        return FormType.FORM_JS_JSON;
-    }
-
-    if (contentType === 'application/xhtml+xml') {
-        return FormType.HTML;
-    }
-
-    return FormType.CUSTOM;
-}
+};
 
 export const convertVariablesMap = (variablesMap: OperatonVariablesMap): InitialData => {
     const initialData: InitialData = {};
@@ -127,23 +111,23 @@ export const convertVariablesMap = (variablesMap: OperatonVariablesMap): Initial
             initialData[key] = operatonVariable?.value;
         });
     return initialData;
-}
+};
 
 export const convertHistoricTasksToStatistics = (tasks?: OperatonHistoricTask[]): TaskExecutionPeriodStatistics => {
     const createdTasks: Map<string, number> = groupTasksByDate(tasks || [], task => task.startTime);
     const completedTasks: Map<string, number> = groupTasksByDate(tasks || [], task => task.endTime);
 
     const items: TaskExecutionDateStatistics[] = [];
-    let lastDate = new Date();
+    const lastDate = new Date();
     lastDate.setDate(lastDate.getDate() - 6);
 
     for (let i = 0; i < 7; i++) {
-        const dateKey = lastDate.toISOString().split('T')[0];
+        const dateKey = lastDate.toISOString().split("T")[0];
         const item: TaskExecutionDateStatistics = {
-            date: dayjs(lastDate).format('YYYY-MM-DD'),
+            date: dayjs(lastDate).format("YYYY-MM-DD"),
             totalTasks: createdTasks.get(dateKey) || 0,
             completedTasksCount: completedTasks.get(dateKey) || 0
-        }
+        };
 
         items.push(item);
         lastDate.setDate(lastDate.getDate() + 1);
@@ -153,14 +137,12 @@ export const convertHistoricTasksToStatistics = (tasks?: OperatonHistoricTask[])
     const completedTasksCount = Array.from(completedTasks.values()).reduce((sum, count) => sum + count, 0);
 
 
-    const result: TaskExecutionPeriodStatistics = {
+    return {
         items,
         totalTasks,
         completedTasksCount,
-    }
-
-    return result;
-}
+    };
+};
 
 const groupTasksByDate = (tasks: OperatonHistoricTask[],
                           getDate: (task: OperatonHistoricTask) => string | null | undefined): Map<string, number> => {
@@ -169,11 +151,11 @@ const groupTasksByDate = (tasks: OperatonHistoricTask[],
     tasks.forEach(item => {
         const dateString = getDate(item);
         if (dateString) {
-            const dateKey = dateString.split('T')[0];
+            const dateKey = dateString.split("T")[0];
             const count = map.get(dateKey) || 0;
             map.set(dateKey, count + 1);
         }
     });
 
     return map;
-}
+};

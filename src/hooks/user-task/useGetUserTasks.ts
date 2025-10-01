@@ -8,9 +8,14 @@ import {useQuery, useQueryClient, type UseQueryOptions, type UseQueryResult} fro
 import {useEffect, useMemo} from "react";
 import {useTasklistClient} from "../useTasklistClient.ts";
 import {useTasklistAuth} from "../useTasklistAuth.ts";
-import {type PaginationPayload, SortOrder, type SortPayload, type TaskFilterPayload} from "../../types/common.ts";
-import type {GetTaskListResult, GetUserTaskListResult} from "../../features/tasklist-client/types/response.ts";
-import type {GetUserTaskListParams} from "../../features/tasklist-client/types/request.ts";
+import {
+    type PaginationPayload,
+    SortOrder,
+    type SortPayload,
+} from "@models/common.ts";
+import type {GetTaskListResult, GetUserTaskListResult} from "@features/tasklist-client/types/response.ts";
+import type {GetUserTaskListParams} from "@features/tasklist-client/types/request.ts";
+import type {TaskFilterPayload, UserTask} from "@models/user-task.ts";
 
 const MAX_DATA_LENGTH_TO_CACHE = 100;
 /**
@@ -28,13 +33,13 @@ export type UseGetUserTasksQueryOptions = Omit<UseQueryOptions<GetUserTaskListRe
  */
 export type UseGetUserTasksParams = GetUserTaskListParams & {
     /**
-     * Starting page number for pagination (0 or 1 based)
+     * Starting page number for pagination (0 or 1-based)
      */
     firstPageNumber?: 0 | 1
 }
 
 /**
- * Return value from useGetUserTasks hook extending standard query result with pagination information
+ * Return value from useGetUserTasks hook extending a standard query result with pagination information
  */
 export type UseGetUserTasksResult = UseQueryResult<GetUserTaskListResult> & {
     /**
@@ -56,7 +61,7 @@ const defaultFilter: TaskFilterPayload = {};
  */
 const defaultSort: SortPayload = {property: "createDate", order: SortOrder.Desc};
 /**
- * Default pagination configuration with first page and 10 items per page
+ * Default pagination configuration with the first page and 10 items per page
  */
 const defaultPagination: PaginationPayload = {page: 1, size: 10};
 
@@ -80,7 +85,7 @@ export const useGetUserTasks = (requestParams: UseGetUserTasksParams = {}, query
     const resultPagination: PaginationPayload = {
         ...pagination,
         page: pagination.page - firstPageNumber
-    }
+    };
 
     const queryKeyFilter = {
         ...filter,
@@ -88,13 +93,13 @@ export const useGetUserTasks = (requestParams: UseGetUserTasksParams = {}, query
         dueDateAfter: clearSeconds(filter.dueDateAfter),
         createDateBefore: clearSeconds(filter.createDateBefore),
         createDateAfter: clearSeconds(filter.createDateAfter)
-    }
+    };
 
     const currentUsername = requestParams.username || user?.username;
     const resultParams = {...requestParams, pagination: resultPagination, username: currentUsername};
 
     const result: UseQueryResult<GetUserTaskListResult> = useQuery<GetUserTaskListResult, Error, GetUserTaskListResult>({
-        queryKey: ["getUserTasks", pagination, sort, queryKeyFilter], // eslint-disable-line
+        queryKey: ["getUserTasks", pagination, sort, queryKeyFilter],
         queryFn: () => taskListClient.getUserTasks(resultParams),
         ...queryOptions,
     });
@@ -115,7 +120,7 @@ export const useGetUserTasks = (requestParams: UseGetUserTasksParams = {}, query
             result.data?.data.forEach(task => {
                 queryClient.setQueryData(
                     ["getUserTask", {id: task.id}],
-                    (oldRecord: any) => oldRecord ?? task
+                    (oldRecord: UserTask) => oldRecord ?? task
                 );
             });
         }
@@ -146,8 +151,8 @@ export const useGetUserTasks = (requestParams: UseGetUserTasksParams = {}, query
             totalPages?: number;
         };
     };
-}
+};
 
 const clearSeconds = (dateString?: string) => {
     return dateString ? dateString.substring(0, dateString.lastIndexOf(":")) : undefined;
-}
+};

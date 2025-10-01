@@ -13,7 +13,7 @@ export const DashboardSkeletonTasks = () => {
             <List
                 itemLayout="horizontal"
                 dataSource={[0, 1, 2, 3, 4]}
-                renderItem={(_item) => (
+                renderItem={() => (
                     <List.Item className={styles.listItem}>
                         <List.Item.Meta className={styles.listItemMeta}
                                         description={<Card

@@ -4,7 +4,7 @@
  */
 
 /**
- * Localized messages for OpenBPM Tasklist in German language.
+ * Localized messages for OpenBPM Tasklist in the German language.
  */
 export const de = {
     common: {
@@ -27,7 +27,6 @@ export const de = {
         'relativeDate.hours_other': '{{count}} Stunden',
         'relativeDate.min': '{{count}} Min',
         'relativeDate.sec': '{{count}} Sek',
-        'relativeDate.now': 'Jetzt',
         'priority.high': 'Hoch',
         'priority.normal': 'Normal',
         'priority.low': 'Niedrig',
@@ -36,6 +35,7 @@ export const de = {
         'actions.apply': 'Übernehmen',
         'actions.ok': 'OK',
         'actions.copy': 'Kopieren',
+        'actions.refresh': 'Aktualisieren',
         'value.copied': 'Wert kopiert',
         'value.notCopied': 'Wert konnte nicht kopiert werden',
         'embeddedFormsNotSupported': 'Eingebettete Formulare werden nicht unterstützt',
@@ -67,15 +67,12 @@ export const de = {
         'recentActivityCard.completedTasks.count': 'Abgeschlossene Aufgaben ({{count}})',
         'recentActivityCard.bar.date': 'Datum',
         'recentActivityCard.bar.count': 'Anzahl',
-        'recentActivityCard.createdTasks': 'Erstellte Aufgaben',
-        'recentActivityCard.createdTasks.count': 'Erstellte Aufgaben ({{count}})',
+        'recentActivityCard.createdTasks': 'Neue Aufgaben',
+        'recentActivityCard.createdTasks.count': 'Neue Aufgaben ({{count}})',
         'recentTasksCard.title': 'Aktuelle Aufgaben',
         'recentTasksCard.creationDate': 'Erstellungsdatum: {{date}}',
         'recentTasksCard.createdAgo': 'Vor {{relativeDate}} erstellt',
-        'upcomingTasksCard.title': 'Bevorstehende Aufgaben',
-        'upcomingTasksCard.dueDate': 'Fällig am: {{date}}',
-        'upcomingTasksCard.dueDatePassed': 'Fälligkeitsdatum überschritten',
-        'upcomingTasksCard.noDueDate': 'Kein Fälligkeitsdatum',
+        'recentTasksCard.createdNow': 'Gerade erstellt',
         'noTasks': 'Keine Aufgaben'
     },
     loginForm: {
@@ -137,6 +134,26 @@ export const de = {
         'processStarted': 'Der Prozess "{{process}}" wurde gestartet',
         'processNotStarted': 'Der Prozess "{{process}}" konnte nicht gestartet werden',
     },
+    processInstance: {
+        'processName': 'Prozess',
+        'startTime': 'Startdatum',
+        'businessKey': 'Business Key',
+        'state': 'Status',
+        'startedAgo': 'Vor {{relativeDate}} gestartet',
+        'startedNow': 'Gerade gestartet',
+        'state.active': 'Aktiv',
+        'state.suspended': 'Pausiert',
+        listPage : {
+            'myActiveProcesses': 'Meine aktiven Prozesse',
+            'processName.placeholder': 'Prozessnamen eingeben',
+            'businessKey.placeholder': 'Business Key eingeben',
+        },
+        myActiveProcessesCard: {
+            'title': 'Meine aktiven Prozesse',
+            'noRunningInstances.description': 'Keine Prozesse',
+            'actions.viewAll': "Alle anzeigen"
+        }
+    },
     formJs: {
         validation: {
             'required': 'Pflichtfeld',
@@ -165,4 +182,4 @@ export const de = {
         'build.label': 'Build',
         'learnMore.label': 'Mehr erfahren',
     }
-}
+};

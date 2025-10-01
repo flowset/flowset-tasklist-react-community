@@ -25,8 +25,8 @@ export interface BpmEngineConfig {
  * The list of supported types of BPM engines.
  */
 export enum EngineType {
-    CAMUNDA_7 = 'CAMUNDA_7',
-    OPERATON = 'OPERATON',
+    CAMUNDA_7 = "CAMUNDA_7",
+    OPERATON = "OPERATON",
 }
 
 

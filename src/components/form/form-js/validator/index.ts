@@ -3,13 +3,13 @@
  * Use is subject to license terms.
  */
 
-import { LocalizedValidator } from './LocalizedValidator.ts';
+import { LocalizedValidator } from "./LocalizedValidator.ts";
 import {ExpressionLanguageModule} from "@bpmn-io/form-js-viewer";
 
 export default {
-    __init__: ['validator'],
+    __init__: ["validator"],
     __depends__: [
         ExpressionLanguageModule,
     ],
-    validator: ['type', LocalizedValidator],
+    validator: ["type", LocalizedValidator],
 };

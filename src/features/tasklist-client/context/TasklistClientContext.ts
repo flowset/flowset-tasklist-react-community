@@ -12,14 +12,18 @@ import type {
     GetStartFormDataParams,
     GetTaskFormDataParams,
     GetTaskFormVariablesParams,
+    GetUserProcessInstanceListParams,
     GetUserTaskListParams,
     GetUserTaskParams,
     GetUserTaskStatisticsParams,
     StartProcessParams
 } from "../types/request.ts";
-import type {CompeteUserTaskResult, GetProcessListResult, GetStartFormResult, GetTaskFormResult, GetTaskFormVariablesResult,
+import type {
+    CompeteUserTaskResult, GetProcessListResult, GetStartFormResult, GetTaskFormResult, GetTaskFormVariablesResult,
     GetUserTaskListResult, GetUserTaskResult, GetUserTaskStatisticsResult,
-    StartProcessResult} from "../types/response.ts";
+    StartProcessResult,
+    UserProcessInstanceListResult
+} from "../types/response.ts";
 
 const NONE_TASKLIST_CLIENT: ITasklistClient = {
     getProcesses(_params: GetProcessListParams): Promise<GetProcessListResult> {
@@ -40,9 +44,11 @@ const NONE_TASKLIST_CLIENT: ITasklistClient = {
         return Promise.resolve(undefined);
     }, submitTaskForm(_params: CompleteTaskParams): Promise<CompeteUserTaskResult> {
         return Promise.resolve(undefined);
+    },
+    getUserProcessInstances(_params: GetUserProcessInstanceListParams): Promise<UserProcessInstanceListResult> {
+        return Promise.resolve(undefined);
     }
-
-}
+};
 
 export type TasklistClientContextType = ITasklistClient;
 

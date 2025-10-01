@@ -4,7 +4,7 @@
  */
 
 /**
- * Representation of process version in Camunda
+ * Representation of a process version in Camunda
  */
 export interface CamundaProcessDefinition {
     id: string;
@@ -24,7 +24,7 @@ export interface CamundaProcessDefinition {
 }
 
 /**
- * Representation of active user task in Camunda
+ * Representation of an active user task in Camunda
  */
 export interface CamundaTask {
     processInstanceId: string;
@@ -41,6 +41,22 @@ export interface CamundaTask {
     formKey?: string;
     created: string;
     camundaFormRef?: CamundaFormRef;
+}
+
+/**
+ * Representation of a historic process instance in Camunda
+ */
+export interface CamundaHistoricProcessInstance {
+    id: string;
+    processDefinitionId: string;
+    processDefinitionKey: string;
+    processDefinitionName: string;
+    processDefinitionVersion: string;
+    businessKey?: string;
+    startTime: string;
+    endTime?: string;
+    startUserId?: string;
+    state?: string;
 }
 
 /**
@@ -63,7 +79,7 @@ export interface CamundaFormRef {
 }
 
 /**
- * Representation of historic user task in Camunda
+ * Representation of a historic user task in Camunda
  */
 export interface CamundaHistoricTask {
     id: string;

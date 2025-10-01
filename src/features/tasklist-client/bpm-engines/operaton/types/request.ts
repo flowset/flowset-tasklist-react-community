@@ -8,7 +8,7 @@ import type {
     CamundaHistoricTaskRequest,
     CamundaTaskFilter,
     CamundaInputVariablesMap
-} from "../../camunda/types/request.ts";
+} from "@features/tasklist-client/bpm-engines/camunda/types/request.ts";
 
 export interface OperatonUserTaskRequest {
     assignee?: string;

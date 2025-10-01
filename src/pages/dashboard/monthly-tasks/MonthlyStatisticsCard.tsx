@@ -7,9 +7,9 @@ import {Card, Statistic} from "antd";
 import {FileDoneOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
-import 'dayjs/locale/ru';
-import 'dayjs/locale/en';
-import type { TaskExecutionStatistics } from "../../../types/common";
+import "dayjs/locale/ru";
+import "dayjs/locale/en";
+import type { TaskExecutionStatistics } from "@models/user-task.ts";
 
 export interface MonthlyStatisticProps {
     data?: TaskExecutionStatistics;
@@ -17,7 +17,7 @@ export interface MonthlyStatisticProps {
 }
 
 export const MonthlyStatisticsCard = ({data, loading}: MonthlyStatisticProps) => {
-    const { t, i18n } = useTranslation(['common','dashboard']);
+    const { t, i18n } = useTranslation(["common","dashboard"]);
     dayjs.locale(i18n.language);
     const monthlyCompletedTasksCount = data?.completedTasksCount || 0;
     const monthlyTotalCount = data?.totalTasks || 0;
@@ -26,7 +26,7 @@ export const MonthlyStatisticsCard = ({data, loading}: MonthlyStatisticProps) =>
         <>
             <Card variant={"outlined"}>
                 <Statistic
-                    title={t('dashboard:completedTasksCard.title', { month: monthName})}
+                    title={t("dashboard:completedTasksCard.title", { month: monthName})}
                     loading={loading}
                     value={`${monthlyCompletedTasksCount}/${monthlyTotalCount}`}
                     prefix={<FileDoneOutlined/>}

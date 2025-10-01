@@ -31,7 +31,7 @@ export interface CustomFormsContextType {
 }
 
 /**
- * React Context to hold configuration for custom task and start forms.
+ * React Context to hold configuration for the custom task and start forms.
  */
 export const CustomFormsContext = createContext<CustomFormsContextType>({
     forms: [],

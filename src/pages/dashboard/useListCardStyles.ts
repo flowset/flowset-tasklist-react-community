@@ -5,7 +5,7 @@
 
 import {createStyles} from "antd-style";
 
-export const useListCardStyles = createStyles(({css, prefixCls}) => ({
+export const useListCardStyles = createStyles(({css, prefixCls, token}) => ({
     rootCard: css`
         & > .${prefixCls}-card-body {
             padding: 0 0 1em;
@@ -41,11 +41,12 @@ export const useListCardStyles = createStyles(({css, prefixCls}) => ({
         }
         
         &:hover {
-            background-color: rgba(230, 244, 255, 0.5); 
+            background-color:  ${token.colorPrimaryBgHover};
+            border-color: ${token.colorPrimaryBorder};
         }
         
         &:active {
-            background-color: rgba(230, 244, 255, 0.8);
+            background-color:  ${token.colorPrimaryBg};
         }
     `,
 }));

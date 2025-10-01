@@ -12,4 +12,4 @@ export const convertStringToTableSortOrder = (sort?: string) => {
         return undefined;
     }
     return sort === "asc" ? "ascend" : "descend";
-}
+};

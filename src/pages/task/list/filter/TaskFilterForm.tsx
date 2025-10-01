@@ -13,7 +13,7 @@ import type {FormProps} from "antd/lib";
 import type {TaskFilterFormData} from "./types.ts";
 import {useTranslation} from "react-i18next";
 import {createStyles} from "antd-style";
-import {useTaskSelection} from "../../../../hooks/user-task/useTaskSelection.ts";
+import {useTaskSelection} from "@hooks/user-task";
 import {NameFilterInput} from "./inputs/NameFilterInput.tsx";
 import {ProcessFilterInput} from "./inputs/ProcessFilterInput.tsx";
 import {PriorityFilterSelect} from "./inputs/PriorityFilterSelect.tsx";
@@ -100,20 +100,20 @@ interface FilterActionsProps {
 const FilterActions = ({onClear}: FilterActionsProps) => {
     const {selectedTaskId: taskId} = useTaskSelection();
     const {styles} = useStyles();
-    const {t: translate} = useTranslation(['common', 'userTask']);
+    const {t: translate} = useTranslation(["common", "userTask"]);
 
     return (
         <Col xs={24} sm={24} md={24} xl={taskId ? 24 : 13}>
             <Flex align="end" justify="end" gap={10} className={styles.actionsContainer}>
                 <Form.Item className={styles.formItem}>
                     <Button htmlType="button" onClick={onClear}
-                            icon={<CloseOutlined/>}>{translate('common:actions.clear')}</Button>
+                            icon={<CloseOutlined/>}>{translate("common:actions.clear")}</Button>
                 </Form.Item>
                 <Form.Item className={styles.formItem}>
                     <Button type="primary" htmlType="submit"
-                            icon={<SearchOutlined/>}>{translate('common:actions.apply')}</Button>
+                            icon={<SearchOutlined/>}>{translate("common:actions.apply")}</Button>
                 </Form.Item>
             </Flex>
         </Col>
     );
-}
+};

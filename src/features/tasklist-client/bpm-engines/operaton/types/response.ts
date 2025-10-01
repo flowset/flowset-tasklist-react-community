@@ -12,7 +12,7 @@ import type {
     CamundaProcessInstance,
     CamundaTask,
     CamundaVariablesMap
-} from "../../camunda/types/response.ts";
+} from "@features/tasklist-client/bpm-engines/camunda/types/response.ts";
 
 
 export type OperatonCountDto = CamundaCountDto;

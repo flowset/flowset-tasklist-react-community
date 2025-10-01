@@ -22,4 +22,4 @@ export const usePaginatedList = (props: UsePaginatedListProps): UsePaginatedList
         ...sort,
         ...pagination,
     }
-}
+};

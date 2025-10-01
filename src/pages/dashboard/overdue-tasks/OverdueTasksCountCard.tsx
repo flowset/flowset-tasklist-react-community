@@ -22,13 +22,13 @@ export interface OverdueTasksCountCardProps {
 }
 
 export const OverdueTasksCountCard = ({data, isLoading}: OverdueTasksCountCardProps) => {
-    const {t} = useTranslation('dashboard');
+    const {t} = useTranslation("dashboard");
     const {styles} = useStyles();
     return (
         <>
             <Card variant={"outlined"}>
                 <Statistic
-                    title={t('overdueTasksCard.title')}
+                    title={t("overdueTasksCard.title")}
                     loading={isLoading}
                     value={data}
                     className={styles.overdueTaskStatistic}

@@ -3,16 +3,25 @@
  * Use is subject to license terms.
  */
 
-import type {SortPayload, TaskFilterPayload} from "../../../../../types/common.ts";
-import type {CamundaSort, CamundaTaskFilter, CamundaInputVariablesMap, CamundaUserTaskRequest} from "../types/request.ts";
-import type {GetUserTaskListParams} from "../../../types/request.ts";
+import type {
+    CamundaHistoricProcessInstanceRequest,
+    CamundaInputVariablesMap,
+    CamundaSort,
+    CamundaTaskFilter,
+    CamundaUserTaskRequest,
+    HistoricProcessInstanceFilter
+} from "../types/request.ts";
+import type {GetUserTaskListParams} from "@features/tasklist-client/types/request.ts";
+import type {SortPayload} from "@models/common.ts";
+import type {TaskFilterPayload} from "@models/user-task.ts";
+import type {ProcessInstanceFilterPayload} from "@models/process.ts";
 
 
-export const convertToCamundaTaskFilter = (filter: TaskFilterPayload | undefined) => {
+export const convertToCamundaTaskFilter = (filter: TaskFilterPayload | undefined): CamundaTaskFilter | undefined => {
     if (!filter) {
         return filter;
     }
-    const camundaFilter: CamundaTaskFilter | undefined = {
+    return {
         assignee: filter.assignee,
         dueBefore: filter.dueDateBefore,
         dueAfter: filter.dueDateAfter,
@@ -24,8 +33,17 @@ export const convertToCamundaTaskFilter = (filter: TaskFilterPayload | undefined
         minPriority: filter.minPriority,
         maxPriority: filter.maxPriority
     };
+};
 
-    return camundaFilter;
+export const convertToHistoricProcessInstanceFilter = (filter: ProcessInstanceFilterPayload | undefined): HistoricProcessInstanceFilter | undefined => {
+    if (!filter) {
+        return filter;
+    }
+    return {
+        ...filter,
+        processDefinitionNameLike: wrapLikeCondition(filter.processDefinitionNameLike),
+        processInstanceBusinessKeyLike: wrapLikeCondition(filter.businessKeyLike)
+    }
 };
 
 export const convertTaskSort = (taskSort?: SortPayload): CamundaSort[] => {
@@ -56,7 +74,7 @@ export const convertTaskSort = (taskSort?: SortPayload): CamundaSort[] => {
 };
 
 export const convertToInputVariablesMap = (data?: unknown): CamundaInputVariablesMap | undefined => {
-    if (!data || typeof data !== 'object') {
+    if (!data || typeof data !== "object") {
         return undefined;
     }
 
@@ -71,7 +89,7 @@ export const convertToInputVariablesMap = (data?: unknown): CamundaInputVariable
     return {
         variables
     }
-}
+};
 
 export const convertToUserTaskRequest = (params: GetUserTaskListParams): CamundaUserTaskRequest => {
     const filter = convertToCamundaTaskFilter(params?.filter);
@@ -84,10 +102,44 @@ export const convertToUserTaskRequest = (params: GetUserTaskListParams): Camunda
     };
 };
 
+export const convertToUserProcessInstanceRequest = (params: GetUserTaskListParams): CamundaHistoricProcessInstanceRequest => {
+    const filter = convertToHistoricProcessInstanceFilter(params?.filter);
+
+    return {
+        ...filter,
+        active: true,
+        unfinished: true,
+        startedBy: params?.username,
+        sorting: convertHistoricInstanceSort(params?.sort)
+    };
+};
+
+export const convertHistoricInstanceSort = (instanceSort?: SortPayload): CamundaSort[] => {
+    if (!instanceSort) {
+        return [];
+    }
+
+    const field = instanceSort.property;
+    let camundaSortBy;
+    switch (field) {
+        case "startTime":
+            camundaSortBy = "startTime";
+            break;
+        case "processName":
+            camundaSortBy = "definitionName";
+            break;
+    }
+
+    return [{
+        sortBy: camundaSortBy,
+        sortOrder: instanceSort.order,
+    }];
+};
+
 export const wrapLikeCondition = (value?: string): string | undefined => {
     if (!value) {
         return value;
     }
     return `%${value}%`;
-}
+};
 

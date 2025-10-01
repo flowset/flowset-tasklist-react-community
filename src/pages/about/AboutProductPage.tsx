@@ -10,7 +10,7 @@ import Col from "antd/es/grid/col";
 import {createStyles} from "antd-style";
 import {ExternalLinkListItem} from "./components/ExternalLinkListItem.tsx";
 import {ProductItem} from "./components/ProductItem.tsx";
-import {getEnv} from "../../utils/env/env.ts";
+import {getEnv} from "@utils/env";
 
 const {Title, Text} = Typography;
 
@@ -67,9 +67,15 @@ const useStyles = createStyles(({css, prefixCls, responsive}) => ({
         ${responsive.xs} {
             flex-direction: column;
         }
-
+    `,
+    externalLinksContainer: css`
+        width: 100%;
+    `,
+    productDivider: css`
+        width: 100%;
     `
-}))
+}));
+
 export const AboutProductPage = () => {
     const {t: translate, i18n} = useTranslation(["aboutProduct"]);
     const productMetadata = getLocalizedProductMetadata(i18n.language);
@@ -93,15 +99,15 @@ export const AboutProductPage = () => {
                                                                 text: `OpenBPM Tasklist ${APP_VERSION} (${APP_BUILD_SOURCE})`
                                                             }}>{translate("productVersion.title")}</Title>}>
                                             <Space direction={"vertical"} size={"middle"}>
-                                                <Space align={'baseline'}>
+                                                <Space align={"baseline"}>
                                                     <Text>{translate("product.label")}: </Text>
                                                     <Text type={"secondary"}>OpenBPM Tasklist</Text>
                                                 </Space>
-                                                <Space align={'baseline'}>
+                                                <Space align={"baseline"}>
                                                     <Text>{translate("version.label")}: </Text>
                                                     <Text type={"secondary"}>{APP_VERSION}</Text>
                                                 </Space>
-                                                <Space align={'baseline'}>
+                                                <Space align={"baseline"}>
                                                     <Text>{translate("build.label")}: </Text>
                                                     <Text type={"secondary"}>{APP_BUILD_SOURCE}</Text>
                                                 </Space>
@@ -114,9 +120,7 @@ export const AboutProductPage = () => {
                                                             className={styles.cardTitle}>
                                                   {translate("externalLinks.title")}</Title>}>
                                             <Space direction={"vertical"} size={"middle"}
-                                                   style={{
-                                                       height: "100%",
-                                                   }}>
+                                                   className={styles.externalLinksContainer}>
                                                 {productMetadata.externalLinks.map((link, index) => (
                                                     <ExternalLinkListItem item={link} key={index}/>
                                                 ))}
@@ -138,9 +142,7 @@ export const AboutProductPage = () => {
                                                 <>
                                                     <ProductItem item={product}/>
                                                     {(index < productMetadata.products.length - 1) &&
-                                                        <Divider size={"small"} style={{
-                                                            width: "100%"
-                                                        }}/>}
+                                                        <Divider size={"small"} className={styles.productDivider}/>}
                                                 </>
 
                                             ))}

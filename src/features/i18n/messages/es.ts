@@ -28,7 +28,6 @@ export const es = {
         'relativeDate.hours_other': '{{count}} horas',
         'relativeDate.min': '{{count}} min',
         'relativeDate.sec': '{{count}} seg',
-        'relativeDate.now': 'Ahora',
         'priority.high': 'Alta',
         'priority.normal': 'Normal',
         'priority.low': 'Baja',
@@ -37,6 +36,7 @@ export const es = {
         'actions.apply': 'Aplicar',
         'actions.ok': 'OK',
         'actions.copy': 'Copiar',
+        'actions.refresh': 'Actualizar',
         'value.copied': 'Valor copiado',
         'value.notCopied': 'Error al copiar el valor',
         'embeddedFormsNotSupported': 'Los formularios embebidos no son compatibles',
@@ -68,15 +68,12 @@ export const es = {
         'recentActivityCard.completedTasks.count': 'Tareas completadas ({{count}})',
         'recentActivityCard.bar.date': 'Fecha',
         'recentActivityCard.bar.count': 'Cantidad',
-        'recentActivityCard.createdTasks': 'Tareas creadas',
-        'recentActivityCard.createdTasks.count': 'Tareas creadas ({{count}})',
+        'recentActivityCard.createdTasks': 'Nuevas tareas',
+        'recentActivityCard.createdTasks.count': 'Nuevas tareas ({{count}})',
         'recentTasksCard.title': 'Tareas Recientes',
         'recentTasksCard.creationDate': 'Fecha de creación: {{date}}',
         'recentTasksCard.createdAgo': 'Creada hace {{relativeDate}}',
-        'upcomingTasksCard.title': 'Próximas Tareas',
-        'upcomingTasksCard.dueDate': 'Fecha de vencimiento: {{date}}',
-        'upcomingTasksCard.dueDatePassed': 'Fecha de vencimiento pasada',
-        'upcomingTasksCard.noDueDate': 'Sin fecha de vencimiento',
+        'recentTasksCard.createdNow': 'Recién creado',
         'noTasks': 'No hay tareas'
     },
     loginForm: {
@@ -138,6 +135,26 @@ export const es = {
         'processStarted': 'El proceso "{{process}}" ha sido iniciado',
         'processNotStarted': 'El proceso "{{process}}" no ha podido iniciarse',
     },
+    processInstance: {
+        'processName': 'Proceso',
+        'startTime': 'Fecha de inicio',
+        'businessKey': 'Clave de negocio',
+        'state': 'Estado',
+        'startedAgo': 'Iniciado hace {{relativeDate}}',
+        'startedNow': 'Recién lanzado',
+        'state.active': 'Activo',
+        'state.suspended': 'Suspendido',
+        listPage : {
+            'myActiveProcesses': 'Mis procesos activos',
+            'processName.placeholder': 'Introduce un nombre de proceso',
+            'businessKey.placeholder': 'Introduce una clave de negocio',
+        },
+        myActiveProcessesCard: {
+            'title': 'Mis procesos activos',
+            'noRunningInstances.description': 'No hay procesos',
+            'actions.viewAll': "Ver todos"
+        }
+    },
     formJs: {
         validation: {
             'required': 'Este campo es obligatorio',
@@ -166,4 +183,4 @@ export const es = {
         'build.label': 'Compilación',
         'learnMore.label': 'Saber más',
     }
-}
+};

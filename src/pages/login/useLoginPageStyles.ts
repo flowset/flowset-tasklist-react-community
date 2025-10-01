@@ -3,12 +3,12 @@
  * Use is subject to license terms.
  */
 
-import {createStyles} from 'antd-style';
-import backgroundVertical from '../../assets/img/background_vertical.svg';
-import backgroundW1024Horizontal from '../../assets/img/background_w1024_horizontal.svg';
-import backgroundW1280Horizontal from '../../assets/img/background_w1280_horizontal.svg';
-import backgroundW1440Horizontal from '../../assets/img/background_w1440_horizontal.svg';
-import backgroundW1920Horizontal from '../../assets/img/background_w1920_horizontal.svg';
+import {createStyles} from "antd-style";
+import backgroundVertical from "@assets/img/background_vertical.svg";
+import backgroundW1024Horizontal from "@assets/img/background_w1024_horizontal.svg";
+import backgroundW1280Horizontal from "@assets/img/background_w1280_horizontal.svg";
+import backgroundW1440Horizontal from "@assets/img/background_w1440_horizontal.svg";
+import backgroundW1920Horizontal from "@assets/img/background_w1920_horizontal.svg";
 
 export const useLoginPageStyles = createStyles(({css, token, prefixCls}, loginError) => ({
     headerTitle: css`
@@ -109,7 +109,7 @@ export const useLoginPageStyles = createStyles(({css, token, prefixCls}, loginEr
     `,
     errorContainer: css`
         height: 24px;
-        visibility: ${loginError ? 'visible' : 'hidden'};
+        visibility: ${loginError ? "visible" : "hidden"};
         display: flex;
         align-items: center;
     `

@@ -6,21 +6,21 @@
 import {Tag} from "antd";
 import {useTranslation} from "react-i18next";
 
-interface TaskListPriorityProps {
-    value: number | string
+interface TaskPriorityProps {
+    value: number | string;
 }
 
-export const TaskPriority = ({value}: TaskListPriorityProps) => {
+export const TaskPriority = ({value}: TaskPriorityProps) => {
     const priorityKey = typeof value === "number" ? getPriorityKey(value) : value;
-    const {t} = useTranslation(['common']);
+    const {t: translate} = useTranslation(["common"]);
     return (
         <>
-            {priorityKey === "low" && <Tag>{t('priority.low')}</Tag>}
-            {priorityKey === "normal" && <Tag color="green">{t('priority.normal')}</Tag>}
-            {priorityKey === "high" && <Tag color="warning">{t('priority.high')}</Tag>}
+            {priorityKey === "low" && <Tag>{translate("priority.low")}</Tag>}
+            {priorityKey === "normal" && <Tag color="green">{translate("priority.normal")}</Tag>}
+            {priorityKey === "high" && <Tag color="warning">{translate("priority.high")}</Tag>}
         </>
     );
-}
+};
 
 const getPriorityKey = (priority: number) => {
     if (priority < 40) {
@@ -33,4 +33,4 @@ const getPriorityKey = (priority: number) => {
     if (priority >= 60) {
         return "high"
     }
-}
+};

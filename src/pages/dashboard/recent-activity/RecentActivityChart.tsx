@@ -3,18 +3,17 @@
  * Use is subject to license terms.
  */
 
-import {Card, theme, Flex, Typography} from "antd";
+import {Card, Flex, theme, Typography} from "antd";
 import dayjs from "dayjs";
 import {type BarDatum, type BarTooltipProps, type ComputedDatum, ResponsiveBar} from "@nivo/bar";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import {renderDate} from "../../../utils/format/renderDate.ts";
+import {renderDate, renderDayMonth} from "@utils/format";
 import {useCallback} from "react";
 import {useTranslation} from "react-i18next";
 import "dayjs/locale/ru";
 import "dayjs/locale/en";
-import {renderDayMonth} from "../../../utils/format/renderDayMonth.ts";
 import {createStyles} from "antd-style";
-import type {TaskExecutionPeriodStatistics} from "../../../types/common.ts";
+import type {TaskExecutionPeriodStatistics} from "@models/user-task.ts";
 
 const { Text } = Typography;
 export interface RecentActivityChartProps {

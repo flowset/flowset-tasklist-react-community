@@ -19,7 +19,7 @@ export const buildUrlWithParams = (baseUrl: string, customParams?: Record<string
     }
 
     return buildUrlWithSearchParameters(baseUrl, searchParams);
-}
+};
 
 /**
  * Builds a URL with existing URLSearchParams object
@@ -27,8 +27,8 @@ export const buildUrlWithParams = (baseUrl: string, customParams?: Record<string
  * @param searchParams - Optional URLSearchParams object containing query parameters
  * @returns result URL with query parameters
  */
-export const buildUrlWithSearchParameters = (baseUrl: string, searchParams?: URLSearchParams): string => {
-    const urlParamsStr = searchParams && searchParams.size > 0 ? `?${searchParams.toString()}` : "";
+export const buildUrlWithSearchParameters = (baseUrl: string, searchParams?: URLSearchParams) => {
+    const urlParamsStr: string = searchParams && searchParams.size > 0 ? `?${searchParams.toString()}` : "";
 
     return baseUrl + urlParamsStr;
-}
+};

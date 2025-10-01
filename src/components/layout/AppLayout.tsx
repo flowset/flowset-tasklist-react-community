@@ -6,7 +6,7 @@
 import {Layout} from "antd";
 import {AppHeader} from "./AppHeader.tsx";
 import {AppContent} from "./AppContent.tsx";
-import {useTasklistAuth} from "../../hooks/useTasklistAuth.ts";
+import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
 import {createStyles} from "antd-style";
 
 const {Header, Content} = Layout;

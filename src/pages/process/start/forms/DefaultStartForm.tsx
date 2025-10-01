@@ -6,8 +6,8 @@
 import {Flex, Form, Input} from "antd";
 import {useTranslation} from "react-i18next";
 import {useCallback} from "react";
-import {StartProcessButton} from "../../../../components/button/StartProcessButton.tsx";
-import {CancelButton} from "../../../../components/button/CancelButton.tsx";
+import {StartProcessButton} from "@components/button/StartProcessButton.tsx";
+import {CancelButton} from "@components/button/CancelButton.tsx";
 import {createStyles} from "antd-style";
 
 

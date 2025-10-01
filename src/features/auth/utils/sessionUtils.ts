@@ -5,9 +5,9 @@
 
 import {type StoredAuthData, TasklistAuthType} from "../types";
 
-const AUTH_TOKEN_KEY = 'OPENBPM_TASKLIST_AUTH_TOKEN';
-const AUTH_USER_KEY = 'OPENBPM_TASKLIST_AUTH_USER';
-const AUTH_TYPE_KEY = 'OPENBPM_TASKLIST_AUTH_TYPE';
+const AUTH_TOKEN_KEY = "OPENBPM_TASKLIST_AUTH_TOKEN";
+const AUTH_USER_KEY = "OPENBPM_TASKLIST_AUTH_USER";
+const AUTH_TYPE_KEY = "OPENBPM_TASKLIST_AUTH_TYPE";
 
 /**
  * Utility functions for managing authentication session storage
@@ -57,16 +57,6 @@ export const sessionUtils = {
             user: user ? JSON.parse(user) : null,
             authType: type as TasklistAuthType
         };
-    },
-
-    /**
-     * Retrieves the authentication type from session storage
-     * @returns authentication type enum value or null if not found
-     */
-    getAuthType(): TasklistAuthType | null {
-        const type = sessionStorage.getItem(AUTH_TYPE_KEY);
-
-        return type as TasklistAuthType;
     },
 
     /**

@@ -9,11 +9,11 @@
  * Priority: window.env -> import.meta.env -> defaultValue
  *
  * @param key - environment variable name to lookup
- * @param defaultValue - fallback value if not found (default: '')
+ * @param defaultValue - fallback value if not found (default: "")
  * @returns environment variable value or defaultValue
  */
-export const getEnv = (key: string, defaultValue: string = ''): string => {
-    if (typeof window !== 'undefined' && window.env && window.env[key] !== undefined) {
+export const getEnv = (key: string, defaultValue: string = ""): string => {
+    if (typeof window !== "undefined" && window.env && window.env[key] !== undefined) {
         return window.env[key]!;
     }
 

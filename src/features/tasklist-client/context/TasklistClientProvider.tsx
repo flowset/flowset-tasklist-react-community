@@ -5,9 +5,9 @@
 
 import type {PropsWithChildren} from "react";
 import {TasklistClientContext} from "./TasklistClientContext.ts";
-import {useBpmEngine} from "../../../hooks/useBpmEngine.ts";
-import {useTasklistAuth} from "../../../hooks/useTasklistAuth.ts";
-import {EngineType} from "../../bpm-engine/types.ts";
+import {useBpmEngine} from "@hooks/useBpmEngine.ts";
+import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
+import {EngineType} from "@features/bpm-engine/types.ts";
 import {CamundaPlatformClient} from "../bpm-engines/camunda/CamundaPlatformClient.ts";
 import type {ITasklistClient} from "../types/client.ts";
 import {OperatonClient} from "../bpm-engines/operaton/OperatonClient.ts";
@@ -41,19 +41,21 @@ export const TasklistClientProvider = ({
     const engineType = selectedEngine.type;
     let client: ITasklistClient | undefined;
 
-    //const engineUrlObj = new URL(selectedEngine.apiUrl);
+    const engineUrlObj = new URL(selectedEngine.apiUrl);
+    const isDevMode = import.meta.env.DEV;
+    const engineUrl = isDevMode ? selectedEngine.apiUrl : engineUrlObj.pathname;
 
     switch (engineType) {
         case EngineType.CAMUNDA_7:
             client = new CamundaPlatformClient({
-                apiUrl: selectedEngine.apiUrl,
+                apiUrl: engineUrl,
                 headers: getAuthHeaders
             });
             break;
 
         case EngineType.OPERATON:
             client = new OperatonClient({
-                apiUrl: selectedEngine.apiUrl,
+                apiUrl: engineUrl,
                 headers: getAuthHeaders
             });
             break;

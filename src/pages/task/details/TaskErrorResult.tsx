@@ -4,9 +4,9 @@
  */
 
 import {useTranslation} from "react-i18next";
-import {NotFoundError} from "../../../components/error/NotFoundError.tsx";
-import {AccessDeniedError} from "../../../components/error/AccessDeniedError.tsx";
-import {InternalError} from "../../../components/error/InternalError.tsx";
+import {NotFoundError} from "@components/error/NotFoundError.tsx";
+import {AccessDeniedError} from "@components/error/AccessDeniedError.tsx";
+import {InternalError} from "@components/error/InternalError.tsx";
 
 interface ErrorResultProps {
     error: unknown

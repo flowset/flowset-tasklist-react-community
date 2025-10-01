@@ -5,14 +5,12 @@
 
 import {CamundaPlatformClient} from "../camunda/CamundaPlatformClient.ts";
 
-import {filterByAnyField} from "../../../../utils/filtering/filterByAnyField.ts";
-import {sortByField} from "../../../../utils/sort/sortByField.ts";
-import {
-    FormType,
-    type ProcessInstance,
-    type TaskExecutionPeriodStatistics,
-    type UserTask
-} from "../../../../types/common.ts";
+import {filterByAnyField} from "@utils/filtering";
+import {sortByField} from "@utils/sort";
+import type {TaskExecutionPeriodStatistics, UserTask} from "@models/user-task.ts";
+import type {ProcessInstance} from "@models/process.ts";
+import {FormType} from "@models/form.ts";
+
 import dayjs from "dayjs";
 
 import type {
@@ -39,7 +37,6 @@ import {
     createMonthlyTasksCountRequest,
     createOverdueTasksCountRequest,
     createRecentTasksRequest,
-    createUpcomingTasksRequest,
     createWeeklyTasksRequest
 } from "./utils/dashboard-requests.ts";
 import type {
@@ -52,7 +49,7 @@ import type {
     GetUserTaskParams,
     GetUserTaskStatisticsParams,
     StartProcessParams
-} from "../../types/request.ts";
+} from "@features/tasklist-client/types/request.ts";
 import type {
     CompeteUserTaskResult,
     GetProcessListResult,
@@ -63,9 +60,9 @@ import type {
     GetUserTaskResult,
     GetUserTaskStatisticsResult,
     StartProcessResult
-} from "../../types/response.ts";
+} from "@features/tasklist-client/types/response.ts";
 import {convertToInputVariablesMap, convertToUserTaskRequest} from "./converters/request-converters.ts";
-import {fetchParallel, type RequestData} from "../../http/fetch-utils.ts";
+import {fetchParallel, type RequestData} from "@features/tasklist-client/http/fetch-utils.ts";
 import {buildUrl} from "../camunda/utils/camunda-url-builder.ts";
 
 /**
@@ -77,9 +74,9 @@ export class OperatonClient extends CamundaPlatformClient {
         const sort = params?.sort;
         const filter = params?.filter;
 
-        let queryParams = {
-            'latestVersion': 'true',
-            'startableInTasklist': 'true'
+        const queryParams = {
+            "latestVersion": "true",
+            "startableInTasklist": "true"
         };
 
         return this.getWithResult<OperatonProcessDefinition[]>(this.processUri, queryParams)
@@ -114,7 +111,7 @@ export class OperatonClient extends CamundaPlatformClient {
             });
     }
 
-    getTaskFormData(params: GetTaskFormDataParams): Promise<GetTaskFormResult> {
+    async getTaskFormData(params: GetTaskFormDataParams): Promise<GetTaskFormResult> {
         const {taskId} = params;
 
         return this.getWithResult<OperatonFormData>(`${this.taskUri}/${taskId}/form`)
@@ -127,7 +124,7 @@ export class OperatonClient extends CamundaPlatformClient {
             });
     }
 
-    getTaskFormVariables(params: GetTaskFormVariablesParams): Promise<GetTaskFormVariablesResult> {
+    async getTaskFormVariables(params: GetTaskFormVariablesParams): Promise<GetTaskFormVariablesResult> {
         const {taskId} = params;
         return this.getWithResult<OperatonVariablesMap>(`${this.taskUri}/${taskId}/form-variables`)
             .then((operatonVariables: OperatonVariablesMap) => {
@@ -135,7 +132,7 @@ export class OperatonClient extends CamundaPlatformClient {
             });
     }
 
-    getUserTaskById(params: GetUserTaskParams): Promise<GetUserTaskResult> {
+    async getUserTaskById(params: GetUserTaskParams): Promise<GetUserTaskResult> {
         const {taskId} = params;
         return this.getWithResult<OperatonTask>(`${this.taskUri}/${taskId}`)
             .then((value: OperatonTask) => {
@@ -152,7 +149,7 @@ export class OperatonClient extends CamundaPlatformClient {
             });
     }
 
-    getUserTaskStatistics(params?: GetUserTaskStatisticsParams): Promise<GetUserTaskStatisticsResult> {
+    async getUserTaskStatistics(params?: GetUserTaskStatisticsParams): Promise<GetUserTaskStatisticsResult> {
         if (!params) {
             console.warn("Params to load dashboard data is missing.");
             return Promise.reject(new Error("Invalid params to dashboard data."));
@@ -166,38 +163,33 @@ export class OperatonClient extends CamundaPlatformClient {
         const activeTaskCountRequest: RequestData<number | undefined> = {
             promise: this.post(`${this.taskUri}/count`, createActiveTasksCountRequest(params.username)),
             converter: (data?: unknown) => convertCountDtoToCount(data)
-        }
+        };
         const overDueTasksCountRequest: RequestData<number | undefined> = {
             promise: this.post(`${this.taskUri}/count`, createOverdueTasksCountRequest(params.username, currentDate)),
             converter: (data?: unknown) => convertCountDtoToCount(data)
-        }
-        const upcomingTasksRequest: RequestData<UserTask[]> = {
-            promise: this.post(`${this.taskUri}?firstResult=0&maxResults=5`, createUpcomingTasksRequest(params.username, currentDate)),
-            converter: (data?: unknown) => convertUserTasks(data as OperatonTask[] || [])
-        }
+        };
         const recentTasksRequest: RequestData<UserTask[]> = {
             promise: this.post(`${this.taskUri}?firstResult=0&maxResults=5`, createRecentTasksRequest(params.username)),
             converter: (data?: unknown) => convertUserTasks(data as OperatonTask[] || [])
-        }
+        };
 
         const weeklyTasksRequest: RequestData<TaskExecutionPeriodStatistics> = {
             promise: this.post(`${this.apiUrl}/history/task`, createWeeklyTasksRequest(params.username, currentDate)),
             converter: (data?: unknown) => convertHistoricTasksToStatistics(data as OperatonHistoricTask[] || [])
-        }
+        };
 
         const monthlyAllTasksCountRequest: RequestData<number | undefined> = {
             promise: this.post(`${this.apiUrl}/history/task/count`, createMonthlyTasksCountRequest(params.username, currentDate)),
             converter: (data?: unknown) => convertCountDtoToCount(data)
-        }
+        };
         const monthlyCompletedTasksCountRequest: RequestData<number | undefined> = {
             promise: this.post(`${this.apiUrl}/history/task/count`, createMonthlyTasksCountRequest(params.username, currentDate, true)),
             converter: (data?: unknown) => convertCountDtoToCount(data)
-        }
+        };
 
         return fetchParallel({
             activeTasksCount: activeTaskCountRequest,
             overDueTasksCount: overDueTasksCountRequest,
-            upcomingTasks: upcomingTasksRequest,
             lastCreatedTasks: recentTasksRequest,
             weeklyActivity: weeklyTasksRequest,
             totalMonthTasks: monthlyAllTasksCountRequest,
@@ -207,7 +199,6 @@ export class OperatonClient extends CamundaPlatformClient {
                 return {
                     activeTasksCount: responseMap.activeTasksCount || 0,
                     overdueTasksCount: responseMap.overDueTasksCount || 0,
-                    upcomingTasks: responseMap.upcomingTasks,
                     lastCreatedTasks: responseMap.lastCreatedTasks,
                     weeklyActivity: responseMap.weeklyActivity,
                     monthlyStatistics: {
@@ -228,11 +219,12 @@ export class OperatonClient extends CamundaPlatformClient {
         const userTaskRequest: RequestData<UserTask[]> = {
             promise: this.post(buildUrl(this.taskUri, params?.pagination), requestBody),
             converter: (data?: unknown) => convertUserTasks(data as OperatonTask[] || [])
-        }
+        };
+
         const userTaskCountRequest: RequestData<number> = {
             promise: this.post(`${this.taskUri}/count`, requestBody),
             converter: (data?: unknown) => convertCountDtoToCount(data)
-        }
+        };
 
         return fetchParallel({
             userTasks: userTaskRequest,
@@ -242,7 +234,10 @@ export class OperatonClient extends CamundaPlatformClient {
                 const userTasks = value.userTasks || [];
                 const totalElements = value.userCount || 0;
 
-                const processDefinitionIds = userTasks.map(task => task.processDefinition?.id!!);
+                const processDefinitionIds = userTasks.flatMap(task =>
+                    task.processDefinition?.id ? [task.processDefinition.id] : []
+                );
+
                 if (!processDefinitionIds || processDefinitionIds.length === 0) {
                     return {
                         data: userTasks || [],
@@ -269,7 +264,8 @@ export class OperatonClient extends CamundaPlatformClient {
         const requestBody = {
             ...variablesMap,
             businessKey
-        }
+        };
+
         const url = `${this.processUri}/${processDefinitionId}/submit-form`;
 
         return this.postWithResult<OperatonProcessInstance>(url, requestBody)

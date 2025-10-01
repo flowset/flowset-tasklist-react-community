@@ -4,10 +4,10 @@
  */
 
 import {useCallback, useEffect, useState} from "react";
-import {type TasklistAuthProviderProps, TasklistAuthType, type User, type UserCredentials} from "../types.ts";
+import {type TasklistAuthProviderProps, TasklistAuthType, type User} from "../types.ts";
 import {sessionUtils} from "../utils/sessionUtils.ts";
-import type {User as OidcUser} from 'oidc-client-ts';
-import {useAuth as useOIDCAuth} from 'react-oidc-context';
+import type {User as OidcUser} from "oidc-client-ts";
+import {useAuth as useOIDCAuth} from "react-oidc-context";
 import {TasklistAuthContext} from "../TasklistAuthContext.ts";
 
 
@@ -25,11 +25,11 @@ export const OidcAuthProviderWrapper = ({children, config}: TasklistAuthProvider
     const avatarClaim = config?.oidcConfig?.avatarClaim;
 
     /**
-     * Transforms OIDC user profile into application user object
+     * Transforms OIDC user profile into an application user object
      */
     const transformOIDCUser = useCallback((oidcUser: OidcUser): User => ({
         id: oidcUser.profile.sub,
-        username: oidcUser.profile.preferred_username!!,
+        username: oidcUser.profile.preferred_username || "",
         email: oidcUser.profile.email,
         firstName: oidcUser.profile.given_name,
         lastName: oidcUser.profile.family_name,
@@ -39,9 +39,9 @@ export const OidcAuthProviderWrapper = ({children, config}: TasklistAuthProvider
     /**
      * Initiates OIDC authentication redirect flow
      */
-    const login = async (_credentials?: UserCredentials): Promise<boolean> => {
+    const login = useCallback(async (): Promise<boolean> => {
         try {
-            console.log('Starting OIDC redirect...');
+            console.log("Starting OIDC redirect...");
             await oidcAuth.signinRedirect();
             setHasTriedSignin(true);
             return true;
@@ -50,7 +50,7 @@ export const OidcAuthProviderWrapper = ({children, config}: TasklistAuthProvider
             setHasTriedSignin(false);
             return false;
         }
-    };
+    }, [oidcAuth]);
 
     /**
      * Handles OIDC logout and session cleanup
@@ -77,7 +77,7 @@ export const OidcAuthProviderWrapper = ({children, config}: TasklistAuthProvider
         ) {
             login();
         }
-    }, [oidcAuth, oidcAuth?.isAuthenticated, oidcAuth?.isLoading, hasTriedSignin]);
+    }, [oidcAuth, oidcAuth.isAuthenticated, oidcAuth.isLoading, hasTriedSignin, login]);
 
     useEffect(() => {
         if (oidcAuth.user) {
@@ -97,7 +97,7 @@ export const OidcAuthProviderWrapper = ({children, config}: TasklistAuthProvider
         login,
         logout,
         getAuthHeaders: () => ({
-            'Authorization': token ? `Bearer ${token}` : ''
+            "Authorization": token ? `Bearer ${token}` : ""
         }),
         isAuthenticated: !!oidcAuth.user && oidcAuth.isAuthenticated,
         isLoading: oidcAuth.isLoading,

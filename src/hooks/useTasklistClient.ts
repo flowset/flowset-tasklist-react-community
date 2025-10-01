@@ -4,8 +4,8 @@
  */
 
 import {useContext} from "react";
-import {TasklistClientContext} from "../features/tasklist-client/context/TasklistClientContext.ts";
-import type {ITasklistClient} from "../features/tasklist-client/types/client.ts";
+import {TasklistClientContext} from "@features/tasklist-client/context/TasklistClientContext.ts";
+import type {ITasklistClient} from "@features/tasklist-client/types/client.ts";
 
 /**
  * Hook to get an instance of {@link ITasklistClient} from the provided options or configured {@link TasklistClientContext}.
@@ -17,5 +17,5 @@ export const useTasklistClient = (): ITasklistClient => {
         throw new Error("ITasklistClient is not configured in the context or not passed as params");
     }
 
-    return client!!;
-}
+    return client;
+};

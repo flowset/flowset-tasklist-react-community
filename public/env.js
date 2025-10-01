@@ -3,4 +3,4 @@
  * Use is subject to license terms.
  */
 
-window.env = {}
+window.env = {};

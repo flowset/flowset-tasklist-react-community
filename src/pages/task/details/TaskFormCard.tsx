@@ -6,15 +6,16 @@
 import {Card, Flex, notification} from "antd";
 import {useCallback, useRef} from "react";
 import "@bpmn-io/form-js-viewer/dist/assets/form-js.css";
-import {useSubmitTaskForm} from "../../../hooks/user-task/useSubmitTaskForm.ts";
-import {EmbeddedForm} from "../../../components/form/EmbeddedForm.tsx";
-import {CustomForm} from "../../../components/form/CustomForm.tsx";
+import {useSubmitTaskForm} from "@hooks/user-task";
+import {EmbeddedForm} from "@components/form/EmbeddedForm.tsx";
+import {CustomForm} from "@components/form/CustomForm.tsx";
 import {useTranslation} from "react-i18next";
-import {CompleteTaskButton} from "../../../components/button/CompleteTaskButton.tsx";
-import type {FormJsFormViewer, SubmitEventData} from "../../../components/form/form-js/types/FormJsFormViewer.ts";
-import {FormJsForm} from "../../../components/form/form-js/FormJsForm.tsx";
+import {CompleteTaskButton} from "@components/button/CompleteTaskButton.tsx";
+import type {FormJsFormViewer, SubmitEventData} from "@components/form/form-js/types/FormJsFormViewer.ts";
+import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
 import {createStyles} from "antd-style";
-import {FormType, type InitialData, type ProcessFormData, type UserTask} from "../../../types/common.ts";
+import {FormType, type InitialData, type ProcessFormData} from "@models/form.ts";
+import type {UserTask} from "@models/user-task.ts";
 
 const useStyles = createStyles(({css}) => ({
     defaultActionsContainer: css`
@@ -76,11 +77,11 @@ export const TaskFormCard = (props: TaskFormCardProps) => {
                                                                       onTaskComplete={completeTaskWithVariables}
                                                                       completeInProgress={isPending}
                 />}
-                {formType == FormType.CUSTOM && <CustomForm formData={formData!!}
-                                                            task={task}
-                                                            inputVariables={initialData}
-                                                            onCancel={onTaskClose}
-                                                            onSubmit={completeTaskWithVariables}
+                {formType == FormType.CUSTOM && formData && <CustomForm formData={formData}
+                                                                        task={task}
+                                                                        inputVariables={initialData}
+                                                                        onCancel={onTaskClose}
+                                                                        onSubmit={completeTaskWithVariables}
                 />
                 }
                 {showCompleteButton &&
@@ -93,7 +94,7 @@ export const TaskFormCard = (props: TaskFormCardProps) => {
         </>
     )
 
-}
+};
 
 export interface FormJsFormCardProps {
     formData?: ProcessFormData | null;

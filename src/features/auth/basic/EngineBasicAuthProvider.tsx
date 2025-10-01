@@ -3,9 +3,9 @@
  * Use is subject to license terms.
  */
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {type TasklistAuthProviderProps, type User, type UserCredentials} from "../types.ts";
-import {useBpmEngine} from "../../../hooks/useBpmEngine.ts";
+import {useBpmEngine} from "@hooks/useBpmEngine.ts";
 import {engineBasicAuthService} from "./engineBasicAuthService.ts";
 import {sessionUtils} from "../utils/sessionUtils.ts";
 import {TasklistAuthContext} from "../TasklistAuthContext.ts";
@@ -31,7 +31,7 @@ export const EngineBasicAuthProvider = ({children, config}: TasklistAuthProvider
      */
     const login = async (credentials?: UserCredentials): Promise<boolean> => {
         setIsLoading(true);
-        return await engineBasicAuthService.login(credentials!!, bpmEngine?.selectedEngine)
+        return await engineBasicAuthService.login(credentials, bpmEngine?.selectedEngine)
             .then(result => {
                 setLoginError(null);
                 if (result) {
@@ -72,7 +72,7 @@ export const EngineBasicAuthProvider = ({children, config}: TasklistAuthProvider
     /**
      * Restores user session from stored session data if available
      */
-    const restoreSession = () => {
+    const restoreSession = useCallback(() => {
         const session = sessionUtils.getSession();
         const {user: storedUser, token: storedToken, authType: storedType} = session;
 
@@ -83,7 +83,7 @@ export const EngineBasicAuthProvider = ({children, config}: TasklistAuthProvider
             setUser(storedUser);
         }
         setIsLoading(false);
-    };
+    }, [config.type, user]);
 
     useEffect(() => {
         restoreSession();

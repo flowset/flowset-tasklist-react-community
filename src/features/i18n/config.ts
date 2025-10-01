@@ -11,7 +11,7 @@ import {ru} from "./messages/ru.ts";
 import "intl-pluralrules";
 import {de} from "./messages/de.ts";
 import {es} from "./messages/es.ts";
-import {getEnv} from "../../utils/env/env.ts";
+import {getEnv} from "@utils/env";
 
 const APP_LOCALE = getEnv("VITE_APP_LOCALE", "en");
 

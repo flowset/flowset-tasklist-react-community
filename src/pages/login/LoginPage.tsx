@@ -4,12 +4,12 @@
  */
 
 import {Button, Form, type FormProps, Input, Space, Typography} from "antd";
-import {useTasklistAuth} from "../../hooks/useTasklistAuth.ts";
+import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
 import Icon from "@ant-design/icons";
-import {LogoIcon} from "../../components/LogoIcon.tsx";
+import {LogoIcon} from "@components/LogoIcon.tsx";
 import {useTranslation} from "react-i18next";
-import type {UserCredentials} from "../../features/auth/types.ts";
-import {HttpError} from "../../features/auth/errors/HttpError.ts";
+import type {UserCredentials} from "@features/auth/types.ts";
+import {HttpError} from "@features/auth/errors/HttpError.ts";
 import {useLoginPageStyles} from "./useLoginPageStyles.ts";
 
 const {Title, Text} = Typography;
@@ -21,8 +21,8 @@ export const LoginPage = () => {
 
     const onFinish: FormProps<UserCredentials>["onFinish"] = (values) => {
         login({
-            username: values.username!!,
-            password: values.password!!,
+            username: values.username,
+            password: values.password,
         });
     };
 
@@ -97,12 +97,8 @@ const LoginErrorText = ({error}: LoginErrorProps) => {
 
     if (!isHttpError) {
         errorMessage = error.message;
-    } else if (error.status === 401) {
-        errorMessage = translate("httpError.401.description");
-    } else if (error.status === 403) {
-        errorMessage = translate("httpError.403.description")
-    } else if (error.status === 500) {
-        errorMessage = translate("httpError.500.description");
+    } else if (error.status && [401, 403, 500].includes(error.status)) {
+        errorMessage = translate(`httpError.${error.status}.description`);
     } else {
         errorMessage = `${error.status} ${error.statusText}`;
     }

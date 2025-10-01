@@ -10,9 +10,9 @@ import {TaskSystemInfoCard} from "./TaskSystemInfoCard.tsx";
 import Title from "antd/es/typography/Title";
 import type {DrawerStyles} from "antd/es/drawer/DrawerPanel";
 import {TaskErrorResult} from "./TaskErrorResult.tsx";
-import {useGetUserTaskData} from "../../../hooks/user-task/useGetUserTaskData.ts";
+import {useGetUserTaskData} from "@hooks/user-task";
 import {createStyles} from "antd-style";
-import type {UserTask} from "../../../types/common.ts";
+import type {UserTask} from "@models/user-task.ts";
 
 const drawerStyles: DrawerStyles = {
     wrapper: {
@@ -52,10 +52,10 @@ export interface UserTaskDetailsProps {
 }
 
 export const UserTaskDetails = ({
-                                          onTaskClose,
-                                          taskId: recordId,
-                                          onTaskComplete
-                                      }: UserTaskDetailsProps) => {
+                                    onTaskClose,
+                                    taskId: recordId,
+                                    onTaskComplete
+                                }: UserTaskDetailsProps) => {
 
     const {task, form, initialData, isLoading, error} = useGetUserTaskData({
         taskId: recordId

@@ -4,7 +4,7 @@
  */
 
 /**
- * Localized messages for OpenBPM Tasklist in Russian language.
+ * Localized messages for OpenBPM Tasklist in the Russian language.
  */
 export const ru = {
     translations: {
@@ -32,7 +32,6 @@ export const ru = {
         'relativeDate.hours': '{{count}} ч.',
         'relativeDate.min': '{{count}} мин.',
         'relativeDate.sec': '{{count}} сек.',
-        'relativeDate.now': 'Сейчас',
         'priority.high': 'Высокий',
         'priority.normal': 'Обычный',
         'priority.low': 'Низкий',
@@ -41,6 +40,7 @@ export const ru = {
         'actions.apply': 'Применить',
         'actions.ok': 'OK',
         'actions.copy': 'Скопировать',
+        'actions.refresh': 'Обновить',
         'value.copied': 'Значение скопировано',
         'value.notCopied': 'Не удалось скопировать значение',
         'embeddedFormsNotSupported': 'Встроенные формы не поддерживаются',
@@ -69,17 +69,14 @@ export const ru = {
         'recentActivityCard.title': 'Недавняя активность',
         'recentActivityCard.completedTasks': 'Завершенные задачи',
         'recentActivityCard.completedTasks.count': 'Завершенные задачи ({{count}})',
-        'recentActivityCard.createdTasks': 'Созданные задачи',
-        'recentActivityCard.createdTasks.count': 'Созданные задачи ({{count}})',
+        'recentActivityCard.createdTasks': 'Новые задачи',
+        'recentActivityCard.createdTasks.count': 'Новые задачи ({{count}})',
         'recentActivityCard.bar.date': 'Дата',
         'recentActivityCard.bar.count': 'Кол-во',
         'recentTasksCard.title': 'Новые задачи',
         'recentTasksCard.creationDate': 'Дата создания: {{date}}',
         'recentTasksCard.createdAgo': 'Создана {{relativeDate}} назад',
-        'upcomingTasksCard.title': 'Ближайшие задачи',
-        'upcomingTasksCard.dueDate': 'Срок выполнения: {{date}}',
-        'upcomingTasksCard.dueDatePassed': 'Срок выполнения прошел',
-        'upcomingTasksCard.noDueDate': 'Нет срока выполнения',
+        'recentTasksCard.createdNow': 'Создана только что',
         'noTasks': 'Нет задач'
 
     },
@@ -141,6 +138,26 @@ export const ru = {
         'processStarted': 'Процесс "{{process}}" запущен',
         'processNotStarted': 'Не удалось запустить процесс "{{process}}"',
     },
+    processInstance: {
+        'processName': 'Процесс',
+        'startTime': 'Дата запуска',
+        'businessKey': 'Бизнес ключ',
+        'state': 'Состояние',
+        'startedAgo': 'Запущен {{relativeDate}} назад',
+        'startedNow': 'Запущен только что',
+        'state.active': 'Активен',
+        'state.suspended': 'Приостановлен',
+        listPage : {
+            'myActiveProcesses': 'Мои активные процессы',
+            'processName.placeholder': 'Введите имя процесса',
+            'businessKey.placeholder': 'Введите бизнес ключ',
+        },
+        myActiveProcessesCard: {
+            'title': 'Мои активные процессы',
+            'noRunningInstances.description': 'Нет процессов',
+            'actions.viewAll': "Показать все"
+        }
+    },
     formJs: {
         validation: {
             'required': 'Заполните поле',
@@ -169,4 +186,4 @@ export const ru = {
         'build.label': 'Сборка',
         'learnMore.label': 'Узнать больше',
     }
-}
+};

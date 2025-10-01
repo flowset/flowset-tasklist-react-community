@@ -3,21 +3,19 @@
  * Use is subject to license terms.
  */
 
-import {FormType, type ProcessDefinition} from "../../../types/common.ts";
-import {useGetStartFormData} from "../../../hooks/process/useGetStartFormData.ts";
-import {useStartProcess} from "../../../hooks/process/useStartProcess.ts";
+import {type ProcessDefinition} from "@models/process.ts";
+import {useGetStartFormData, useStartProcess} from "@hooks/process";
 import {Flex, Modal, notification, Spin, Typography} from "antd";
 import {useCallback} from "react";
-import {
-    getProcessDefinitionRecordRepresentation
-} from "../../../utils/record-representation/getProcessDefinitionRecordRepresentation.ts";
+import {getProcessDefinitionRecordRepresentation} from "@utils/record-representation";
 import {useTranslation} from "react-i18next";
-import {EmbeddedForm} from "../../../components/form/EmbeddedForm.tsx";
-import {CustomForm} from "../../../components/form/CustomForm.tsx";
-import {CancelButton} from "../../../components/button/CancelButton.tsx";
+import {EmbeddedForm} from "@components/form/EmbeddedForm.tsx";
+import {CustomForm} from "@components/form/CustomForm.tsx";
+import {CancelButton} from "@components/button/CancelButton.tsx";
 import {createStyles} from "antd-style";
 import {DefaultStartForm} from "./forms/DefaultStartForm.tsx";
 import {StartFormJsForm} from "./forms/StartFormJsForm.tsx";
+import {FormType} from "@models/form.ts";
 
 const {Title} = Typography;
 
@@ -43,9 +41,10 @@ export interface StartProcessDialogProps {
     processDefinition: ProcessDefinition;
     open: boolean;
     onClose: () => void;
+    onProcessStart: () => void;
 }
 
-export const StartProcessDialog = ({processDefinition, open, onClose}: StartProcessDialogProps) => {
+export const StartProcessDialog = ({processDefinition, open, onClose, onProcessStart}: StartProcessDialogProps) => {
     const {t: translate} = useTranslation(["process"]);
     const [api, contextHolder] = notification.useNotification();
 
@@ -72,8 +71,8 @@ export const StartProcessDialog = ({processDefinition, open, onClose}: StartProc
                 placement: "top",
                 duration: 3
             });
-            onClose();
-        }).catch((error: any) => {
+            onProcessStart();
+        }).catch((error: unknown) => {
             console.log("Error on process starting: ", error);
             api.error({
                 message: translate("process:processNotStarted", {process: processRecordRepresentation}),
@@ -81,7 +80,7 @@ export const StartProcessDialog = ({processDefinition, open, onClose}: StartProc
                 duration: 3
             });
         });
-    }, [api, processDefinition, startProcessAsync, onClose, translate]);
+    }, [api, processDefinition, startProcessAsync, translate, onProcessStart]);
 
     const formType = startFormData?.type;
     const showDefaultForm = !startFormData;
@@ -110,11 +109,11 @@ export const StartProcessDialog = ({processDefinition, open, onClose}: StartProc
                                      startInProgress={isStartInProgress}
                                      onCancel={onClose}
                     />}
-                {formType === FormType.CUSTOM &&
+                {formType === FormType.CUSTOM && startFormData &&
                     <CustomForm onSubmit={startProcess}
                                 onCancel={onClose}
                                 process={processDefinition}
-                                formData={startFormData!!}/>
+                                formData={startFormData}/>
                 }
             </Modal>
         </>

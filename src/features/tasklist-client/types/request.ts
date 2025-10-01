@@ -3,7 +3,12 @@
  * Use is subject to license terms.
  */
 
-import type {PaginationPayload, ProcessFilterPayload, SortPayload, TaskFilterPayload} from "../../../types/common.ts";
+import type {
+    PaginationPayload,
+    SortPayload
+} from "@models/common.ts";
+import type {ProcessFilterPayload, ProcessInstanceFilterPayload} from "@models/process.ts";
+import type {TaskFilterPayload} from "@models/user-task.ts";
 
 /**
  * Type alias for HTTP request headers
@@ -74,6 +79,28 @@ export interface GetProcessListParams {
     sort?: SortPayload
 }
 
+export interface GetUserProcessInstanceListParams {
+    /**
+     * Filter criteria for process instances
+     */
+    filter?: ProcessInstanceFilterPayload;
+
+    /**
+     * Pagination settings
+     */
+    pagination?: PaginationPayload;
+
+    /**
+     * Sorting options
+     */
+    sort?: SortPayload;
+
+    /**
+     * Username to filter tasks by assignee
+     */
+    username?: string;
+}
+
 /**
  * Parameters for starting a new process instance
  */
@@ -121,20 +148,17 @@ export interface GetUserTaskListParams {
 /**
  * Parameters for retrieving a specific user task
  */
-export interface GetUserTaskParams extends WithTaskId {
-}
+export type GetUserTaskParams = WithTaskId;
 
 /**
  * Parameters for retrieving user task form data
  */
-export interface GetTaskFormDataParams extends WithTaskId {
-}
+export type GetTaskFormDataParams = WithTaskId;
 
 /**
  * Parameters for retrieving user task form variables
  */
-export interface GetTaskFormVariablesParams extends WithTaskId {
-}
+export type GetTaskFormVariablesParams = WithTaskId;
 
 /**
  * Parameters for completing a user task
@@ -146,8 +170,7 @@ export interface CompleteTaskParams extends WithTaskId {
 /**
  * Parameters for retrieving process start form data
  */
-export interface GetStartFormDataParams extends WithProcessId {
-}
+export type GetStartFormDataParams = WithProcessId;
 
 /**
  * Parameters for retrieving user task statistics

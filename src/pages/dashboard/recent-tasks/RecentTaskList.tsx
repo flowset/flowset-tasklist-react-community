@@ -6,14 +6,13 @@
 import {Card, Flex, List, Tooltip, Typography} from "antd";
 import {Link, useNavigate} from "react-router-dom";
 import {CalendarOutlined} from "@ant-design/icons";
-import {TaskPriority} from "../../../components/user-task/TaskPriority.tsx";
+import {TaskPriority} from "@components/user-task/TaskPriority.tsx";
 import {useEffect, useState} from "react";
-import {renderDateTime} from "../../../utils/format/renderDateTime.ts";
-import {renderRelativeDateTime} from "../../../utils/format/renderRelativeDateTime.ts";
+import {renderDateTime, renderRelativeDateTime} from "@utils/format";
 import {useTranslation} from "react-i18next";
 import {useListCardStyles} from "../useListCardStyles.ts";
 import {createStyles} from "antd-style";
-import type { UserTask } from "../../../types/common.ts";
+import type {UserTask} from "@models/user-task.ts";
 
 export interface RecentTaskListProps {
     items: UserTask[];
@@ -97,7 +96,7 @@ interface TaskRelativeCreateDateProps {
 
 const TaskRelativeCreateDate = ({date}: TaskRelativeCreateDateProps) => {
     const [time, setTime] = useState(Date.now());
-    const {t} = useTranslation(['dashboard']);
+    const {t: translate} = useTranslation(["dashboard"]);
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 10 * 1000);
@@ -109,7 +108,8 @@ const TaskRelativeCreateDate = ({date}: TaskRelativeCreateDateProps) => {
 
     const relativeDateTime = renderRelativeDateTime(time, date);
     return <Tooltip
-        title={t('recentTasksCard.creationDate', {date: renderDateTime(date)})}>
-        <span>{t('recentTasksCard.createdAgo', {relativeDate: relativeDateTime})}</span>
+        title={translate("recentTasksCard.creationDate", {date: renderDateTime(date)})}>
+        <span>{relativeDateTime ? translate("recentTasksCard.createdAgo", {relativeDate: relativeDateTime}) :
+            translate("recentTasksCard.createdNow")}</span>
     </Tooltip>
-}
+};

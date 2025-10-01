@@ -3,11 +3,11 @@
  * Use is subject to license terms.
  */
 
-import {useCallback, useEffect, useState} from "react";
+import {type ChangeEvent, useCallback, useEffect, useState} from "react";
 import {Input} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
-import {useQueryParam} from "../../hooks/query-params/useQueryParam.ts";
+import {useQueryParam} from "@hooks/query-params";
 
 interface SearchInputProps {
     onSearch: (searchString?: string | null) => void
@@ -45,9 +45,9 @@ export const SearchInput = ({onSearch}: SearchInputProps,) => {
             return () => clearTimeout(delayDebounceFn);
         }
 
-    }, [searchTerm, onSearch]);
+    }, [searchTerm, onSearch, setValue, removeValue, hasValue]);
 
-    const onSearchInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const onSearchInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     }, []);
 

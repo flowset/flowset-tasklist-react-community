@@ -35,7 +35,7 @@ export const fetchGet = (url: string, headers?: RequestHeaders) => {
     return fetch(url, {method: "get", headers: headers})
         .then(response => handleResponse(response))
         .catch(reason => handleError(reason, url));
-}
+};
 
 /**
  * Performs a POST request with the provided JSON data and returns the raw Response object
@@ -52,7 +52,7 @@ export const fetchPost = (url: string, data?: unknown, headers?: RequestHeaders)
     })
         .then(response => handleResponse(response))
         .catch(reason => handleError(reason, url));
-}
+};
 
 /**
  * Performs a GET request and returns the parsed JSON response with the provided object type
@@ -69,7 +69,7 @@ export const fetchGetJson = <TRESULT = unknown>(url: string, headers?: RequestHe
     }).then(result => {
         return result as TRESULT;
     }).catch(reason => handleError(reason, url));
-}
+};
 
 /**
  * Performs a POST request with optional JSON data and returns parsed JSON response
@@ -88,7 +88,7 @@ export const fetchPostJson = async <TRESULT = unknown>(url: string, data?: unkno
     }).then(result => {
         return result as TRESULT;
     }).catch(reason => handleError(reason, url));
-}
+};
 
 /**
  * Executes multiple requests in parallel and returns results as an object
@@ -108,14 +108,14 @@ export const fetchParallel = async <T extends RequestDataMap>(requests: T): Prom
             .then(data => ({
                 key,
                 data: converter ? converter(data) : data,
-                status: 'fulfilled' as const
+                status: "fulfilled" as const
             }))
             .catch(error => {
                 console.error(`Error while loading ${String(key)}:`, error);
                 return {
                     key,
                     data: undefined,
-                    status: 'rejected' as const,
+                    status: "rejected" as const,
                     error
                 };
             })
@@ -130,7 +130,7 @@ export const fetchParallel = async <T extends RequestDataMap>(requests: T): Prom
             };
 
             results.forEach(item => {
-                if (item.status === 'fulfilled') {
+                if (item.status === "fulfilled") {
                     const value = item.value;
                     result[value.key] = value.data;
                 }
@@ -138,7 +138,7 @@ export const fetchParallel = async <T extends RequestDataMap>(requests: T): Prom
 
             return result;
         });
-}
+};
 
 
 /**

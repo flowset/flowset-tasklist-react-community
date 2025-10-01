@@ -4,7 +4,7 @@
  */
 
 import {useCallback} from "react";
-import type {TaskFilterFormData} from "../../pages/task/list/filter/types.ts";
+import type {TaskFilterFormData} from "@pages/task/list/filter/types.ts";
 
 export const useTaskFilterCount = (filterValues?: TaskFilterFormData) => {
     return useCallback(() => {

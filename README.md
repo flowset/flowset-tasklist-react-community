@@ -5,7 +5,7 @@ tasks.
 
 - **Task Browsing:** Navigate through the active tasks assigned to the logged-in user.
 - **Task Completion:** Complete a task using task forms.
-- **Process Browsing:** Navigate through the active processes that can be started from Tasklist.
+- **Process Browsing:** Navigate through the active processes that can be started from the Tasklist.
 - **Process Start:** Start new instances of the processes using start forms.
 
 > [!NOTE]
@@ -38,6 +38,7 @@ OpenBPM Tasklist is built using the following libraries and frameworks:
         - [Starting a Process](#starting-a-process)
     - [Working with User Tasks](#working-with-user-tasks)
         - [Completing a User Task](#completing-a-user-task)
+- [Customizing the Theme](#customizing-the-theme)
 - [License](#license)
 
 ## Configuration <a name="configuration"></a>
@@ -134,7 +135,7 @@ Also, this form has the following buttons:
 ```typescript jsx
 // src/custom-forms/NewVisitForm.tsx
 import {Button, DatePicker, Flex, Form, type FormProps, Input, Typography} from "antd";
-import type {CustomStartFormProps} from "../features/custom-forms/types.ts";
+import type {CustomStartFormProps} from "@features/custom-forms/types.ts";
 import dayjs, {type Dayjs} from "dayjs";
 
 const {Title} = Typography;
@@ -225,7 +226,7 @@ Also, this form shows the following components:
 
 ```typescript jsx
 // src/custom-forms/CheckVisitForm.tsx
-import type {CustomTaskFormProps} from "../features/custom-forms/types.ts";
+import type {CustomTaskFormProps} from "@features/custom-forms/types.ts";
 import {Button, Descriptions, type DescriptionsProps, Flex, Form, Space, Switch, Typography} from "antd";
 import dayjs from "dayjs";
 
@@ -357,7 +358,7 @@ You must have the following installed:
     ```shell
      git clone https://github.com/openbpm-platform/openbpm-tasklist-react
     ```
-2. Configure a connection to BPM engine database:
+2. Configure a connection to the BPM engine database:
     - Create `env.local` file in the cloned project directory 
     - Add the following configuration:
    ```dotenv
@@ -402,7 +403,7 @@ The following actions are also available:
 
 #### Starting a Process <a name="starting-a-process"></a>
 
-To start a process instance immediately, simply click the **Start process** button for the desired process.
+To start a process instance immediately, click the **Start process** button for the desired process.
 
 Depending on what form is linked to the start event, the following content is shown in the opened dialog:
 
@@ -431,6 +432,17 @@ Depending on what form is linked to the user task, the following content is show
 3. If custom form — the content of a [registered custom form](#custom-forms-support).
 
 **Note:** Embedded and generated forms are not supported in the OpenBPM Tasklist.
+
+
+## Customizing the Theme <a name="customizing-the-theme"></a>
+
+Ant Design used in OpenBPM Tasklist provides an ability to customize the application theme.
+More information about theme customization is described in [Ant Design docs](https://ant.design/docs/react/customize-theme).
+
+To customize a Design token in OpenBPM Tasklist:
+1. Open `src/features/theme/openbpmTheme.ts`
+2. Change colors to the required values
+
 
 ## License <a name="license"></a>
 

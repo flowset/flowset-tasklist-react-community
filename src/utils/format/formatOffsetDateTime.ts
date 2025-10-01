@@ -6,5 +6,5 @@
 import type {Dayjs} from "dayjs";
 
 export const formatOffsetDateTime = (date: Dayjs): string => {
-    return date.format('YYYY-MM-DDTHH:mm:ss.SSSZZ');
-}
+    return date.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+};

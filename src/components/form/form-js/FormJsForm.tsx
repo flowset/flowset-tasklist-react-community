@@ -8,7 +8,7 @@ import {Form} from "@bpmn-io/form-js-viewer";
 import {useFormJsForm} from "./useFormJsForm.ts";
 import "./FormJsForm.css";
 import {Typography} from "antd";
-import type {InitialData, ProcessFormData} from "../../../types/common.ts";
+import type {InitialData, ProcessFormData} from "@models/form.ts";
 import type {
     FormErrors,
     FormFieldValues,
@@ -22,12 +22,20 @@ import {english as en} from "flatpickr/dist/l10n/default.js"
 import {Russian as ru} from "flatpickr/dist/l10n/ru.js"
 import {German as de} from "flatpickr/dist/l10n/de.js"
 import {Spanish as es} from "flatpickr/dist/l10n/es.js"
-import {getEnv} from "../../../utils/env/env.ts";
+import {getEnv} from "@utils/env";
 import {useTranslation} from "react-i18next";
+import type {CustomLocale, Locale} from "flatpickr/dist/types/locale";
 
 const {Text} = Typography;
 
 const APP_LOCALE = getEnv("VITE_APP_LOCALE", "en");
+
+const FLATPICKR_LOCALE_MAP: Record<string, CustomLocale | Locale> = {
+    "en": en,
+    "ru": ru,
+    "de": de,
+    "es": es,
+};
 
 export interface FormJsFormProps {
     form?: ProcessFormData | null;
@@ -58,15 +66,7 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
     const [importSchemaError, setImportSchemaError] = useState<unknown>();
     const {t: translate} = useTranslation(["formJs"]);
 
-    if (APP_LOCALE === "ru") {
-        flatpickr.localize(ru);
-    } else if (APP_LOCALE === "de") {
-        flatpickr.localize(de);
-    } else if (APP_LOCALE === "es") {
-        flatpickr.localize(es);
-    } else {
-        flatpickr.localize(en);
-    }
+    flatpickr.localize(FLATPICKR_LOCALE_MAP[APP_LOCALE]);
 
     useEffect(() => {
         const currentForm = (formViewerRef.current = new Form({
@@ -86,13 +86,13 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
         }
 
 
-        currentForm.on("import.done", (_event: SubmitEventData) => {
+        currentForm.on("import.done", () => {
             function updatePlaceholders() {
                 const datePickers = formContainerRef.current?.querySelectorAll(".flatpickr-input");
                 if (datePickers) {
-                    for (let datePicker of datePickers) {
+                    for (const datePicker of datePickers) {
                         const inputDatePicker = datePicker as HTMLInputElement;
-                        if (inputDatePicker.placeholder === 'dd.mm.yyyy') {
+                        if (inputDatePicker.placeholder === "dd.mm.yyyy") {
                             inputDatePicker.placeholder = translate("datePicker.placeholder");
                         }
                     }
@@ -107,7 +107,7 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
         return () => {
             currentForm.destroy();
         }
-    }, [form, onSubmit, readOnly]);
+    }, [form, onSubmit, readOnly, translate]);
 
     useImperativeHandle(ref, () => {
             return {

@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import {renderDateTime} from "../../utils/format/renderDateTime.ts";
+import {renderDateTime} from "@utils/format";
 import {Typography} from "antd";
 import dayjs from "dayjs";
 

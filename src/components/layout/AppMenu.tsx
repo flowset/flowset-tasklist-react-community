@@ -5,12 +5,12 @@
 
 import {Link, useLocation} from "react-router-dom";
 import {AppstoreOutlined, InfoCircleOutlined, PartitionOutlined, SolutionOutlined} from "@ant-design/icons";
-import type {MenuProps} from 'antd';
+import type {MenuProps} from "antd";
 import {Flex, Menu} from "antd";
 import {createStyles} from "antd-style";
 import {useTranslation} from "react-i18next";
 
-type MenuItem = Required<MenuProps>['items'][number];
+type MenuItem = Required<MenuProps>["items"][number];
 
 const useStyles = createStyles(({css, responsive}) => ({
     appMenuContainer: css`
@@ -44,7 +44,7 @@ export const AppMenu = () => {
         {
             label: (
                 <Link to="dashboard">
-                    {translate('common:menu.dashboard')}
+                    {translate("common:menu.dashboard")}
                 </Link>
             ),
             key: "dashboard",
@@ -54,7 +54,7 @@ export const AppMenu = () => {
         {
             label: (
                 <Link to="tasks">
-                    {translate('common:menu.tasks')}
+                    {translate("common:menu.tasks")}
                 </Link>
             ),
             key: "tasks",
@@ -63,7 +63,7 @@ export const AppMenu = () => {
         {
             label: (
                 <Link to="processes">
-                    {translate('common:menu.processes')}
+                    {translate("common:menu.processes")}
                 </Link>
             ),
             key: "processes",
@@ -72,7 +72,7 @@ export const AppMenu = () => {
         {
             label: (
                 <Link to="about">
-                    {translate('common:menu.about')}
+                    {translate("common:menu.about")}
                 </Link>
             ),
             key: "about",
@@ -96,4 +96,4 @@ const toSelectedKey = (pathname: string) => {
         return "dashboard";
     }
     return pathname.split("/", 2).join("");
-}
+};

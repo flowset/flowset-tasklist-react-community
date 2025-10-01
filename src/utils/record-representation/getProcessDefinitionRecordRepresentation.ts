@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import type {ProcessDefinition} from "../../types/common.ts";
+import type {ProcessDefinition} from "@models/process.ts";
 
 export const getProcessDefinitionRecordRepresentation = (processDefinition?: ProcessDefinition) => {
     if (!processDefinition) {
@@ -11,4 +11,4 @@ export const getProcessDefinitionRecordRepresentation = (processDefinition?: Pro
     }
 
     return processDefinition.name || processDefinition.key;
-}
+};

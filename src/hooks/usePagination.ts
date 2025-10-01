@@ -4,8 +4,8 @@
  */
 
 import {PAGE_SIZE_URL_PARAM_NAME, PAGE_URL_PARAM_NAME} from "../utils/query-params/constants.ts";
-import {useQueryParams} from "./query-params/useQueryParams.ts";
-import type {PaginationPayload} from "../types/common.ts";
+import {useQueryParams} from "@hooks/query-params";
+import type {PaginationPayload} from "../models/common.ts";
 
 export interface UsePaginationProps {
     defaultPagination?: PaginationPayload;
@@ -33,11 +33,13 @@ export const usePagination = (props?: UsePaginationProps): UsePaginationHookValu
         if (containsEmptyValue) {
             return undefined;
         }
+        const pageParam = paginationParams[PAGE_URL_PARAM_NAME];
+        const sizeParam = paginationParams[PAGE_SIZE_URL_PARAM_NAME];
         return {
-            page: Number(paginationParams[PAGE_URL_PARAM_NAME]!!),
-            size: Number(paginationParams[PAGE_SIZE_URL_PARAM_NAME]!!),
+            page: Number(pageParam),
+            size: Number(sizeParam),
         };
-    }
+    };
 
     const {page, size}: PaginationPayload = getPageDataParams() || props?.defaultPagination || {
         page: 1,
@@ -49,7 +51,7 @@ export const usePagination = (props?: UsePaginationProps): UsePaginationHookValu
             [PAGE_URL_PARAM_NAME]: String(page),
             [PAGE_SIZE_URL_PARAM_NAME]: String(size)
         });
-    }
+    };
 
     const setPageData = (pagination: PaginationPayload) => {
         if (page !== pagination.page || size !== pagination.size) {
@@ -62,14 +64,14 @@ export const usePagination = (props?: UsePaginationProps): UsePaginationHookValu
 
     const setPageNumber = (page: number) => {
         setPageDataParams(page, size);
-    }
+    };
 
     const getPageData = () => {
         return {
             page,
             size,
         };
-    }
+    };
     return {
         currentPage: page || 1,
         currentPageSize: size || 10,
@@ -78,4 +80,4 @@ export const usePagination = (props?: UsePaginationProps): UsePaginationHookValu
         setPageData,
         currentPageData: getPageData(),
     }
-}
+};

@@ -10,7 +10,7 @@ import {RecentTaskList} from "./RecentTaskList.tsx";
 import {useTranslation} from "react-i18next";
 import {useListCardStyles} from "../useListCardStyles.ts";
 import {createStyles} from "antd-style";
-import type {UserTask} from "../../../types/common.ts";
+import type {UserTask} from "@models/user-task.ts";
 
 export interface RecentTasksCardProps {
     items?: UserTask[];

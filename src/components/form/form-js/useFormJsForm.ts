@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import type {InitialData, ProcessFormData} from "../../../types/common.ts";
+import type {InitialData, ProcessFormData} from "@models/form.ts";
 import type {FormJsFormSchema} from "./types/components.ts";
 
 
@@ -40,4 +40,4 @@ export const useFormJsForm = <InitialData = FormData>(options: UseFormJsFormOpti
     const data = initialData as InitialData;
 
     return {schema, initialData: data, key, version: formData?.version}
-}
+};

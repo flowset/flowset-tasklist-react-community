@@ -4,9 +4,9 @@
  */
 
 import {Button, Dropdown, type MenuProps, Space, Typography} from "antd";
-import i18n from "../../features/i18n/config.ts";
+import i18n from "@features/i18n/config.ts";
 import {ArrowDownOutlined, ArrowUpOutlined, SortAscendingOutlined} from "@ant-design/icons";
-import type {SortPayload} from "../../types/common.ts";
+import type {SortPayload} from "@models/common.ts";
 
 const {Text} = Typography;
 
@@ -61,7 +61,7 @@ export const SortButton = ({onSort, selectedSort}: SortButtonProps) => {
             property: newSortField,
             order: newSortOrder,
         });
-    }
+    };
 
     const menuProps = {
         items: sortOptions,

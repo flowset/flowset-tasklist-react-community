@@ -21,15 +21,3 @@ body {
     height: 100vh;
 }
 
-#root {
-    --task-table-cell-border-color: rgba(186, 224, 255, 0.75);
-
-    --task-table-scroll-background-color: #e1e6e6;
-    --task-table-scroll-color: rgba(66, 132, 245, 0.3);
-    --task-table-scroll-border-radius: 6px;
-    --task-table-scroll-width: 0.5em;
-
-    --task-table-sort-icon-color: #A9C5F5;
-    --task-table-sort-icon-active-color: #fff;
-}
-

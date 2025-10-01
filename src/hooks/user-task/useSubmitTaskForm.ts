@@ -6,10 +6,10 @@
 import {useMutation, type UseMutationOptions, type UseMutationResult, useQueryClient} from "@tanstack/react-query";
 import {useRef} from "react";
 import {useTasklistClient} from "../useTasklistClient.ts";
-import type {CompleteTaskData, CompleteTaskParams} from "../../features/tasklist-client/types/request.ts";
-import type {CompeteUserTaskResult} from "../../features/tasklist-client/types/response.ts";
+import type {CompleteTaskData, CompleteTaskParams} from "@features/tasklist-client/types/request.ts";
+import type {CompeteUserTaskResult} from "@features/tasklist-client/types/response.ts";
 import dayjs from "dayjs";
-import {formatOffsetDateTime} from "../../utils/format/formatOffsetDateTime.ts";
+import {formatOffsetDateTime} from "@utils/format";
 
 /**
  * Hook to get an array containing a function to submit a user task form and the result of the mutation execution.
@@ -34,7 +34,7 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
         });
 
         return data;
-    }
+    };
 
     return useMutation<CompeteUserTaskResult, Error, UseSubmitTaskFormParams>({
         mutationFn: (callTimeParams) => {
@@ -54,7 +54,7 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
         },
         ...restOptions
     });
-}
+};
 export type EmptySubmitTaskFormParams = void;
 export type UseSubmitTaskFormParams = Partial<CompleteTaskParams> | EmptySubmitTaskFormParams;
 

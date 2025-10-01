@@ -5,56 +5,55 @@
 
 import type {DescriptionsItemType} from "antd/es/descriptions";
 import {Card, type CardProps, Descriptions, Space, Tag, Typography} from "antd";
-import {TaskDueDate} from "../../../components/user-task/TaskDueDate.tsx";
-import {
-    getProcessDefinitionRecordRepresentation
-} from "../../../utils/record-representation/getProcessDefinitionRecordRepresentation.ts";
-import {TaskPriority} from "../../../components/user-task/TaskPriority.tsx";
-import {renderDateTime} from "../../../utils/format/renderDateTime.ts";
+import {TaskDueDate} from "@components/user-task/TaskDueDate.tsx";
+import {getProcessDefinitionRecordRepresentation} from "@utils/record-representation";
+import {TaskPriority} from "@components/user-task/TaskPriority.tsx";
+import {renderDateTime} from "@utils/format";
 import {useTranslation} from "react-i18next";
-import type { UserTask } from "../../../types/common.ts";
+import type {UserTask} from "@models/user-task.ts";
 
 
 export interface TaskSystemInfoCardProps {
     task?: UserTask;
 }
-const { Text } = Typography;
+
+const {Text} = Typography;
 
 export const TaskSystemInfoCard = (props: TaskSystemInfoCardProps & CardProps) => {
     const {task, ...rest} = props;
 
-    const {t: translate} = useTranslation(['userTask']);
+    const {t: translate} = useTranslation(["userTask"]);
 
     const items: DescriptionsItemType[] = [
         {
-            label: translate('name'),
+            label: translate("name"),
             children: task?.name,
             span: 2,
         },
         {
-            label: translate('processDefinition'),
+            label: translate("processDefinition"),
             children: getProcessDefinitionRecordRepresentation(task?.processDefinition),
             span: 2,
         },
         {
-            label: translate('createDate'),
+            label: translate("createDate"),
             children: renderDateTime(task?.createDate, "-"),
             span: 2,
         },
         {
-            label: translate('dueDate'),
+            label: translate("dueDate"),
             children: <TaskDueDate value={task?.dueDate} emptyString="-"/>,
             span: 2,
         },
         {
-            label: translate('assignee'),
+            label: translate("assignee"),
             children: <Tag color="processing">
                 {task?.assignee}
             </Tag>,
             span: {xs: 2, sm: 2, md: 2, xl: 2, xxl: 1},
         },
         {
-            label: translate('priority'),
+            label: translate("priority"),
             children: <TaskPriority value={task?.priority || 0}/>,
             span: {xs: 2, sm: 2, md: 2, xl: 2, xxl: 1},
         }
@@ -75,4 +74,4 @@ export const TaskSystemInfoCard = (props: TaskSystemInfoCardProps & CardProps) =
 
         </>
     );
-}
+};

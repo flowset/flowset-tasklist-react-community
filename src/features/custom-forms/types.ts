@@ -4,7 +4,9 @@
  */
 
 import type {JSX} from "react";
-import type {ProcessDefinition, ProcessFormData, UserTask} from "../../types/common.ts";
+import type {ProcessFormData} from "@models/form.ts";
+import type {UserTask} from "@models/user-task.ts";
+import type {ProcessDefinition} from "@models/process.ts";
 
 /**
  * Configuration interface for custom forms with generic input/output variables
@@ -93,4 +95,5 @@ export interface CustomStartFormProps<OutputVariables = FormData> {
     process?: ProcessDefinition;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type FormData = any;

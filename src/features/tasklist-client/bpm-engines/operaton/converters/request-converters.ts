@@ -3,9 +3,10 @@
  * Use is subject to license terms.
  */
 
-import type {SortPayload, TaskFilterPayload} from "../../../../../types/common.ts";
+import type {SortPayload} from "@models/common.ts";
 import type {OperatonInputVariablesMap, OperatonSort, OperatonTaskFilter, OperatonUserTaskRequest} from "../types/request.ts";
-import type {GetUserTaskListParams} from "../../../types/request.ts";
+import type {GetUserTaskListParams} from "@features/tasklist-client/types/request.ts";
+import type {TaskFilterPayload} from "@models/user-task.ts";
 
 
 export const convertToOperatonTaskFilter = (filter: TaskFilterPayload | undefined) => {
@@ -56,7 +57,7 @@ export const convertTaskSort = (taskSort?: SortPayload): OperatonSort[] => {
 };
 
 export const convertToInputVariablesMap = (data?: unknown): OperatonInputVariablesMap | undefined => {
-    if (!data || typeof data !== 'object') {
+    if (!data || typeof data !== "object") {
         return undefined;
     }
 
@@ -71,7 +72,7 @@ export const convertToInputVariablesMap = (data?: unknown): OperatonInputVariabl
     return {
         variables: variables,
     }
-}
+};
 
 export const convertToUserTaskRequest = (params: GetUserTaskListParams): OperatonUserTaskRequest => {
     const filter = convertToOperatonTaskFilter(params?.filter);
@@ -88,5 +89,5 @@ export const wrapLikeCondition = (value?: string): string | undefined => {
         return value;
     }
     return `%${value}%`;
-}
+};
 

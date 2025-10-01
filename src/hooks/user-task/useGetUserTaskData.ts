@@ -10,12 +10,13 @@ import {
     useGetTaskFormVariablesData,
     type UseGetTaskFormVariablesDataQueryOptions
 } from "./useGetTaskFormVariablesData.ts";
-import type { TaskIdentifier } from "../../features/tasklist-client/types/request.ts";
-import type {InitialData, ProcessFormData, UserTask} from "../../types/common.ts";
+import type { TaskIdentifier } from "@features/tasklist-client/types/request.ts";
+import type {InitialData, ProcessFormData} from "@models/form.ts";
+import type {UserTask} from "@models/user-task.ts";
 
 /**
  * Props for fetching user task data including task details, form data, and initial variables
- * Extends base request parameters with task-specific query options
+ * Extend the base request parameters with task-specific query options
  */
 export interface UseGetUserTaskDataProps {
     /**
@@ -152,4 +153,4 @@ export const useGetUserTaskData = (props: UseGetUserTaskDataProps = {}): UseGetU
         initialDataError: formVariablesLoadError,
         isInitialDataLoading: isFormVariablesLoading
     }
-}
+};

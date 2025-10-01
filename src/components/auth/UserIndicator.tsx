@@ -7,8 +7,8 @@ import Button from "antd/es/button";
 import {CheckOutlined, CloseOutlined, LogoutOutlined} from "@ant-design/icons";
 import {Avatar, Dropdown, Flex, type MenuProps, Modal, Space, Typography} from "antd";
 import {useCallback} from "react";
-import {useTasklistAuth} from "../../hooks/useTasklistAuth.ts";
-import type {User} from "../../features/auth/types.ts";
+import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
+import type {User} from "@features/auth/types.ts";
 import {createStyles} from "antd-style";
 import {useTranslation} from "react-i18next";
 
@@ -111,7 +111,7 @@ const UserAvatar = ({user}: UserAvatarProps) => {
             {avatarText}
         </Avatar>
     );
-}
+};
 
 const getUserDisplayName = (user?: User | null) => {
     if (!user) {
@@ -127,7 +127,7 @@ const getUserDisplayName = (user?: User | null) => {
     }
 
     return user.id || "unknown";
-}
+};
 
 const getUserAbbreviation = (user: User | null) => {
     if (!user) {

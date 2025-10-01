@@ -27,7 +27,6 @@ export const en = {
         'relativeDate.hours_other': '{{count}} hours',
         'relativeDate.min': '{{count}} min',
         'relativeDate.sec': '{{count}} sec',
-        'relativeDate.now': 'Now',
         'priority.high': 'High',
         'priority.normal': 'Normal',
         'priority.low': 'Low',
@@ -36,6 +35,7 @@ export const en = {
         'actions.apply': 'Apply',
         'actions.ok': 'OK',
         'actions.copy': 'Copy',
+        'actions.refresh': 'Refresh',
         'value.copied': 'Value copied',
         'value.notCopied': 'Failed to copy a value',
         'embeddedFormsNotSupported': 'Embedded forms are not supported',
@@ -67,11 +67,12 @@ export const en = {
         'recentActivityCard.completedTasks.count': 'Completed tasks ({{count}})',
         'recentActivityCard.bar.date': 'Date',
         'recentActivityCard.bar.count': 'Count',
-        'recentActivityCard.createdTasks': 'Created tasks',
-        'recentActivityCard.createdTasks.count': 'Created tasks ({{count}})',
+        'recentActivityCard.createdTasks': 'New tasks',
+        'recentActivityCard.createdTasks.count': 'New tasks ({{count}})',
         'recentTasksCard.title': 'Recent Tasks',
         'recentTasksCard.creationDate': 'Creation date: {{date}}',
         'recentTasksCard.createdAgo': 'Created {{relativeDate}} ago',
+        'recentTasksCard.createdNow': 'Created now',
         'upcomingTasksCard.title': 'Upcoming Tasks',
         'upcomingTasksCard.dueDate': 'Due date: {{date}}',
         'upcomingTasksCard.dueDatePassed': 'Due date passed',
@@ -139,6 +140,26 @@ export const en = {
         'processNotStarted': 'The "{{process}}" process has not been started',
 
     },
+    processInstance: {
+        'processName': 'Process',
+        'startTime': 'Start date',
+        'businessKey': 'Business key',
+        'state': 'State',
+        'startedAgo': 'Started {{relativeDate}} ago',
+        'startedNow': 'Started now',
+        'state.active': 'Active',
+        'state.suspended': 'Suspended',
+        listPage : {
+            'myActiveProcesses': 'My active processes',
+            'processName.placeholder': 'Enter a process name',
+            'businessKey.placeholder': 'Enter a business key',
+        },
+        myActiveProcessesCard: {
+            'title': 'My active processes',
+            'noRunningInstances.description': 'No processes',
+            'actions.viewAll': "View all"
+        }
+    },
     formJs: {
         validation: {
             'required': 'Value is required',
@@ -167,4 +188,4 @@ export const en = {
         'build.label': 'Build',
         'learnMore.label': 'Learn more',
     }
-}
+};

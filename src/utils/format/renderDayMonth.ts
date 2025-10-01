@@ -4,9 +4,9 @@
  */
 
 import dayjs from "dayjs";
-import i18n from "../../features/i18n/config.ts";
+import i18n from "@features/i18n/config.ts";
 
 export const renderDayMonth = (value?: string | null, nullValueString? :string) => {
     const dateFormat = i18n.t("common:dayMonthFormat");
     return value ? dayjs(value).format(dateFormat) : nullValueString;
-}
+};

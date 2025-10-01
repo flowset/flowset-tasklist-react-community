@@ -5,13 +5,29 @@
 
 import type {ITasklistClient, TasklistClientHeaders, TasklistClientOptions} from "../types/client.ts";
 import type {
-    CompleteTaskParams, GetProcessListParams, GetStartFormDataParams, GetTaskFormDataParams, GetTaskFormVariablesParams,
-    GetUserTaskListParams, GetUserTaskParams, GetUserTaskStatisticsParams,
-    StartProcessParams} from "../types/request.ts";
+    CompleteTaskParams,
+    GetProcessListParams,
+    GetStartFormDataParams,
+    GetTaskFormDataParams,
+    GetTaskFormVariablesParams,
+    GetUserProcessInstanceListParams,
+    GetUserTaskListParams,
+    GetUserTaskParams,
+    GetUserTaskStatisticsParams,
+    StartProcessParams
+} from "../types/request.ts";
 import type {
-    CompeteUserTaskResult, GetProcessListResult, GetStartFormResult, GetTaskFormResult, GetTaskFormVariablesResult,
-    GetUserTaskListResult, GetUserTaskResult, GetUserTaskStatisticsResult,
-    StartProcessResult} from "../types/response.ts";
+    CompeteUserTaskResult,
+    GetProcessListResult,
+    GetStartFormResult,
+    GetTaskFormResult,
+    GetTaskFormVariablesResult,
+    GetUserTaskListResult,
+    GetUserTaskResult,
+    GetUserTaskStatisticsResult,
+    StartProcessResult,
+    UserProcessInstanceListResult
+} from "../types/response.ts";
 import {fetchGet, fetchGetJson, fetchPost, fetchPostJson} from "./fetch-utils.ts";
 import {buildUrlWithParams} from "./url-builder.ts";
 
@@ -27,7 +43,7 @@ export abstract class BaseHttpTasklistClient implements ITasklistClient {
     protected readonly apiUrl: string;
     protected readonly headers?: TasklistClientHeaders;
 
-    constructor(options: TasklistClientOptions) {
+    protected constructor(options: TasklistClientOptions) {
         this.apiUrl = options.apiUrl;
         this.headers = options.headers;
     }
@@ -43,6 +59,8 @@ export abstract class BaseHttpTasklistClient implements ITasklistClient {
     abstract submitTaskForm(params: CompleteTaskParams): Promise<CompeteUserTaskResult>;
 
     abstract getProcesses(params: GetProcessListParams | undefined): Promise<GetProcessListResult>;
+
+    abstract getUserProcessInstances(params: GetUserProcessInstanceListParams): Promise<UserProcessInstanceListResult>;
 
     abstract getStartFormData(params: GetStartFormDataParams): Promise<GetStartFormResult>;
 
@@ -74,7 +92,7 @@ export abstract class BaseHttpTasklistClient implements ITasklistClient {
         let resultHeaders: HeadersInit = {
             "Accept": "application/json",
             "Content-Type": "application/json",
-        }
+        };
 
         if (this.headers) {
             const rootHeaders = typeof this.headers === "function" ? this.headers() : this.headers;

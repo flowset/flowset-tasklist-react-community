@@ -3,9 +3,8 @@
  * Use is subject to license terms.
  */
 
-import Col from "antd/es/grid/col";
-import {Form, type FormItemProps, Input} from "antd";
-import {useTaskSelection} from "../../../../../hooks/user-task/useTaskSelection.ts";
+import {Col, Form, type FormItemProps, Input} from "antd";
+import {useTaskSelection} from "@hooks/user-task";
 import {useTranslation} from "react-i18next";
 
 export const NameFilterInput = (props: Omit<FormItemProps, "name" | "label">) => {

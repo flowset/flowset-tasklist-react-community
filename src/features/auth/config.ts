@@ -5,19 +5,19 @@
 
 import {type TasklistAuthConfig, TasklistAuthType} from "./types.ts";
 import {UserManager, WebStorageStateStore} from "oidc-client-ts";
-import {getEnv} from "../../utils/env/env.ts";
+import {getEnv} from "@utils/env";
 
 export const DEFAULT_AUTH_CONFIG: TasklistAuthConfig = {
     type: TasklistAuthType.BASIC
-}
+};
 
 export const parseAuthTypeFromEnv = (envConfig?: string): TasklistAuthType | undefined => {
-    if (!envConfig || envConfig === 'undefined' || envConfig === '') {
+    if (!envConfig || envConfig === "undefined" || envConfig === "") {
         return undefined;
     }
 
     return envConfig.toUpperCase() as TasklistAuthType;
-}
+};
 
 export const getAuthConfigByType = (envConfig?: string) => {
     const authType = parseAuthTypeFromEnv(envConfig);
@@ -31,7 +31,7 @@ export const getAuthConfigByType = (envConfig?: string) => {
                     client_id: getEnv("VITE_OIDC_CLIENT_ID") ?? "client-id",
                     redirect_uri:  getEnv("VITE_OIDC_REDIRECT_URI") ?? "http://localhost:3000/",
                     post_logout_redirect_uri: window.location.origin,
-                    scope: 'openid profile',
+                    scope: "openid profile",
                     userStore: new WebStorageStateStore({
                         store: window.localStorage
                     }),
@@ -49,4 +49,4 @@ export const getAuthConfigByType = (envConfig?: string) => {
     }
 
     return authType ? {type: authType} : DEFAULT_AUTH_CONFIG;
-}
+};

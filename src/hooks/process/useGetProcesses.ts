@@ -6,9 +6,10 @@
 import {useQuery, type UseQueryOptions, type UseQueryResult} from "@tanstack/react-query";
 import {useTasklistClient} from "../useTasklistClient.ts";
 import {useMemo} from "react";
-import type {PaginationPayload, ProcessFilterPayload, SortPayload} from "../../types/common.ts";
-import type { GetProcessListResult } from "../../features/tasklist-client/types/response.ts";
-import type { GetProcessListParams } from "../../features/tasklist-client/types/request.ts";
+import type {PaginationPayload, SortPayload} from "@models/common.ts";
+import type { GetProcessListResult } from "@features/tasklist-client/types/response.ts";
+import type { GetProcessListParams } from "@features/tasklist-client/types/request.ts";
+import type {ProcessFilterPayload} from "@models/process.ts";
 
 export type UseGetProcessesQueryOptions = Omit<UseQueryOptions<GetProcessListResult, Error, GetProcessListResult>, "queryKey" | "queryFn">;
 export type UseGetProcessesProps = Partial<GetProcessListParams>  & {
@@ -32,7 +33,8 @@ const defaultPagination: PaginationPayload = {
 const defaultSort: SortPayload = {
     property: "name",
     order: "asc",
-}
+};
+
 const defaultFirstPageNumber = 1;
 
 /**
@@ -54,12 +56,12 @@ export const useGetProcesses = (requestParams: UseGetProcessesProps = {}, queryO
     const resultPagination: PaginationPayload = {
         ...pagination,
         page: Number(pagination.page) - firstPageNumber
-    }
+    };
 
     const resultParams = {...requestParams, pagination: resultPagination};
 
     const result = useQuery<GetProcessListResult, Error, GetProcessListResult>({
-        queryKey: ["getProcesses", filter, pagination, sort], // eslint-disable-line
+        queryKey: ["getProcesses", filter, pagination, sort],
         queryFn: () => taskListClient.getProcesses(resultParams),
         ...queryOptions,
     });
@@ -76,7 +78,7 @@ export const useGetProcesses = (requestParams: UseGetProcessesProps = {}, queryO
                     },
                 }
                 : result,
-        [firstPageNumber, pagination.page, pagination.size, result] // eslint-disable-line
+        [firstPageNumber, pagination.page, pagination.size, result]
     ) as UseQueryResult<GetProcessListResult> & {
         pageInfo?: {
             hasNextPage?: boolean;
@@ -84,4 +86,4 @@ export const useGetProcesses = (requestParams: UseGetProcessesProps = {}, queryO
             totalPages?: number;
         };
     };
-}
+};

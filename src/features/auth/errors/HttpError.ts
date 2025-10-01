@@ -13,6 +13,6 @@ export class HttpError extends Error {
         message?: string
     ) {
         super(message || `HttpError: ${status} ${statusText}`);
-        this.name = 'HttpError';
+        this.name = "HttpError";
     }
 }

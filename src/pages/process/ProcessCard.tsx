@@ -8,10 +8,10 @@ import {Card, Flex, Tooltip, Typography} from "antd";
 import Title from "antd/es/typography/Title";
 import {
     getProcessDefinitionRecordRepresentation
-} from "../../utils/record-representation/getProcessDefinitionRecordRepresentation.ts";
+} from "@utils/record-representation";
 import {OpenStartProcessDialogButton} from "./start/OpenStartProcessDialogButton.tsx";
 import {createStyles} from "antd-style";
-import type {ProcessDefinition} from "../../types/common.ts";
+import type {ProcessDefinition} from "@models/process.ts";
 
 const {Text} = Typography;
 

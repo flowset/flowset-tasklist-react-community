@@ -4,9 +4,8 @@
  */
 
 import {SORT_BY_URL_PARAM_NAME, SORT_ORDER_URL_PARAM_NAME} from "../utils/query-params/constants.ts";
-import {useState} from "react";
-import {useQueryParams} from "./query-params/useQueryParams.ts";
-import type { SortPayload } from "../types/common.ts";
+import {useQueryParams} from "@hooks/query-params";
+import type {SortPayload} from "../models/common.ts";
 
 /**
  * Configuration props for the useSort hook
@@ -15,7 +14,7 @@ export interface UseSortProps {
     /**
      * Default sort configuration to use when no sort parameters are present in URL
      */
-    defaultSort: SortPayload;
+    defaultSort?: SortPayload;
 }
 
 /**
@@ -57,48 +56,40 @@ export const useSort = (props?: UseSortProps): UseSortResult => {
         paramNames: [SORT_BY_URL_PARAM_NAME, SORT_ORDER_URL_PARAM_NAME]
     });
 
-
     const getSortPayloadFromParams = (): SortPayload | undefined => {
-        const containsEmptyValue = Object.values(sortPayloadParam).some(value => !value);
-        if (containsEmptyValue) {
+        const orderParam = sortPayloadParam[SORT_ORDER_URL_PARAM_NAME];
+        const propertyParam = sortPayloadParam[SORT_BY_URL_PARAM_NAME];
+        if(!orderParam || !propertyParam) {
             return undefined;
         }
         return {
-            order: sortPayloadParam[SORT_ORDER_URL_PARAM_NAME]!!,
-            property: sortPayloadParam[SORT_BY_URL_PARAM_NAME]!!,
+            order: orderParam,
+            property: propertyParam,
         };
-    }
+    };
 
-    const [sortData, setSortData] = useState<SortPayload | undefined>(getSortPayloadFromParams() || props?.defaultSort);
+    const getSortData = () => {
+        return getSortPayloadFromParams() || props?.defaultSort;
+    };
+
+    const sortData = getSortData();
 
     const onSetSortData = (newSort?: SortPayload) => {
         if (!newSort) {
             removeSortParams();
-            setSortData(undefined);
             return;
         }
 
-        const newSortField = newSort.property;
-        const newSortOrder = newSort.order;
-
-        const sortDirectionChanged = sortData?.order && sortData.order !== newSortOrder;
-        const sortFieldChanged = sortData?.property && sortData.property !== newSortField;
-        if (sortDirectionChanged || sortFieldChanged) {
-            setSortParams({
-                [SORT_ORDER_URL_PARAM_NAME]: newSortOrder,
-                [SORT_BY_URL_PARAM_NAME]: newSortField,
-            });
-            setSortData({
-                property: newSortField,
-                order: newSortOrder,
-            });
-        }
+        setSortParams({
+            [SORT_ORDER_URL_PARAM_NAME]: newSort.order,
+            [SORT_BY_URL_PARAM_NAME]: newSort.property,
+        });
     };
 
     return {
         currentSortBy: sortData?.property,
         currentSortOrder: sortData?.order,
         setSortData: onSetSortData,
-        currentSortData: sortData,
+        currentSortData: getSortData(),
     }
-}
+};

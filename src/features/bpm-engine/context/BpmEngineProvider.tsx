@@ -8,6 +8,11 @@ import {type BpmEngineConfig, EngineType} from "../types.ts";
 import type {BpmEngineContextType} from "./BpmEngineContext.ts";
 import {BpmEngineContext} from "./BpmEngineContext.ts";
 
+const WEB_APPS_PATH = {
+    [EngineType.CAMUNDA_7]: "/camunda/app/tasklist",
+    [EngineType.OPERATON]: "/operaton/app/tasklist",
+};
+
 /**
  * Props for the BPM engine provider component
  */
@@ -31,14 +36,9 @@ export const BpmEngineProvider = ({engine, children}: BpmEngineProviderProps) =>
     if (engine) {
         const type = engine.type;
 
-        let webAppsUrl: string | undefined;
         const engineUrlObj = new URL(engine.apiUrl);
-
-        if (type == EngineType.CAMUNDA_7) {
-            webAppsUrl = `${engineUrlObj.origin}/camunda/app/tasklist`
-        } else if (type == EngineType.OPERATON) {
-            webAppsUrl = `${engineUrlObj.origin}/operaton/app/tasklist`
-        }
+        const webAppsPath = WEB_APPS_PATH[type];
+        const webAppsUrl = webAppsPath ? `${engineUrlObj.origin}${webAppsPath}}` : undefined;
 
         contextValue = {
             selectedEngine: engine,
@@ -51,4 +51,4 @@ export const BpmEngineProvider = ({engine, children}: BpmEngineProviderProps) =>
             {children}
         </BpmEngineContext.Provider>
     );
-}
+};

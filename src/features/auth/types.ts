@@ -13,9 +13,9 @@ import type {AuthProviderProps as ReactOidcAuthProviderProps} from "react-oidc-c
  */
 export enum TasklistAuthType {
     /** Basic username/password authentication */
-    BASIC = 'BASIC',
+    BASIC = "BASIC",
     /** OpenID Connect authentication */
-    OIDC = 'OIDC',
+    OIDC = "OIDC",
 }
 
 /**
@@ -45,11 +45,11 @@ export interface User {
 export interface EngineBasicAuthService {
     /**
      * Authenticates a user with the provided credentials.
-     * @param credentials - The user's login credentials
+     * @param credentials - The user"s login credentials
      * @param bpmEngineSettings - Optional BPM engine configuration
      * @returns promise resolving to true if authentication was successful
      */
-    login: (credentials: UserCredentials, bpmEngineSettings?: BpmEngineConfig) => Promise<boolean>;
+    login: (credentials?: UserCredentials, bpmEngineSettings?: BpmEngineConfig) => Promise<boolean>;
 
     /**
      * Terminates the current user session.

@@ -5,27 +5,29 @@
 
 import {Col, Empty, Flex, Pagination, Row, Typography} from "antd";
 import {useCallback, useState} from "react";
-import {DataLoading} from "../../components/data-loading/DataLoading.tsx";
+import {DataLoading} from "@components/data-loading/DataLoading.tsx";
 import Title from "antd/es/typography/Title";
 import {SearchInput} from "./SearchInput.tsx";
 import {SyncOutlined} from "@ant-design/icons";
 import Button from "antd/es/button";
-import {useGetProcesses} from "../../hooks/process/useGetProcesses.ts";
+import {useGetProcesses} from "@hooks/process";
 import {useTranslation} from "react-i18next";
 import {SortButton} from "./SortButton.tsx";
-import {InternalError} from "../../components/error/InternalError.tsx";
+import {InternalError} from "@components/error/InternalError.tsx";
 import {useProcessListPageStyles} from "./useProcessListPageStyles.ts";
-import {usePaginatedList} from "../../hooks/usePaginatedList.ts";
-import {useQueryParam} from "../../hooks/query-params/useQueryParam.ts";
+import {usePaginatedList} from "@hooks/usePaginatedList.ts";
+import {useQueryParam} from "@hooks/query-params";
 import {ProcessCard} from "./ProcessCard.tsx";
-import type {PaginationPayload, ProcessDefinition, SortPayload} from "../../types/common.ts";
+import type {PaginationPayload, SortPayload} from "@models/common.ts";
+import {MyActiveInstancesCard} from "@pages/process/active-instances/MyActiveInstancesCard.tsx";
+import type {ProcessDefinition} from "@models/process.ts";
 
 const {Text} = Typography;
 
 const defaultPagination: PaginationPayload = {
     page: 1,
     size: 6
-}
+};
 
 const defaultSort: SortPayload = {
     order: "asc",
@@ -50,7 +52,7 @@ export const ProcessListPage = () => {
 
     const [searchString, setSearchString] = useState<string | undefined | null>(value);
 
-    const {data, isLoading, error, refetch, isRefetching} = useGetProcesses({
+    const {data: processResponse, isLoading, error, refetch, isRefetching} = useGetProcesses({
         pagination: currentPageData,
         filter: {
             nameOrKeyOrDescriptionLike: searchString ? searchString : undefined
@@ -83,14 +85,14 @@ export const ProcessListPage = () => {
     if (error) {
         return <InternalError/>
     }
-    const processList = data?.data || [];
-    const totalElements = data?.totalElements || 0;
+    const processList = processResponse?.data || [];
+    const totalElements = processResponse?.totalElements || 0;
 
     return (
         <>
             <Row gutter={[0, 10]}
                  className={styles.pageRoot}>
-                <Col xs={24} sm={24} md={19} xl={18} xxl={16}>
+                <Col xs={24} sm={14} md={14} xl={16} xxl={16}>
                     <Flex vertical={true} className={styles.layoutRoot} gap={10}>
                         <Header totalElements={totalElements}
                                 loading={isLoading}
@@ -99,25 +101,28 @@ export const ProcessListPage = () => {
 
                         <Row gutter={[0, 20]}>
                             {!isRefetching && <Col xs={24} sm={24} md={24} xl={24}>
-                                <Flex gap={"small"}>
-                                    <SearchInput onSearch={handleSearch}/>
-                                    <SortButton onSort={setSortData} selectedSort={currentSortData || defaultSort}/>
+                                <Flex gap="small" className={styles.sortFilterPaginationContainer}>
+                                    <Flex gap="small" className={styles.sortFilterContainer}>
+                                        <SearchInput onSearch={handleSearch}/>
+                                        <SortButton onSort={setSortData} selectedSort={currentSortData || defaultSort}/>
+                                    </Flex>
+
                                     <Pagination total={totalElements} pageSizeOptions={[6, 12, 24, 36, 72]}
                                                 current={currentPageData.page}
                                                 defaultPageSize={currentPageData.size}
                                                 onChange={onPaginationChange} showSizeChanger={true}/>
                                 </Flex>
                             </Col>}
-                            <Col xs={24} xl={24}>
+                            <Col xs={24} md={24} xl={24}>
                                 {isRefetching && <DataLoading/>}
                                 {!isRefetching && processList && processList.length > 0 &&
                                     <Row gutter={[12, 18]}>
                                         {processList.map((process: ProcessDefinition) => <Col key={process.id}
                                                                                               className={styles.gridColumn}
                                                                                               xs={{flex: "100%"}}
-                                                                                              sm={{flex: "50%"}}
-                                                                                              md={{flex: "45%"}}
-                                                                                              lg={{flex: "33.3%"}}
+                                                                                              sm={{flex: "100%"}}
+                                                                                              md={{flex: "100%"}}
+                                                                                              lg={{flex: "50%"}}
                                                                                               xl={{flex: "33.3%"}}>
                                             <ProcessCard item={process}/>
                                         </Col>)}
@@ -130,10 +135,13 @@ export const ProcessListPage = () => {
                         </Row>
                     </Flex>
                 </Col>
+                <Col xs={24} sm={10} md={10} xl={8} xxl={6}>
+                   <MyActiveInstancesCard/>
+                </Col>
             </Row>
         </>
     );
-}
+};
 
 interface HeaderProps {
     loading: boolean;

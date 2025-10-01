@@ -9,17 +9,18 @@ import Title from "antd/es/typography/Title";
 import {TaskFilterToolbar} from "./filter/TaskFilterToolbar.tsx";
 import {TaskDataTable} from "./TaskDataTable.tsx";
 import {SyncOutlined} from "@ant-design/icons";
-import {useGetUserTasks} from "../../../hooks/user-task/useGetUserTasks.ts";
+import {useGetUserTasks} from "@hooks/user-task/useGetUserTasks.ts";
 import {useTranslation} from "react-i18next";
-import {InternalError} from "../../../components/error/InternalError.tsx";
-import {usePaginatedList} from "../../../hooks/usePaginatedList.ts";
+import {InternalError} from "@components/error/InternalError.tsx";
+import {usePaginatedList} from "@hooks/usePaginatedList.ts";
 import {createStyles} from "antd-style";
-import type {PaginationPayload, SortPayload, TaskFilterPayload} from "../../../types/common.ts";
+import type {PaginationPayload, SortPayload} from "@models/common.ts";
+import type {TaskFilterPayload} from "@models/user-task.ts";
 
 const defaultPagination: PaginationPayload = {
     page: 1,
     size: 10
-}
+};
 
 const defaultSort: SortPayload = {
     order: "desc",
@@ -85,11 +86,11 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
         if (isTasksLoadError) {
             onError();
         }
-    }, [isTasksLoadError]);
+    }, [isTasksLoadError, onError]);
 
     useEffect(() => {
         refetch();
-    }, [lastCompletedTask]);
+    }, [lastCompletedTask, refetch]);
 
 
     const handleFilterChange = useCallback((taskFilters?: TaskFilterPayload) => {
@@ -97,15 +98,16 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
         setPageNumber(1);
     }, [setPageNumber]);
 
+    const onRefreshButtonClick = useCallback(() => {
+        refetch();
+    }, [refetch]);
+
     if (error) {
         return <InternalError/>
     }
 
     const loading = isLoading || isRefetching;
 
-    const onRefreshButtonClick = useCallback(() => {
-        refetch();
-    }, [refetch]);
 
     return (
         <>
@@ -121,12 +123,14 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
                 <TaskDataTable data={taskListResponse?.data} totalElements={taskListResponse?.totalElements}
                                loading={loading}
                                onPaginationChange={setPageData}
-                               onSortChange={setSortData}
+                               onSortChange={sort => {
+                                   setSortData(sort);
+                               }}
                                onTaskSelect={onTaskSelection}/>
             </Flex>
         </>
     );
-}
+};
 
 interface HeaderProps {
     totalElements?: number;

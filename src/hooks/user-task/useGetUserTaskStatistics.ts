@@ -5,8 +5,8 @@
 
 import {useQuery, type UseQueryOptions, type UseQueryResult} from "@tanstack/react-query";
 import {useTasklistClient} from "../useTasklistClient.ts";
-import type { GetUserTaskStatisticsResult } from "../../features/tasklist-client/types/response.ts";
-import type {GetUserTaskStatisticsParams} from "../../features/tasklist-client/types/request.ts";
+import type { GetUserTaskStatisticsResult } from "@features/tasklist-client/types/response.ts";
+import type {GetUserTaskStatisticsParams} from "@features/tasklist-client/types/request.ts";
 
 export type UseGetUserTaskStatisticsParams = GetUserTaskStatisticsParams;
 export type UseGetUserTaskStatisticsQueryOptions = Omit<UseQueryOptions<GetUserTaskStatisticsResult, Error, GetUserTaskStatisticsResult>, "queryKey" | "queryFn">;
@@ -24,10 +24,10 @@ export const useGetUserTaskStatistics = (requestParams: UseGetUserTaskStatistics
 
     const query: UseQueryResult<GetUserTaskStatisticsResult> = useQuery<GetUserTaskStatisticsResult, Error, GetUserTaskStatisticsResult>(
         {
-            queryKey: ["getUserTaskStatistics"], // eslint-disable-line
+            queryKey: ["getUserTaskStatistics"],
             queryFn: () => taskListClient.getUserTaskStatistics(requestParams),
             ...queryOptions
         }
     );
     return query as UseGetUserTaskStatisticsResult;
-}
+};

@@ -45,4 +45,4 @@ export const CustomFormsProvider = ({customForms, children}: CustomFormsProvider
     return <CustomFormsContext.Provider value={contextValue}>
         {children}
     </CustomFormsContext.Provider>
-}
+};

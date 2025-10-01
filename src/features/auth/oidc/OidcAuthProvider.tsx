@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import { AuthProvider } from 'react-oidc-context';
+import { AuthProvider } from "react-oidc-context";
 import type { ReactNode } from "react";
 import type { TasklistAuthConfig } from "../types.ts";
 import { OidcAuthProviderWrapper } from "./OidcAuthProviderWrapper.tsx";

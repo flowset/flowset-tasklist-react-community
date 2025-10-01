@@ -3,23 +3,20 @@
  * Use is subject to license terms.
  */
 
+import type {TaskExecutionDateStatistics, TaskExecutionPeriodStatistics, UserTask} from "@models/user-task";
 import type {
     CamundaCountDto,
     CamundaFormData,
+    CamundaHistoricProcessInstance,
     CamundaHistoricTask,
     CamundaProcessDefinition,
     CamundaTask,
     CamundaVariablesMap
 } from "../types/response";
-import {
-    FormType,
-    type InitialData,
-    type ProcessDefinition,
-    type ProcessFormData, type TaskExecutionDateStatistics, type TaskExecutionPeriodStatistics,
-    type UserTask
-} from "../../../../../types/common.ts";
 
 import dayjs from "dayjs";
+import type {ProcessDefinition, UserProcessInstance} from "@models/process.ts";
+import {FormType, type InitialData, type ProcessFormData} from "@models/form";
 
 /**
  * Converts Camunda count DTO to a numeric value
@@ -32,10 +29,10 @@ export const convertCountDtoToCount = (value?: CamundaCountDto | unknown): numbe
         return 0;
     }
     return countDto.count;
-}
+};
 
 /**
- * Converts an array of Camunda user tasks to array of UserTask objects
+ * Converts an array of Camunda user tasks to an array of UserTask objects
  * @param camundaTasks
  * @see UserTask
  */
@@ -60,6 +57,36 @@ export const convertUserTask = (task: CamundaTask): UserTask => {
         processDefinition: {
             id: task.processDefinitionId
         }
+    }
+};
+
+/**
+ * Converts an array of Camunda historic process instances to an array of UserProcessInstance objects
+ * @param instances an array of process instances loaded from Camunda
+ * @returns an array of UserProcessInstance instances with relevant properties
+ * @see UserProcessInstance
+ */
+export const convertProcessInstances = (instances?: CamundaHistoricProcessInstance[]): UserProcessInstance[] => {
+    if (!instances) {
+        return [];
+    }
+    return instances.map<UserProcessInstance>(value => convertProcessInstance(value));
+};
+
+
+/**
+ * Converts a Camunda historic process instance into a UserProcessInstance instance object.
+ *
+ * @param {CamundaHistoricProcessInstance} instance - The Camunda historic process instance to be converted.
+ * @returns {UserProcessInstance} the converted user process instance object with relevant properties.
+ */
+export const convertProcessInstance = (instance: CamundaHistoricProcessInstance): UserProcessInstance => {
+    return {
+        startTime: instance.startTime,
+        processDefinitionName: instance.processDefinitionName,
+        id: instance.id,
+        state: instance.state,
+        businessKey: instance.businessKey
     }
 };
 
@@ -104,7 +131,7 @@ export const convertCamundaFormToProcessForm = (camundaForm: CamundaFormData): P
         formKey: formKey || formRef?.key,
         version: formRef?.version,
         type: FormType.CUSTOM
-    }
+    };
     if (!formKey && !formRef) {
         return null;
     }
@@ -116,19 +143,19 @@ export const convertCamundaFormToProcessForm = (camundaForm: CamundaFormData): P
     }
 
     return baseForm;
-}
+};
 
 export const convertContentTypeToFormType = (contentType?: string | null): FormType => {
-    if (contentType === 'application/json') {
+    if (contentType === "application/json") {
         return FormType.FORM_JS_JSON;
     }
 
-    if (contentType === 'application/xhtml+xml') {
+    if (contentType === "application/xhtml+xml") {
         return FormType.HTML;
     }
 
     return FormType.CUSTOM;
-}
+};
 
 export const convertVariablesMap = (variablesMap: CamundaVariablesMap): InitialData => {
     const initialData: InitialData = {};
@@ -137,23 +164,23 @@ export const convertVariablesMap = (variablesMap: CamundaVariablesMap): InitialD
             initialData[key] = camundaVariable?.value;
         });
     return initialData;
-}
+};
 
 export const convertHistoricTasksToStatistics = (tasks?: CamundaHistoricTask[]): TaskExecutionPeriodStatistics => {
     const createdTasks: Map<string, number> = groupTasksByDate(tasks || [], task => task.startTime);
     const completedTasks: Map<string, number> = groupTasksByDate(tasks || [], task => task.endTime);
 
     const items: TaskExecutionDateStatistics[] = [];
-    let lastDate = new Date();
+    const lastDate = new Date();
     lastDate.setDate(lastDate.getDate() - 6);
 
     for (let i = 0; i < 7; i++) {
-        const dateKey = lastDate.toISOString().split('T')[0];
+        const dateKey = lastDate.toISOString().split("T")[0];
         const item: TaskExecutionDateStatistics = {
-            date: dayjs(lastDate).format('YYYY-MM-DD'),
+            date: dayjs(lastDate).format("YYYY-MM-DD"),
             totalTasks: createdTasks.get(dateKey) || 0,
             completedTasksCount: completedTasks.get(dateKey) || 0
-        }
+        };
 
         items.push(item);
         lastDate.setDate(lastDate.getDate() + 1);
@@ -163,14 +190,12 @@ export const convertHistoricTasksToStatistics = (tasks?: CamundaHistoricTask[]):
     const completedTasksCount = Array.from(completedTasks.values()).reduce((sum, count) => sum + count, 0);
 
 
-    const result: TaskExecutionPeriodStatistics = {
+    return {
         items,
         totalTasks,
         completedTasksCount,
-    }
-
-    return result;
-}
+    };
+};
 
 const groupTasksByDate = (tasks: CamundaHistoricTask[],
                           getDate: (task: CamundaHistoricTask) => string | null | undefined): Map<string, number> => {
@@ -179,11 +204,11 @@ const groupTasksByDate = (tasks: CamundaHistoricTask[],
     tasks.forEach(item => {
         const dateString = getDate(item);
         if (dateString) {
-            const dateKey = dateString.split('T')[0];
+            const dateKey = dateString.split("T")[0];
             const count = map.get(dateKey) || 0;
             map.set(dateKey, count + 1);
         }
     });
 
     return map;
-}
+};

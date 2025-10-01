@@ -9,23 +9,21 @@
  * @param properties
  * @param searchString
  */
-export const filterByAnyField = <T = Record<string, any>>(array: T[], properties: string[], searchString?: string) => {
+export const filterByAnyField = <T = Record<string, unknown>>(array: T[],   properties: Array<keyof T>, searchString?: string) => {
     if (!searchString) {
         return array;
     }
 
+    const lowerSearch = searchString.toLowerCase();
 
     return array.filter((item) => {
-        const hasProperty = properties.some((property) => {
-            const itemProperty = (item as any)[property];
-            if (typeof itemProperty === 'string') {
-                return itemProperty.toLowerCase().includes(searchString.toLowerCase());
+        return properties.some((property) => {
+            const itemProperty = item[property];
+            if (typeof itemProperty === "string") {
+                return itemProperty.toLowerCase().includes(lowerSearch);
             }
             return false;
         });
-
-
-        return hasProperty;
     });
 };
 

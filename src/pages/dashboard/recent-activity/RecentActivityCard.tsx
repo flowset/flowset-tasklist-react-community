@@ -9,7 +9,7 @@ import {RecentActivityChart} from "./RecentActivityChart.tsx";
 import {BarChartOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {createStyles} from "antd-style";
-import type { TaskExecutionPeriodStatistics } from "../../../types/common.ts";
+import type { TaskExecutionPeriodStatistics } from "@models/user-task.ts";
 
 const useStyles = createStyles(({css, token, prefixCls}) => ({
     rootCard: css`

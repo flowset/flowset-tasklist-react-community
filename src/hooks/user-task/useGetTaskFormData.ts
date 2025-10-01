@@ -5,15 +5,15 @@
 
 import {useQuery, type UseQueryOptions, type UseQueryResult} from "@tanstack/react-query";
 import {useTasklistClient} from "../useTasklistClient.ts";
-import type {GetTaskFormResult} from "../../features/tasklist-client/types/response.ts";
-import type {GetTaskFormDataParams} from "../../features/tasklist-client/types/request.ts";
+import type {GetTaskFormResult} from "@features/tasklist-client/types/response.ts";
+import type {GetTaskFormDataParams} from "@features/tasklist-client/types/request.ts";
 
 
 export type UseGetTaskFormDataQueryOptions = Omit<UseQueryOptions<GetTaskFormResult, Error, GetTaskFormResult>, "queryKey" | "queryFn">;
 export type UseGetTaskFormDataResult = UseQueryResult<GetTaskFormResult>;
 
 /**
- * Hook to load a user task form data.
+ * Hook to load user task form data.
  * This hook uses the <code>useQuery</code> hook from the "react-query" library.
  * @param requestParams request params that will be sent to the backend
  * @param queryOptions "react-query" query options
@@ -29,4 +29,4 @@ export const useGetTaskFormData = (requestParams: GetTaskFormDataParams, queryOp
         ...queryOptions
     });
     return query as UseGetTaskFormDataResult;
-}
+};

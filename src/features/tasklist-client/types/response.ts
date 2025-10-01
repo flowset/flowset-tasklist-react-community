@@ -3,20 +3,19 @@
  * Use is subject to license terms.
  */
 
-import type {
-    InitialData,
-    ProcessDefinition,
-    ProcessFormData,
-    ProcessInstance,
-    UserTask,
-    UserTaskStatistics
-} from "../../../types/common.ts";
+import type {UserTask, UserTaskStatistics} from "@models/user-task.ts";
+import type {InitialData, ProcessFormData} from "@models/form.ts";
+import type {ProcessDefinition, ProcessInstance, UserProcessInstance} from "@models/process.ts";
 
 /**
  * Result type for process list retrieval operation
  */
 export type GetProcessListResult = ProcessListResult | undefined;
 
+/**
+ * Result type for process instance list retrieval operation
+ */
+export type GetProcessInstanceListResult = UserProcessInstanceListResult | undefined;
 /**
  * Result type for process start operation
  */
@@ -48,7 +47,7 @@ export type GetStartFormResult = ProcessFormData | undefined | null;
 export type GetTaskFormVariablesResult = InitialData | undefined;
 
 /**
- * Result type for user task completion operation
+ * Result type for a user task completion operation
  */
 export type CompeteUserTaskResult = void;
 
@@ -73,7 +72,7 @@ export type EntityListResult<T> = {
 };
 
 /**
- * Type alias for process definition list result
+ * Type alias for a process definition list result
  */
 export type ProcessListResult = EntityListResult<ProcessDefinition> | undefined;
 
@@ -81,3 +80,8 @@ export type ProcessListResult = EntityListResult<ProcessDefinition> | undefined;
  * Type alias for user task list result
  */
 export type GetTaskListResult = EntityListResult<UserTask> | undefined;
+
+/**
+ * Type alias for user task list result
+ */
+export type UserProcessInstanceListResult = EntityListResult<UserProcessInstance> | undefined;

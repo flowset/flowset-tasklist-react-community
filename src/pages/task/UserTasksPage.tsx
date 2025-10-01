@@ -10,8 +10,8 @@ import {UserTaskList} from "./list/UserTaskList.tsx";
 import {UserTaskDetails} from "./details/UserTaskDetails.tsx";
 import {useTranslation} from "react-i18next";
 import {createStyles} from "antd-style";
-import {useTaskSelection} from "../../hooks/user-task/useTaskSelection.ts";
-import type {UserTask} from "../../types/common.ts";
+import {useTaskSelection} from "@hooks/user-task";
+import type {UserTask} from "@models/user-task.ts";
 
 const useStyles = createStyles(({css}, selectedTaskId) => {
     return {

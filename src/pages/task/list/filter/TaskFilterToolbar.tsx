@@ -10,13 +10,13 @@ import {useCallback, useState} from "react";
 import {FilterFilled, RightOutlined} from "@ant-design/icons";
 import type {TaskFilterFormData} from "./types.ts";
 import {useTranslation} from "react-i18next";
-import {useTaskFilterCount} from "../../../../hooks/user-task/useTaskFilterCount.ts";
+import {useTaskFilterCount} from "@hooks/user-task";
 import {createStyles} from "antd-style";
-import type {TaskFilterPayload} from "../../../../types/common.ts";
+import type {TaskFilterPayload} from "@models/user-task.ts";
 
 const {Title} = Typography;
 
-const useStyles = createStyles(({css, token}, isExpanded) => {
+const useStyles = createStyles(({css, token, prefixCls}, isExpanded) => {
     return {
         rootContainer: css`
             width: 100%;
@@ -35,11 +35,15 @@ const useStyles = createStyles(({css, token}, isExpanded) => {
             width: 0.6em;
             height: 0.6em;
             color: ${token.colorTextSecondary};
-            rotate: ${isExpanded ? 0 : 90};
+            rotate: ${isExpanded ? "90deg": 0};
         `,
         filterCountBadge: css`
             color: ${token.colorInfoTextHover};
             box-shadow: none;
+            
+            & > .${prefixCls}-badge-count {
+                background-color: ${token.colorPrimary};
+            }
         `
     }
 });
@@ -52,7 +56,7 @@ export interface TaskFilterToolbarProps {
 export const TaskFilterToolbar = ({onReset, onApply}: TaskFilterToolbarProps) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(true);
     const [filterValues, setFilterValues] = useState<TaskFilterFormData>();
-    const {styles} = useStyles();
+    const {styles} = useStyles(isExpanded);
 
     const handleFilterApply = useCallback((taskFilters: TaskFilterFormData) => {
         setFilterValues(taskFilters);
@@ -70,9 +74,9 @@ export const TaskFilterToolbar = ({onReset, onApply}: TaskFilterToolbarProps) =>
         onReset();
     }, [onReset]);
 
-    const handleToggle = useCallback((key: string | string[]) => {
-        setIsExpanded(!key || key.length === 0);
-    }, []);
+    const handleToggle = useCallback(() => {
+        setIsExpanded(!isExpanded);
+    }, [isExpanded]);
 
     const collapseItems: CollapseProps["items"] = [
         {

@@ -4,8 +4,8 @@
  */
 
 import {useCallback} from "react";
-import {useQueryParam} from "../query-params/useQueryParam.ts";
-import {TASK_URL_PARAM_NAME} from "../../utils/query-params/constants.ts";
+import {useQueryParam} from "@hooks/query-params";
+import {TASK_URL_PARAM_NAME} from "@utils/query-params/constants.ts";
 
 export const useTaskSelection = () => {
     const { value: selectedTaskId, setValue: setSelectedTask, removeValue: resetSelectedTask } = useQueryParam({
@@ -27,4 +27,4 @@ export const useTaskSelection = () => {
         selectTask,
         resetTask,
     };
-}
+};

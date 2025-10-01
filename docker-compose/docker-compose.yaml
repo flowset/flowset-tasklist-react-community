@@ -1,7 +1,7 @@
 services:
   openbpm-tasklist-react:
     container_name: "openbpm-tasklist-react"
-    image: openbpm-platform/openbpm-tasklist-react:${OPENBPM_TASKLIST_VERSION}
+    image: openbpm/openbpm-tasklist-react:${OPENBPM_TASKLIST_VERSION}
     build:
       context: ..
       args:
