@@ -3,19 +3,19 @@
     {
       "name": "OpenBPM Studio",
       "url": "https://plugins.jetbrains.com/plugin/25655-openbpm/",
-      "description": "Plugin for visual modeling of BPMN processes in IntelliJ IDEA",
+      "description": "Free plugin for modelling BPMN and DMN diagrams in IntelliJ IDEA",
       "released": true
     },
     {
       "name": "OpenBPM Control",
       "url": "https://openbpm.io/control",
-      "description": "A web application that provides administrative functionality for external BPM engines",
+      "description": "Open-source tool for monitoring and managing BPM engines",
       "released": true
     },
     {
       "name": "OpenBPM Workspace (coming soon)",
       "url": "https://openbpm.io",
-      "description": "A visual tool to create a ready-made prototype of a business application",
+      "description": "Web portal for visually creating BPMN and DMN diagrams and designing process forms",
       "released": false
     }
   ],

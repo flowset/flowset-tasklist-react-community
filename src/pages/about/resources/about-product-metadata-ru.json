@@ -3,7 +3,7 @@
     {
       "name": "OpenBPM Studio",
       "url": "https://openbpm.ru/studio",
-      "description": "Плагин для визуального моделирования BPMN-процессов в IntelliJ IDEA",
+      "description": "Бесплатный плагин для работы с BPM-приложениями в вашей IDE",
       "released": true
     },
     {
@@ -15,13 +15,13 @@
     {
       "name": "OpenBPM Control",
       "url": "https://openbpm.ru/control",
-      "description": "Инструмент для администрирования внешних BPM-движков",
+      "description": "Бесплатный инструмент для мониторинга и управления BPM-движками",
       "released": true
     },
     {
       "name": "OpenBPM Workspace (скоро появится)",
       "url": "https://openbpm.ru",
-      "description": "Инструмент для визуального создания прототипов систем с бизнес процессами",
+      "description": "Веб-портал для визуального проектирования бизнес-процессов и пользовательских форм",
       "released": false
     }
   ],
