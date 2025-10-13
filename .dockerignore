@@ -1,0 +1,16 @@
+node_modules
+
+# Ignore local editor settings
+.vscode
+
+# Ignore Git repository files
+.git
+
+# Ignore build folder
+dist
+build
+
+.DS_Store
+
+.env.local
+.env.*.local
