@@ -7,6 +7,7 @@ import type {ReactNode} from "react";
 import {type BpmEngineConfig, EngineType} from "../types.ts";
 import type {BpmEngineContextType} from "./BpmEngineContext.ts";
 import {BpmEngineContext} from "./BpmEngineContext.ts";
+import {getEngineBaseUrl} from "@utils/bpm-engine/getEngineBaseUrl.ts";
 
 const WEB_APPS_PATH = {
     [EngineType.CAMUNDA_7]: "/camunda/app/tasklist",
@@ -29,7 +30,7 @@ export interface BpmEngineProviderProps {
 
 /**
  * Provider component that supplies BPM engine configuration and derived web application URLs
- * to the React context tree. Automatically generates web app URLs based on engine type.
+ * to the React context tree. Automatically generates web app URLs based on the engine type.
  */
 export const BpmEngineProvider = ({engine, children}: BpmEngineProviderProps) => {
     let contextValue: BpmEngineContextType | null = null;
@@ -38,11 +39,12 @@ export const BpmEngineProvider = ({engine, children}: BpmEngineProviderProps) =>
 
         const engineUrlObj = new URL(engine.apiUrl);
         const webAppsPath = WEB_APPS_PATH[type];
-        const webAppsUrl = webAppsPath ? `${engineUrlObj.origin}${webAppsPath}}` : undefined;
+        const webAppsUrl = webAppsPath ? `${engineUrlObj.origin}${webAppsPath}` : undefined;
 
         contextValue = {
             selectedEngine: engine,
-            webAppsUrl
+            webAppsUrl,
+            apiBaseUrl: getEngineBaseUrl(engine)
         };
     }
 

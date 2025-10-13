@@ -7,6 +7,7 @@ import {type EngineBasicAuthService, TasklistAuthType, type User, type UserCrede
 import {type BpmEngineConfig, EngineType} from "@features/bpm-engine/types.ts";
 import {HttpError} from "../errors/HttpError.ts";
 import {sessionUtils} from "../utils/sessionUtils.ts";
+import {getEngineBaseUrl} from "@utils/bpm-engine/getEngineBaseUrl.ts";
 
 const encodeCredentials = (credentials: UserCredentials) => {
     const encoder = new TextEncoder();
@@ -33,8 +34,9 @@ export const engineBasicAuthService: EngineBasicAuthService = {
             return false;
         }
 
+        const engineUrl = getEngineBaseUrl(bpmEngineSettings);
         const basicAuthValues = encodeCredentials(credentials);
-        const userEndpoint = bpmEngineSettings.apiUrl + getUserEndpoint(bpmEngineSettings.type, credentials.username);
+        const userEndpoint = engineUrl + getUserEndpoint(bpmEngineSettings.type, credentials.username);
 
         if (!userEndpoint) {
             throw new Error(`Unsupported engine type: ${bpmEngineSettings.type}`);

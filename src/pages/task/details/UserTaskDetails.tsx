@@ -57,12 +57,12 @@ export const UserTaskDetails = ({
                                     onTaskComplete
                                 }: UserTaskDetailsProps) => {
 
-    const {task, form, initialData, isLoading, error} = useGetUserTaskData({
+    const {task, form, initialData, isLoading, taskError} = useGetUserTaskData({
         taskId: recordId
     });
     const {styles} = useStyles();
-    if (error) {
-        return <TaskErrorResult error={error}/>
+    if (taskError) {
+        return <TaskErrorResult error={taskError}/>
     }
 
     return (

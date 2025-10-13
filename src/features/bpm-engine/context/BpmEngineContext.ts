@@ -11,7 +11,7 @@ import type {BpmEngineConfig} from "../types.ts";
  */
 export interface BpmEngineContextType {
     /**
-     * The configuration of currently selected BPM engine
+     * The configuration of the currently selected BPM engine
      */
     selectedEngine: BpmEngineConfig;
 
@@ -19,6 +19,11 @@ export interface BpmEngineContextType {
      * Base URL for web applications associated with the BPM engine
      */
     webAppsUrl?: string;
+
+    /**
+     * Base URL (or URI in dev mode) the currently selected BPM engine
+     */
+    apiBaseUrl: string;
 }
 
 /**

@@ -11,6 +11,7 @@ import {EngineType} from "@features/bpm-engine/types.ts";
 import {CamundaPlatformClient} from "../bpm-engines/camunda/CamundaPlatformClient.ts";
 import type {ITasklistClient} from "../types/client.ts";
 import {OperatonClient} from "../bpm-engines/operaton/OperatonClient.ts";
+import {getEngineBaseUrl} from "@utils/bpm-engine/getEngineBaseUrl.ts";
 
 export type TasklistClientProvider = (authHeaders?: Record<string, string>) => ITasklistClient;
 
@@ -41,9 +42,7 @@ export const TasklistClientProvider = ({
     const engineType = selectedEngine.type;
     let client: ITasklistClient | undefined;
 
-    const engineUrlObj = new URL(selectedEngine.apiUrl);
-    const isDevMode = import.meta.env.DEV;
-    const engineUrl = isDevMode ? selectedEngine.apiUrl : engineUrlObj.pathname;
+    const engineUrl = getEngineBaseUrl(selectedEngine);
 
     switch (engineType) {
         case EngineType.CAMUNDA_7:
