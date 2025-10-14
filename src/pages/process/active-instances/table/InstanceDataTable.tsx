@@ -5,18 +5,14 @@ import type {SorterResult} from "antd/lib/table/interface";
 import {convertStringToTableSortOrder} from "@utils/sort";
 import {renderDateTime} from "@utils/format";
 import {ProcessInstanceState} from "@components/process-instance/ProcessInstanceState.tsx";
-import {usePaginatedList} from "@hooks/usePaginatedList.ts";
 import {useTranslation} from "react-i18next";
 import type {ProcessInstanceFilterPayload, UserProcessInstance} from "@models/process.ts";
 import {StyledTable} from "@components/table/StyledTable.tsx";
+import type {TableCurrentDataSource} from "antd/es/table/interface";
 
 const {Text} = Typography;
 
 type OnChange = TableProps<UserProcessInstance>["onChange"];
-const defaultPagination: PaginationPayload = {
-    page: 1,
-    size: 10
-};
 
 interface InstanceDataTableProps {
     totalElements?: number;
@@ -24,6 +20,8 @@ interface InstanceDataTableProps {
     loading: boolean;
     onPaginationChange: (pageData: PaginationPayload) => void;
     onSortChange: (sort?: SortPayload) => void;
+    currentPageData: PaginationPayload;
+    currentSortData?: SortPayload;
 }
 
 export const InstanceDataTable = ({
@@ -31,11 +29,11 @@ export const InstanceDataTable = ({
                                       loading,
                                       onPaginationChange,
                                       onSortChange,
+                                      currentPageData,
+                                      currentSortData,
                                       totalElements
                                   }: InstanceDataTableProps) => {
-    const {currentPageData, currentSortData} = usePaginatedList({
-        defaultPagination
-    });
+
     const {t: translate} = useTranslation(["processInstance"]);
 
     const handleColumnSortChange = useCallback((sorter: SorterResult<UserProcessInstance>) => {
@@ -54,15 +52,15 @@ export const InstanceDataTable = ({
     }, [onPaginationChange]);
 
     const handleTableChange: OnChange = useCallback((pagination: TablePaginationConfig, _filters: ProcessInstanceFilterPayload,
-                                                     sorter: SorterResult<UserProcessInstance> | SorterResult<UserProcessInstance>[]) => {
+                                                     sorter: SorterResult<UserProcessInstance> | SorterResult<UserProcessInstance>[],
+                                                     extra: TableCurrentDataSource<UserProcessInstance>) => {
 
-        if (pagination && pagination.current !== currentPageData.page || pagination.pageSize !== currentPageData.size) {
+        if (extra.action === "paginate") {
             handlePaginationChange(pagination);
-        }
-        if (sorter && !Array.isArray(sorter)) {
+        } else if (extra.action === "sort" && !Array.isArray(sorter)) {
             handleColumnSortChange(sorter);
         }
-    }, [handleColumnSortChange, handlePaginationChange, currentPageData.page, currentPageData.size]);
+    }, [handleColumnSortChange, handlePaginationChange]);
 
     const tableOrder = convertStringToTableSortOrder(currentSortData?.order);
 

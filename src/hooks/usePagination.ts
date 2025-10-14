@@ -12,72 +12,66 @@ export interface UsePaginationProps {
 }
 
 export interface UsePaginationHookValue {
-    currentPage: number;
-    currentPageSize: number;
+    currentPage?: number;
+    currentPageSize?: number;
     setPageNumber: (page: number) => void;
     setPageSize: (page: number) => void;
     setPageData: (page: PaginationPayload) => void;
-    currentPageData: PaginationPayload;
+    currentPageData?: PaginationPayload;
 
 }
 
 export const usePagination = (props?: UsePaginationProps): UsePaginationHookValue => {
     const {
-        values: paginationParams, setValues: setPaginationParams
+        values: paginationParams, setValues: setPaginationParams, getValue
     } = useQueryParams({
-        paramNames: [PAGE_URL_PARAM_NAME, PAGE_SIZE_URL_PARAM_NAME]
+        paramNames: ["page", PAGE_SIZE_URL_PARAM_NAME]
     });
 
     const getPageDataParams = (): PaginationPayload | undefined => {
-        const containsEmptyValue = Object.values(paginationParams).some(value => !value);
-        if (containsEmptyValue) {
+        const pageParam = getValue(PAGE_URL_PARAM_NAME);
+        const sizeParam = paginationParams[PAGE_SIZE_URL_PARAM_NAME];
+        if (!pageParam || !sizeParam) {
             return undefined;
         }
-        const pageParam = paginationParams[PAGE_URL_PARAM_NAME];
-        const sizeParam = paginationParams[PAGE_SIZE_URL_PARAM_NAME];
         return {
             page: Number(pageParam),
             size: Number(sizeParam),
         };
     };
 
-    const {page, size}: PaginationPayload = getPageDataParams() || props?.defaultPagination || {
-        page: 1,
-        size: 10
+    const getPaginationData = () => {
+        return getPageDataParams() || props?.defaultPagination;
     };
 
-    const setPageDataParams = (page?: number, size?: number) => {
+    const onSetPageData = (paginationPayload?: PaginationPayload) => {
+        if (paginationPayload && paginationPayload.page !== undefined && paginationPayload.size !== undefined) {
+            setPaginationParams({
+                [PAGE_URL_PARAM_NAME]: String(paginationPayload.page),
+                [PAGE_SIZE_URL_PARAM_NAME]: String(paginationPayload.size)
+            });
+        }
+    };
+
+    const setPageSize = (size: number) => {
         setPaginationParams({
-            [PAGE_URL_PARAM_NAME]: String(page),
             [PAGE_SIZE_URL_PARAM_NAME]: String(size)
         });
     };
 
-    const setPageData = (pagination: PaginationPayload) => {
-        if (page !== pagination.page || size !== pagination.size) {
-            setPageDataParams(pagination.page, pagination.size);
-        }
-    };
-    const setPageSize = (size: number) => {
-        setPageDataParams(page, size);
-    };
-
     const setPageNumber = (page: number) => {
-        setPageDataParams(page, size);
+        setPaginationParams({
+            [PAGE_URL_PARAM_NAME]: String(page)
+        });
     };
 
-    const getPageData = () => {
-        return {
-            page,
-            size,
-        };
-    };
+    const paginationData = getPaginationData();
     return {
-        currentPage: page || 1,
-        currentPageSize: size || 10,
+        currentPage: paginationData?.page,
+        currentPageSize: paginationData?.size,
         setPageNumber,
         setPageSize,
-        setPageData,
-        currentPageData: getPageData(),
+        setPageData: onSetPageData,
+        currentPageData: paginationData,
     }
 };

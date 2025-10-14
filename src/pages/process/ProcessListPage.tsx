@@ -108,8 +108,8 @@ export const ProcessListPage = () => {
                                     </Flex>
 
                                     <Pagination total={totalElements} pageSizeOptions={[6, 12, 24, 36, 72]}
-                                                current={currentPageData.page}
-                                                defaultPageSize={currentPageData.size}
+                                                current={currentPageData?.page || defaultPagination.page}
+                                                defaultPageSize={currentPageData?.size || defaultPagination.size}
                                                 onChange={onPaginationChange} showSizeChanger={true}/>
                                 </Flex>
                             </Col>}

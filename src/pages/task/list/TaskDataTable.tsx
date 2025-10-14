@@ -16,11 +16,10 @@ import {convertStringToTableSortOrder} from "@utils/sort";
 import {type PaginationPayload, SortOrder, type SortPayload} from "@models/common.ts";
 import type {SorterResult} from "antd/lib/table/interface";
 import {useTranslation} from "react-i18next";
-import {usePagination} from "@hooks/usePagination.ts";
-import {useSort} from "@hooks/useSort.ts";
 import {useTaskSelection} from "@hooks/user-task";
 import type {UserTask} from "@models/user-task.ts";
 import {StyledTable} from "@components/table/StyledTable.tsx";
+import type {TableCurrentDataSource} from "antd/es/table/interface";
 
 type OnChange = TableProps<UserTask>["onChange"]
 const {Text} = Typography;
@@ -32,12 +31,9 @@ interface TaskDataTableProps {
     onTaskSelect: (id: string) => void;
     onPaginationChange: (pageData: PaginationPayload) => void;
     onSortChange: (sort?: SortPayload) => void;
+    currentPageData: PaginationPayload;
+    currentSortData?: SortPayload;
 }
-
-const defaultPagination: PaginationPayload = {
-    page: 1,
-    size: 10
-};
 
 export const TaskDataTable = ({
                                   totalElements,
@@ -45,13 +41,11 @@ export const TaskDataTable = ({
                                   loading,
                                   onTaskSelect,
                                   onPaginationChange,
-                                  onSortChange
+                                  onSortChange,
+                                  currentPageData,
+                                  currentSortData
                               }: TaskDataTableProps) => {
     const {selectedTaskId} = useTaskSelection();
-
-    const {currentPageSize, currentPage} = usePagination({defaultPagination});
-    const {currentSortData} = useSort();
-
     const tableOrder = convertStringToTableSortOrder(currentSortData?.order);
 
     const {t: translate} = useTranslation(["userTask"]);
@@ -138,14 +132,13 @@ export const TaskDataTable = ({
     }, [onPaginationChange]);
 
     const handleTableChange: OnChange = useCallback((pagination: TablePaginationConfig, _filters: Record<string, unknown>,
-                                                     sorter: SorterResult<UserTask> | SorterResult<UserTask>[]) => {
-        if (pagination && pagination.current !== currentPage || pagination.pageSize !== currentPageSize) {
+                                                     sorter: SorterResult<UserTask> | SorterResult<UserTask>[], extra: TableCurrentDataSource<UserTask>) => {
+        if (extra.action === "paginate") {
             handlePaginationChange(pagination);
-        }
-        if (sorter && !Array.isArray(sorter)) {
+        } else if (extra.action === "sort"  && !Array.isArray(sorter)) {
             handleColumnSortChange(sorter);
         }
-    }, [handleColumnSortChange, currentPage, handlePaginationChange, currentPageSize]);
+    }, [handleColumnSortChange, handlePaginationChange]);
 
     const tableScroll = totalElements && totalElements > 5 ? "20em" : undefined;
 
@@ -167,10 +160,10 @@ export const TaskDataTable = ({
                                          endItem: range[1],
                                          total
                                      }) : undefined,
-                             defaultCurrent: currentPage,
-                             current: currentPage,
-                             defaultPageSize: currentPageSize,
-                             pageSize: currentPageSize,
+                             defaultCurrent: currentPageData.page,
+                             current: currentPageData.page,
+                             defaultPageSize: currentPageData.size,
+                             pageSize: currentPageData.size,
                              showSizeChanger: true,
                          }}
                          onRow={getTaskRowProps} rowHoverable={true} showSorterTooltip={{target: "sorter-icon"}}

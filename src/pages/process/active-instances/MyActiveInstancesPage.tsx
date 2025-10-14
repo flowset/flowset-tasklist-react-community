@@ -69,13 +69,14 @@ const defaultSort: SortPayload = {
 export const MyActiveInstancesPage = () => {
     const {t: translate} = useTranslation(["processInstance", "process"]);
     const [filterData, setFilterData] = useState<ProcessInstanceFilterPayload | undefined>();
-    const {currentPageData, setPageData, currentSortData, setSortData} = usePaginatedList({
-        defaultPagination
-    });
+    const {currentPageData, setPageData, currentSortData, setSortData} = usePaginatedList({});
+
+    const pagination = currentPageData || defaultPagination;
+    const sort = currentSortData || defaultSort;
 
     const {data, isLoading, error, isRefetching, refetch} = useGetUserProcessInstances({
-        pagination: currentPageData,
-        sort: currentSortData || defaultSort,
+        pagination: pagination,
+        sort: sort,
         filter: filterData,
     });
 
@@ -89,6 +90,13 @@ export const MyActiveInstancesPage = () => {
         setFilterData(undefined);
     }, []);
 
+    const onInstanceTablePaginationChange = useCallback((pageData: PaginationPayload) => {
+        setPageData(pageData);
+    }, [setPageData]);
+
+    const onInstanceDataTableSortChange = useCallback((sort?: SortPayload) => {
+        setSortData(sort);
+    }, [setSortData]);
 
     const totalElements = data?.totalElements || 0;
     const runningProcesses = data?.data || [];
@@ -124,8 +132,10 @@ export const MyActiveInstancesPage = () => {
                         <InstanceFilterToolbar onApply={setFilterData}
                                                onReset={handleFilterReset}/>
                         {!error ? <InstanceDataTable data={runningProcesses} loading={loading}
-                                                     onPaginationChange={setPageData}
-                                                     onSortChange={setSortData}
+                                                     currentPageData={pagination}
+                                                     currentSortData={sort}
+                                                     onPaginationChange={onInstanceTablePaginationChange}
+                                                     onSortChange={onInstanceDataTableSortChange}
                         /> : <InternalError/>}
                     </Flex>
 

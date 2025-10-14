@@ -64,11 +64,13 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
         setPageNumber,
         currentSortData,
         setSortData
-    } = usePaginatedList({defaultPagination, defaultSort});
+    } = usePaginatedList({});
 
     const [filterData, setFilterData] = useState<TaskFilterPayload | undefined>();
     const {styles} = useStyles();
 
+    const pagination = currentPageData || defaultPagination;
+    const sort = currentSortData || defaultSort;
     const {
         data: taskListResponse,
         isError: isTasksLoadError,
@@ -77,9 +79,9 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
         error,
         refetch
     } = useGetUserTasks({
-        pagination: currentPageData,
+        pagination: pagination,
         filter: filterData,
-        sort: currentSortData
+        sort: sort,
     });
 
     useEffect(() => {
@@ -102,6 +104,14 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
         refetch();
     }, [refetch]);
 
+    const onTaskDataTablePaginationChange = useCallback((pageData: PaginationPayload) => {
+        setPageData(pageData);
+    }, [setPageData]);
+
+    const onTaskDataTableSortChange = useCallback((sort?: SortPayload) => {
+        setSortData(sort);
+    }, [setSortData]);
+
     if (error) {
         return <InternalError/>
     }
@@ -122,10 +132,10 @@ export const UserTaskList = ({onTaskSelection, lastCompletedTask, onError}: User
                                    onReset={handleFilterChange}/>
                 <TaskDataTable data={taskListResponse?.data} totalElements={taskListResponse?.totalElements}
                                loading={loading}
-                               onPaginationChange={setPageData}
-                               onSortChange={sort => {
-                                   setSortData(sort);
-                               }}
+                               currentPageData={pagination}
+                               currentSortData={sort}
+                               onPaginationChange={onTaskDataTablePaginationChange}
+                               onSortChange={onTaskDataTableSortChange}
                                onTaskSelect={onTaskSelection}/>
             </Flex>
         </>
