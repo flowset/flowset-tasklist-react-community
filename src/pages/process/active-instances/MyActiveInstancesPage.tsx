@@ -132,6 +132,7 @@ export const MyActiveInstancesPage = () => {
                         <InstanceFilterToolbar onApply={setFilterData}
                                                onReset={handleFilterReset}/>
                         {!error ? <InstanceDataTable data={runningProcesses} loading={loading}
+                                                     totalElements={totalElements}
                                                      currentPageData={pagination}
                                                      currentSortData={sort}
                                                      onPaginationChange={onInstanceTablePaginationChange}

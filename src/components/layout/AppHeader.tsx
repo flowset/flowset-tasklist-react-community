@@ -32,8 +32,10 @@ const useStyles = createStyles(({token, css, responsive}) => ({
         ${responsive.sm} {
             display: none;
         }
-        
-        
+
+        ${responsive.md} {
+            display: none;
+        }
     `,
     controlsContainer: css`
         margin-left: 4em;

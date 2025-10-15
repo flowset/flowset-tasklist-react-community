@@ -108,7 +108,6 @@ export const InstanceDataTable = ({
         <>
             <StyledTable columns={columns} rowKey="id"
                          size="small"
-                         scroll={{y: totalElements && totalElements > 5 ? "20em" : undefined}}
                          loading={loading}
                          dataSource={data}
                          pagination={{

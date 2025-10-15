@@ -135,18 +135,15 @@ export const TaskDataTable = ({
                                                      sorter: SorterResult<UserTask> | SorterResult<UserTask>[], extra: TableCurrentDataSource<UserTask>) => {
         if (extra.action === "paginate") {
             handlePaginationChange(pagination);
-        } else if (extra.action === "sort"  && !Array.isArray(sorter)) {
+        } else if (extra.action === "sort" && !Array.isArray(sorter)) {
             handleColumnSortChange(sorter);
         }
     }, [handleColumnSortChange, handlePaginationChange]);
-
-    const tableScroll = totalElements && totalElements > 5 ? "20em" : undefined;
 
     return (
         <>
             <StyledTable columns={columns}
                          rowKey="id"
-                         scroll={{y: tableScroll}}
                          loading={loading}
                          rowClassName={record => record.id === selectedTaskId ? "ant-table-row-selected" : ""}
                          dataSource={data}

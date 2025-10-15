@@ -1,8 +1,8 @@
-import {Table, type TableProps} from "antd";
+import {Grid, Table, type TableProps} from "antd";
 import {createStyles} from "antd-style";
 
-const useStyles = createStyles(({ css, token, prefixCls }) => {
-    const antCls  = prefixCls;
+const useStyles = createStyles(({css, token, prefixCls}) => {
+    const antCls = prefixCls;
     return {
         table: css`
             .${antCls}-spin-container {
@@ -49,14 +49,24 @@ const useStyles = createStyles(({ css, token, prefixCls }) => {
         `,
     };
 });
+const {useBreakpoint} = Grid;
 
-export const StyledTable = <T,>(props: TableProps<T>) => {
+export const StyledTable = <T, >(props: TableProps<T>) => {
     const {styles} = useStyles();
     const {className, ...restProps} = props;
     const resultClassName = className ? `${className} ${styles.table}` : styles.table;
+    const {xxl} = useBreakpoint();
+    let scrollY;
+    if (xxl) {
+        scrollY = '60vh'
+    } else {
+        scrollY = '30em'
+    }
+
     return (
         <>
-            <Table size="small" {...restProps} className={resultClassName}/>
+            <Table size="small" scroll={{y: scrollY}} {...restProps}
+                   className={resultClassName}/>
         </>
     );
 };
