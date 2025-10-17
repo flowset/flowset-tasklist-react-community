@@ -15,7 +15,7 @@ The following Docker Compose files are provided:
    Set values for the `BPM_ENGINE_API_URL` and `BPM_ENGINE_TYPE` variables.
    Example for the Camunda 7 running locally on port 8082 with enabled REST API:
    ```dotenv
-    BPM_ENGINE_API_URL=http://localhost:8080/engine-rest
+    BPM_ENGINE_API_URL=http://localhost:8082/engine-rest
     BPM_ENGINE_TYPE=CAMUNDA_7
    ```
    **Note:** Basic authentication should be enabled for the engine REST API and the list of users should be

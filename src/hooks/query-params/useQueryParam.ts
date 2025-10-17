@@ -21,7 +21,7 @@ export interface UseQueryParamResult {
      * Sets the value of the query parameter
      * @param value new value to set for the parameter
      */
-    setValue: (value: string) => void;
+    setValue: (value?: string | null) => void;
     /**
      * Removes the query parameter from the URL
      */
@@ -41,8 +41,12 @@ export const useQueryParam = (props: UseQueryParamProps): UseQueryParamResult =>
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const setValue = (value: string) => {
-        searchParams.set(paramName, value);
+    const setValue = (value?: string | null) => {
+        if (!value) {
+            searchParams.delete(paramName);
+        } else {
+            searchParams.set(paramName, value);
+        }
         setSearchParams(searchParams);
 
     };

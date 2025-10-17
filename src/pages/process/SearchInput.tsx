@@ -27,29 +27,22 @@ export const SearchInput = ({onSearch}: SearchInputProps,) => {
     const [searchTerm, setSearchTerm] = useState<undefined | string | null>(value);
 
     useEffect(() => {
-        if (searchTerm) {
-            setValue(searchTerm);
-        } else {
-            if (hasValue()) {
-                removeValue();
-            }
-        }
-
         if (!searchTerm || searchTerm.length === 0) {
             onSearch(searchTerm);
         } else {
             const delayDebounceFn = setTimeout(() => {
                 onSearch(searchTerm);
-            }, 800);
+            }, 500);
 
             return () => clearTimeout(delayDebounceFn);
         }
 
-    }, [searchTerm, onSearch, setValue, removeValue, hasValue]);
+    }, [searchTerm, onSearch, setValue, removeValue, hasValue, value]);
 
     const onSearchInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
-    }, []);
+        setValue(event.target.value);
+    }, [setValue]);
 
     return (
         <>

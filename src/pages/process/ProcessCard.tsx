@@ -84,7 +84,6 @@ export const ProcessCard = ({item}: ProcessDefinitionCardProps) => {
         <>
             <Card className={styles.processCard}
                   title={<Title level={5}>{getProcessDefinitionRecordRepresentation(item)}</Title>}
-                  hoverable={true}
                   actions={processActions} variant={"outlined"}>
 
                 <Flex vertical={true} wrap={true} className={styles.bodyContentContainer}>

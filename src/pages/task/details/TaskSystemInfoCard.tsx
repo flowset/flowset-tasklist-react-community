@@ -50,12 +50,12 @@ export const TaskSystemInfoCard = (props: TaskSystemInfoCardProps & CardProps) =
             children: <Tag color="processing">
                 {task?.assignee}
             </Tag>,
-            span: {xs: 2, sm: 2, md: 2, xl: 2, xxl: 1},
+            span: 2,
         },
         {
             label: translate("priority"),
             children: <TaskPriority value={task?.priority || 0}/>,
-            span: {xs: 2, sm: 2, md: 2, xl: 2, xxl: 1},
+            span: 2,
         }
     ];
 
