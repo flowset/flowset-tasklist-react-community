@@ -4,7 +4,7 @@
  */
 
 /**
- * Settings of the BPM engine which the OpenBPM Tasklist connects to.
+ * Settings of the BPM engine which the Flowset Tasklist connects to.
  */
 export interface BpmEngineConfig {
     /**

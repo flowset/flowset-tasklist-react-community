@@ -12,6 +12,14 @@ const {Link} = Anchor;
 
 const useStyles = createStyles(({css, token}) => {
     return {
+        link: css`
+            & > a {
+                color: ${token.colorSuccess}
+            }
+            & > a:hover {
+                color: ${token.colorSuccessActive}
+            }
+        `,
         linkIcon: css`
             color: ${token.colorTextTertiary};
             transform: rotate(45deg);
@@ -28,7 +36,7 @@ export const ExternalLinkListItem = ({item}: ExternalLinkItemProps) => {
     return (
         <>
             <Flex align="center" gap="small">
-                <Link target="_blank"
+                <Link target="_blank" className={styles.link}
                       href={item.url}
                       title={item.label}
                 />

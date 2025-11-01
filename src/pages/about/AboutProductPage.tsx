@@ -96,12 +96,12 @@ export const AboutProductPage = () => {
                                                             className={styles.cardTitle}
                                                             copyable={{
                                                                 tooltips: false,
-                                                                text: `OpenBPM Tasklist ${APP_VERSION} (${APP_BUILD_SOURCE})`
+                                                                text: `Flowset Tasklist ${APP_VERSION} (${APP_BUILD_SOURCE})`
                                                             }}>{translate("productVersion.title")}</Title>}>
                                             <Space direction={"vertical"} size={"middle"}>
                                                 <Space align={"baseline"}>
                                                     <Text>{translate("product.label")}: </Text>
-                                                    <Text type={"secondary"}>OpenBPM Tasklist</Text>
+                                                    <Text type={"secondary"}>Flowset Tasklist</Text>
                                                 </Space>
                                                 <Space align={"baseline"}>
                                                     <Text>{translate("version.label")}: </Text>

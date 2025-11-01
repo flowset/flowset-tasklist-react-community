@@ -10,7 +10,7 @@ import {useTranslation} from "react-i18next";
 
 const {Link} = Anchor;
 
-const HELP_LINK = "https://github.com/openbpm-platform/openbpm-tasklist-react?tab=readme-ov-file#custom-forms-support-";
+const HELP_LINK = "https://github.com/flowset-platform/flowset-tasklist-react?tab=readme-ov-file#custom-forms-support-";
 
 /**
  * A wrapper component to show a custom start or task form registered with the key.

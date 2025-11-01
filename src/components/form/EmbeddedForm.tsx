@@ -12,7 +12,7 @@ const {Link, Title} = Typography;
 
 /**
  * A component to show an embedded task or start form.
- * <strong>Note: </strong>Embedded form not supported in OpenBPM Tasklist.
+ * <strong>Note: </strong>Embedded form not supported in Flowset Tasklist.
  * @constructor
  */
 export const EmbeddedForm = () => {

@@ -49,7 +49,7 @@ export const AppHeader = () => {
         <>
             <Flex className={styles.logoContainer} gap={5} align={"baseline"}>
                 <img src="/logo-dark.svg" className={styles.appIcon} alt=""/>
-                <Title level={4} className={styles.appTitle}>OpenBPM Tasklist</Title>
+                <Title level={4} className={styles.appTitle}>Flowset Tasklist</Title>
             </Flex>
             <AppMenu/>
             <div className={styles.controlsContainer}>

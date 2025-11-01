@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-.openbpm-tasklist .fjs-form {
+.flowset-tasklist .fjs-form {
     padding: 0;
 }
 
@@ -15,59 +15,59 @@
     visibility: hidden;
 }
 
-.openbpm-tasklist .cds--grid {
+.flowset-tasklist .cds--grid {
     padding: 0;
 }
 
-.openbpm-tasklist .fjs-container .fjs-form-field:not(.fjs-powered-by) {
+.flowset-tasklist .fjs-container .fjs-form-field:not(.fjs-powered-by) {
     margin-inline: 0;
 }
 
-.openbpm-tasklist .fjs-form {
+.flowset-tasklist .fjs-form {
     padding: 0;
 
     --border-radius: 4px;
 }
 
-.openbpm-tasklist .fjs-layout-row {
+.flowset-tasklist .fjs-layout-row {
     padding-bottom: 0;
 }
 
-.openbpm-tasklist .fjs-vertical-group {
+.flowset-tasklist .fjs-vertical-group {
     border-radius: inherit;
 }
 
-.openbpm-tasklist .fjs-vertical-group > .fjs-input,  .fjs-textarea {
+.flowset-tasklist .fjs-vertical-group > .fjs-input,  .fjs-textarea {
     border-radius: inherit;
 }
 
-.openbpm-tasklist .fjs-vertical-group > .fjs-number-arrow-container {
+.flowset-tasklist .fjs-vertical-group > .fjs-number-arrow-container {
     border-radius: inherit;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
 }
 
-.openbpm-tasklist .fjs-input-group {
+.flowset-tasklist .fjs-input-group {
     border-radius: 6px;
 }
 
-.openbpm-tasklist .fjs-container   {
+.flowset-tasklist .fjs-container   {
     border-radius: 6px;
 }
 
-.openbpm-tasklist .fjs-input-group > .fjs-datepicker > .flatpickr-wrapper > .fjs-input.flatpickr-input {
+.flowset-tasklist .fjs-input-group > .fjs-datepicker > .flatpickr-wrapper > .fjs-input.flatpickr-input {
     border-radius: 6px;
 }
 
-.openbpm-tasklist .fjs-input-group > .fjs-input {
+.flowset-tasklist .fjs-input-group > .fjs-input {
     border-radius: inherit;
 }
 
-.openbpm-tasklist .fjs-form-field:not(.fjs-powered-by) {
+.flowset-tasklist .fjs-form-field:not(.fjs-powered-by) {
     margin-left: 0;
 }
 
-.openbpm-tasklist .fjs-container .fjs-input-group .fjs-input-adornment.border-radius-left {
+.flowset-tasklist .fjs-container .fjs-input-group .fjs-input-adornment.border-radius-left {
     border-radius: 6px 0 0 6px;
 }
 
@@ -92,7 +92,7 @@
 
 }
 
-.openbpm-tasklist .fjs-container {
+.flowset-tasklist .fjs-container {
     --font-family: var(--ant-font-family);
     --border-definition: 1px solid #d9d9d9;
     --font-size-group: var(--ant-font-size);

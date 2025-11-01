@@ -1,49 +1,43 @@
 {
   "products": [
     {
-      "name": "OpenBPM Studio",
-      "url": "https://openbpm.ru/studio",
+      "name": "Flowset Studio",
+      "url": "https://flowset.io/studio",
       "description": "Бесплатный плагин для работы с BPM-приложениями в вашей IDE",
       "released": true
     },
     {
-      "name": "OpenBPM Engine",
-      "url": "https://openbpm.ru/engine",
-      "description": "BPM-движок, совместимый по API с Camunda 7",
-      "released": true
-    },
-    {
-      "name": "OpenBPM Control",
-      "url": "https://openbpm.ru/control",
+      "name": "Flowset Control",
+      "url": "https://flowset.io/control",
       "description": "Бесплатный инструмент для мониторинга и управления BPM-движками",
       "released": true
     },
     {
-      "name": "OpenBPM Workspace (скоро появится)",
-      "url": "https://openbpm.ru",
+      "name": "Flowset Workspace (скоро появится)",
+      "url": "https://flowset.io",
       "description": "Веб-портал для визуального проектирования бизнес-процессов и пользовательских форм",
       "released": false
     }
   ],
   "externalLinks": [
     {
-      "url": "https://openbpm.ru/",
+      "url": "https://flowset.io/",
       "label": "Вебсайт"
     },
     {
-      "url": "https://github.com/openbpm-platform/openbpm-tasklist-react?tab=readme-ov-file#table-of-contents",
-      "label": "Документация OpenBPM Tasklist"
+      "url": "https://github.com/flowset-platform/flowset-tasklist-react?tab=readme-ov-file#table-of-contents",
+      "label": "Документация Flowset Tasklist"
     },
     {
-      "url": "https://github.com/openbpm-platform/openbpm-tasklist-react",
-      "label": "Исходный код OpenBPM Tasklist"
+      "url": "https://github.com/flowset-platform/flowset-tasklist-react",
+      "label": "Исходный код Flowset Tasklist"
     },
     {
-      "url": "https://t.me/openbpm_chat",
+      "url": "https://t.me/flowset_chat",
       "label": "Поддержка"
     },
     {
-      "url": "https://t.me/openbpm",
+      "url": "https://t.me/flowset",
       "label": "Телеграм канал"
     }
   ]

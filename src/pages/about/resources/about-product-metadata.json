@@ -1,20 +1,20 @@
 {
   "products": [
     {
-      "name": "OpenBPM Studio",
-      "url": "https://plugins.jetbrains.com/plugin/25655-openbpm/",
+      "name": "Flowset Studio",
+      "url": "https://flowset.io/studio",
       "description": "Free plugin for modelling BPMN and DMN diagrams in IntelliJ IDEA",
       "released": true
     },
     {
-      "name": "OpenBPM Control",
-      "url": "https://openbpm.io/control",
+      "name": "Flowset Control",
+      "url": "https://flowset.io/control",
       "description": "Open-source tool for monitoring and managing BPM engines",
       "released": true
     },
     {
-      "name": "OpenBPM Workspace (coming soon)",
-      "url": "https://openbpm.io",
+      "name": "Flowset Workspace (coming soon)",
+      "url": "https://flowset.io",
       "description": "Web portal for visually creating BPMN and DMN diagrams and designing process forms",
       "released": false
     }
@@ -22,19 +22,19 @@
   "externalLinks": [
     {
       "label": "Website",
-      "url": "https://openbpm.io/"
+      "url": "https://flowset.io/"
     },
     {
-      "label": "OpenBPM Tasklist Documentation",
-      "url": "https://github.com/openbpm-platform/openbpm-tasklist-react?tab=readme-ov-file#table-of-contents"
+      "label": "Flowset Tasklist Documentation",
+      "url": "https://github.com/flowset-platform/flowset-tasklist-react?tab=readme-ov-file#table-of-contents"
     },
     {
-      "label": "OpenBPM Tasklist Source code",
-      "url": "https://github.com/openbpm-platform/openbpm-tasklist-react"
+      "label": "Flowset Tasklist Source code",
+      "url": "https://github.com/flowset-platform/flowset-tasklist-react"
     },
     {
       "label": "Support",
-      "url": "https://join.slack.com/t/openbpm/shared_invite/zt-31ghauwhi-eaF8kkgtcM091pt4P4HXyA"
+      "url": "https://join.slack.com/t/flowset/shared_invite/zt-31ghauwhi-eaF8kkgtcM091pt4P4HXyA"
     }
   ]
 }

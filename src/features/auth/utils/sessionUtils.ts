@@ -5,9 +5,9 @@
 
 import {type StoredAuthData, TasklistAuthType} from "../types";
 
-const AUTH_TOKEN_KEY = "OPENBPM_TASKLIST_AUTH_TOKEN";
-const AUTH_USER_KEY = "OPENBPM_TASKLIST_AUTH_USER";
-const AUTH_TYPE_KEY = "OPENBPM_TASKLIST_AUTH_TYPE";
+const AUTH_TOKEN_KEY = "FLOWSET_TASKLIST_AUTH_TOKEN";
+const AUTH_USER_KEY = "FLOWSET_TASKLIST_AUTH_USER";
+const AUTH_TYPE_KEY = "FLOWSET_TASKLIST_AUTH_TYPE";
 
 /**
  * Utility functions for managing authentication session storage

@@ -36,7 +36,7 @@ export const TasklistClientProvider = ({
 
     const selectedEngine = bpmEngine?.selectedEngine;
     if (!selectedEngine) {
-        throw new Error("Cannot create OpenBPM Tasklist client because BPM engine is not configured");
+        throw new Error("Cannot create Flowset Tasklist client because BPM engine is not configured");
     }
 
     const engineType = selectedEngine.type;

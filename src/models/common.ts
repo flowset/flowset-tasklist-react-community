@@ -4,7 +4,7 @@
  */
 
 /**
- * Pagination settings used on the OpenBPM Tasklist pages.
+ * Pagination settings used on the Flowset Tasklist pages.
  */
 export interface PaginationPayload {
     page: number;
@@ -12,7 +12,7 @@ export interface PaginationPayload {
 }
 
 /**
- * Sort options used on the OpenBPM Tasklist pages.
+ * Sort options used on the Flowset Tasklist pages.
  */
 export interface SortPayload {
     property: string;

@@ -20,18 +20,18 @@ export interface TasklistAdminProps {
     children: ReactNode;
 
     /**
-     * BPM engine configuration for the OpenBPM Tasklist.
+     * BPM engine configuration for the Flowset Tasklist.
      * <p/>
      * <strong>Note: </strong>If custom backend is used instead of supported BPM engine REST API, then it is required
      * to provide a value for the <code>client</code> prop.
      */
     engine?: BpmEngineConfig;
     /**
-     * Authentication configuration for the OpenBPM Tasklist
+     * Authentication configuration for the Flowset Tasklist
      */
     authConfig?: TasklistAuthConfig;
     /**
-     * OpenBPM Tasklist client instance for data operations. Required if a default implementation for BPM engine is not used.
+     * Flowset Tasklist client instance for data operations. Required if a default implementation for BPM engine is not used.
      */
     client?: ITasklistClient;
     /**
@@ -41,7 +41,7 @@ export interface TasklistAdminProps {
 }
 
 /**
- * Root component that provides all necessary context providers for the OpenBPM Tasklist application.
+ * Root component that provides all necessary context providers for the Flowset Tasklist application.
  * Wraps the application with all necessary providers (BPM engine, authentication, client, and custom forms).
  *
  * @param props properties including engine configuration and provider settings

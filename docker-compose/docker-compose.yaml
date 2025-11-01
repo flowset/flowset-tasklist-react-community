@@ -1,14 +1,14 @@
 services:
-  openbpm-tasklist-react:
-    container_name: "openbpm-tasklist-react"
-    image: openbpm/openbpm-tasklist-react:${OPENBPM_TASKLIST_VERSION}
+  flowset-tasklist-react:
+    container_name: "flowset-tasklist-react"
+    image: flowset/flowset-tasklist-react:${FLOWSET_TASKLIST_VERSION}
     build:
       context: ..
       args:
-        - VITE_APP_VERSION=${OPENBPM_TASKLIST_VERSION}
+        - VITE_APP_VERSION=${FLOWSET_TASKLIST_VERSION}
     ports:
       - "80:80"
     environment:
-      - VITE_APP_LOCALE=${OPENBPM_TASKLIST_LOCALE}
+      - VITE_APP_LOCALE=${FLOWSET_TASKLIST_LOCALE}
       - VITE_BPM_ENGINE_API_URL=${BPM_ENGINE_API_URL}
       - VITE_BPM_ENGINE_TYPE=${BPM_ENGINE_TYPE}
