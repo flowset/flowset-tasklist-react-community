@@ -14,7 +14,7 @@
     },
     {
       "name": "Flowset Workspace (скоро появится)",
-      "url": "https://flowset.io",
+      "url": "https://flowset.io/workspace",
       "description": "Веб-портал для визуального проектирования бизнес-процессов и пользовательских форм",
       "released": false
     }
@@ -25,20 +25,20 @@
       "label": "Вебсайт"
     },
     {
-      "url": "https://github.com/flowset-platform/flowset-tasklist-react?tab=readme-ov-file#table-of-contents",
+      "url": "https://github.com/flowset/flowset-tasklist-react?tab=readme-ov-file#table-of-contents",
       "label": "Документация Flowset Tasklist"
     },
     {
-      "url": "https://github.com/flowset-platform/flowset-tasklist-react",
+      "url": "https://github.com/flowset/flowset-tasklist-react",
       "label": "Исходный код Flowset Tasklist"
     },
     {
-      "url": "https://t.me/flowset_chat",
+      "url": "https://flowset.slack.com/",
       "label": "Поддержка"
     },
     {
-      "url": "https://t.me/flowset",
-      "label": "Телеграм канал"
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/company/flowset-platform/"
     }
   ]
 }

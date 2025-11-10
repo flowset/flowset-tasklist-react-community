@@ -14,7 +14,7 @@
     },
     {
       "name": "Flowset Workspace (próximamente)",
-      "url": "https://flowset.io",
+      "url": "https://flowset.io/workspace",
       "description": "Portal web para crear visualmente diagramas BPMN y DMN y diseñar formularios de procesos",
       "released": false
     }
@@ -26,15 +26,19 @@
     },
     {
       "label": "Documentación de Flowset Tasklist",
-      "url": "https://github.com/flowset-platform/flowset-tasklist-react?tab=readme-ov-file#table-of-contents"
+      "url": "https://github.com/flowset/flowset-tasklist-react?tab=readme-ov-file#table-of-contents"
     },
     {
       "label": "Código fuente de Flowset Tasklist",
-      "url": "https://github.com/flowset-platform/flowset-tasklist-react"
+      "url": "https://github.com/flowset/flowset-tasklist-react"
     },
     {
       "label": "Soporte",
-      "url": "https://join.slack.com/t/flowset/shared_invite/zt-31ghauwhi-eaF8kkgtcM091pt4P4HXyA"
+      "url": "https://flowset.slack.com/"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/company/flowset-platform/"
     }
   ]
 }
