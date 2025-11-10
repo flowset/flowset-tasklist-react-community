@@ -17,15 +17,20 @@ const {Text} = Typography;
 const useStyles = createStyles(({token, css}) => ({
     userAvatar: css`
         color: ${token.colorPrimary};
-        background-color: ${token.colorPrimaryBg};
-        border: 1px solid ${token.colorPrimaryBorder};
+        font-weight: 600;
+        background-color:  #7EB3C2;
     `,
+
+    userAvatarButton: css`
+      border: none;
+    `
 }));
 
 export const UserIndicator = () => {
     const {user, logout} = useTasklistAuth();
     const [modal, contextHolder] = Modal.useModal();
     const {t: translate} = useTranslation(["common", "userPanel"]);
+    const {styles} = useStyles();
 
     const showLogoutConfirm = useCallback(() => {
         modal.confirm({
@@ -84,7 +89,7 @@ export const UserIndicator = () => {
             {contextHolder}
             <Flex align={"center"}>
                 <Dropdown menu={menuProps} trigger={["click"]}>
-                    <Button shape="circle">
+                    <Button shape="circle" className={styles.userAvatarButton}>
                         <UserAvatar user={user}/>
                     </Button>
                 </Dropdown>

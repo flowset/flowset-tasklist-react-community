@@ -68,12 +68,12 @@ export const RecentActivityChart = ({
     const legendData = [{
         id: completedTaskGroup,
         label: `${completedTaskGroup} (${completedTasksCount})`,
-        color: "#1240AB"
+        color: "#104656"
     },
         {
             id: createdTaskGroup,
             label: `${createdTaskGroup} (${totalTasks})`,
-            color: "#009999"
+            color: "#7EB3C2"
         }
     ];
 
@@ -88,9 +88,9 @@ export const RecentActivityChart = ({
 
     const barColors = useCallback((data: ComputedDatum<BarDatum>) => {
         if (data.id === completedTaskGroup) {
-            return "#1240AB";
+            return "#104656";
         }
-        return "#009999";
+        return "#7EB3C2";
     }, [completedTaskGroup]);
 
 

@@ -4,7 +4,7 @@
  */
 
 /**
- * Localized messages for OpenBPM Tasklist in the Russian language.
+ * Localized messages for Flowset Tasklist in the Russian language.
  */
 export const ru = {
     translations: {

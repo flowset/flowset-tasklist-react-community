@@ -22,10 +22,10 @@ export const renderRelativeDateTime = (date1?: string | number, date2?: string |
 
 const getDateTimeDiff = (date1: Dayjs, date2: Dayjs) => {
     const diff = dayjs.duration(date1.diff(date2));
-    const days = diff.days();
-    const hours = diff.hours();
-    const minutes = diff.minutes();
-    const seconds = diff.seconds();
+    const days = Math.trunc(diff.asDays());
+    const hours = Math.trunc(diff.asHours());
+    const minutes = Math.trunc(diff.asMinutes());
+    const seconds = Math.trunc(diff.asSeconds());
 
     if (days > 0) {
         return i18n.t("common:relativeDate.days", {count: days});

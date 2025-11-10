@@ -1,4 +1,4 @@
-**OpenBPM Tasklist** is a template of a React application that implements basic functionality for working with end-user
+**Flowset Tasklist** is a template of a React application that implements basic functionality for working with end-user
 tasks.
 
 **Key Features**
@@ -9,10 +9,10 @@ tasks.
 - **Process Start:** Start new instances of the processes using start forms.
 
 > [!NOTE]
-> OpenBPM Tasklist does not provide the backend implementation, but it can work with BPM engine REST API out-of-box.
+> Flowset Tasklist does not provide the backend implementation, but it can work with BPM engine REST API out-of-box.
 > Camunda 7 and Operaton engines are supported.
 
-OpenBPM Tasklist is built using the following libraries and frameworks:
+Flowset Tasklist is built using the following libraries and frameworks:
 
 - [React](https://react.dev/)
 - [Ant Design](https://ant.design/)
@@ -43,13 +43,13 @@ OpenBPM Tasklist is built using the following libraries and frameworks:
 
 ## Configuration <a name="configuration"></a>
 
-Before run the OpenBPM Tasklist, it is required to configure the following options:
+Before run the Flowset Tasklist, it is required to configure the following options:
 
 1. **User interface locale (optional)**: it is not supported to switch locale in the application UI in out-of-box
    implementation. But it is possible to configure it using the `VITE_APP_LOCALE` environment variable. Supported
    values: `en, de, es, ru`.
    Default value: `en`.
-2. **BPM engine connection**: by default, OpenBPM Tasklist provides an implementation for using BPM engine (Camunda 7,
+2. **BPM engine connection**: by default, Flowset Tasklist provides an implementation for using BPM engine (Camunda 7,
    Operaton) REST API as a backend to work with processes and user tasks.
 
 > [!TIP]
@@ -69,7 +69,7 @@ Use the following environment variables to configure a connection to the BPM eng
 #### Configuring Users <a name="configuring-users"></a>
 
 The `Basic` authentication is supported for Camunda 7 and Operaton engines. It means that the users that can log in
-OpenBPM Tasklist should be configured on the engine application side.
+Flowset Tasklist should be configured on the engine application side.
 
 For example, in case of Camunda 7 you can use the users stored in the engine database.
 
@@ -82,7 +82,7 @@ To add a new user using WebApps:
 5. Fill in the required fields
 6. After saving, click the **Edit** button for the created user
 7. Click the **Groups** tab and then **Add to a group** button
-8. Select a group in the opened dialog. For correct work of the OpenBPM Tasklist, the following Authorizations should be
+8. Select a group in the opened dialog. For correct work of the Flowset Tasklist, the following Authorizations should be
    allowed for the group:
     1. User
     2. Process Definition
@@ -92,13 +92,13 @@ To add a new user using WebApps:
 
 ## Custom Forms Support <a name="custom-forms-support"></a>
 
-OpenBPM Tasklist gives and ability to register and show custom forms for starting the process or completing the user
+Flowset Tasklist gives and ability to register and show custom forms for starting the process or completing the user
 task.
 The following steps must be followed when using custom forms:
 
 1. For a start event or user task, the type must be **Embedded or External Task Forms** and the **Form key** must be
    configured in the BPMN diagram.
-2. Creates a custom form implementation in the OpenBPM Tasklist sources
+2. Creates a custom form implementation in the Flowset Tasklist sources
 3. Register the component from the previous step as a custom form with the key from step #1.
 
 ### Creating Custom Forms <a name="creating-custom-forms"></a>
@@ -284,9 +284,9 @@ export const CheckVisitDetailsForm = (props: CustomTaskFormProps<VisitInputVaria
 
 ### Registering a Custom Form <a name="registering-a-custom-form"></a>
 
-After creating the custom form React component, it is required to register it in the OpenBPM Tasklist. It means that it
+After creating the custom form React component, it is required to register it in the Flowset Tasklist. It means that it
 is necessary to specify for which form key (used in the BPMN diagram) the created component should be displayed as a
-start form or as a user task form in the OpenBPM Tasklist.
+start form or as a user task form in the Flowset Tasklist.
 
 All used custom forms should be declared in the `src/features/custom-forms/config.ts`.
 
@@ -325,11 +325,11 @@ In this case:
 
 ## Running the Application <a name="running-the-application"></a>
 
-You can run OpenBPM Tasklist using either a Docker image or from source code.
+You can run Flowset Tasklist using either a Docker image or from source code.
 
 ### Docker Image <a name="docker-image"></a>
 
-This method allows running the OpenBPM Tasklist with a pre-built Docker image.
+This method allows running the Flowset Tasklist with a pre-built Docker image.
 
 **Prerequisites:**
 
@@ -342,7 +342,7 @@ Instructions can be found [here](docker-compose/README.md).
 
 ### Using Sources <a name="using-sources"></a>
 
-This method allows building and running OpenBPM Tasklist locally with `npm` and [Vite](http://vite.dev/).
+This method allows building and running Flowset Tasklist locally with `npm` and [Vite](http://vite.dev/).
 
 **Prerequisites:**
 
@@ -356,7 +356,7 @@ You must have the following installed:
 
 1. Clone the repository:
     ```shell
-     git clone https://github.com/openbpm-platform/openbpm-tasklist-react
+     git clone https://github.com/flowset/flowset-tasklist-react
     ```
 2. Configure a connection to the BPM engine database:
     - Create `env.local` file in the cloned project directory 
@@ -385,7 +385,7 @@ You must have the following installed:
 
 ## Usage <a name="usage"></a>
 
-OpenBPM Tasklist requires authenticated access. To add more users, see the [Configuring Users](#configuring-users)
+Flowset Tasklist requires authenticated access. To add more users, see the [Configuring Users](#configuring-users)
 section.
 
 ### Working with Processes <a name="working-with-processes"></a>
@@ -411,7 +411,7 @@ Depending on what form is linked to the start event, the following content is sh
 2. If Camunda form — the content of the deployed form.
 3. If custom form — the content of a [registered custom form](#custom-forms-support).
 
-**Note:** Embedded and generated forms are not supported in the OpenBPM Tasklist.
+**Note:** Embedded and generated forms are not supported in the Flowset Tasklist.
 
 ### Working with User Tasks <a name="working-with-user-tasks"></a>
 
@@ -431,20 +431,20 @@ Depending on what form is linked to the user task, the following content is show
 2. If Camunda form — the content of the deployed form and the **Complete** button.
 3. If custom form — the content of a [registered custom form](#custom-forms-support).
 
-**Note:** Embedded and generated forms are not supported in the OpenBPM Tasklist.
+**Note:** Embedded and generated forms are not supported in the Flowset Tasklist.
 
 
 ## Customizing the Theme <a name="customizing-the-theme"></a>
 
-Ant Design used in OpenBPM Tasklist provides an ability to customize the application theme.
+Ant Design used in Flowset Tasklist provides an ability to customize the application theme.
 More information about theme customization is described in [Ant Design docs](https://ant.design/docs/react/customize-theme).
 
-To customize a Design token in OpenBPM Tasklist:
-1. Open `src/features/theme/openbpmTheme.ts`
+To customize a Design token in Flowset Tasklist:
+1. Open `src/features/theme/flowsetTheme.ts`
 2. Change colors to the required values
 
 
 ## License <a name="license"></a>
 
-OpenBPM Tasklist is an open-source project distributed under
+Flowset Tasklist is an open-source project distributed under
 the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license. 

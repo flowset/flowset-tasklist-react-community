@@ -4,7 +4,7 @@
  */
 
 /**
- * Localized messages for OpenBPM Tasklist in the German language.
+ * Localized messages for Flowset Tasklist in the German language.
  */
 export const de = {
     common: {

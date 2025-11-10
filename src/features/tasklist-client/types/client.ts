@@ -31,7 +31,7 @@ import type {
 export type TasklistClientHeaders = RequestHeaders | RequestProvider;
 
 /**
- * OpenBPM Tasklist backend connection options
+ * Flowset Tasklist backend connection options
  */
 export interface TasklistClientOptions {
 
@@ -41,13 +41,13 @@ export interface TasklistClientOptions {
     apiUrl: string;
 
     /**
-     * Headers to send in each request to OpenBPM Tasklist backend, e.g. the "Authorization" header
+     * Headers to send in each request to Flowset Tasklist backend, e.g. the "Authorization" header
      */
     headers?: TasklistClientHeaders;
 }
 
 /**
- * Client interface for interacting with OpenBPM Tasklist backend API.
+ * Client interface for interacting with Flowset Tasklist backend API.
  */
 export interface ITasklistClient {
 

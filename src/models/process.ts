@@ -1,5 +1,5 @@
 /**
- * Representation of a process for the OpenBPM Tasklist pages.
+ * Representation of a process for the Flowset Tasklist pages.
  */
 export interface ProcessDefinition {
     id: string;
@@ -11,7 +11,7 @@ export interface ProcessDefinition {
 }
 
 /**
- * Representation of a process instance for the OpenBPM Tasklist pages.
+ * Representation of a process instance for the Flowset Tasklist pages.
  */
 export interface ProcessInstance {
     id: string;

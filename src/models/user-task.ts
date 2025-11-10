@@ -1,7 +1,7 @@
 import type {ProcessDefinition} from "@models/process.ts";
 
 /**
- * Representation of a user task for the OpenBPM Tasklist pages.
+ * Representation of a user task for the Flowset Tasklist pages.
  */
 export interface UserTask {
     id: string;

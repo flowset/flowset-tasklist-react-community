@@ -9,7 +9,7 @@ import "./index.css"
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ConfigProvider} from "antd";
-import {openbpmTheme} from "@features/theme/openbpmTheme.ts";
+import {flowsetTheme} from "@features/theme/flowsetTheme.ts";
 import i18n from "@features/i18n/config";
 import {I18nextProvider} from "react-i18next";
 import {getEngineConfig} from "@features/bpm-engine/config.ts";
@@ -39,7 +39,7 @@ createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-                <ConfigProvider theme={openbpmTheme} locale={getAntDLocale(appLocale)}>
+                <ConfigProvider theme={flowsetTheme} locale={getAntDLocale(appLocale)}>
                     <I18nextProvider i18n={i18n} defaultNS="common">
                         <TasklistAdmin engine={engineConfig} customForms={customFormConfigs} authConfig={authConfig}>
                             <App/>

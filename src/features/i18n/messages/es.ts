@@ -5,7 +5,7 @@
  */
 
 /**
- * Localized messages for OpenBPM Tasklist in the Spanish language.
+ * Localized messages for Flowset Tasklist in the Spanish language.
  */
 export const es = {
     common: {

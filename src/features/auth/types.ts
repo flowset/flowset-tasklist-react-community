@@ -9,7 +9,7 @@ import type {AuthProviderProps as ReactOidcAuthProviderProps} from "react-oidc-c
 
 
 /**
- * Enumeration of supported authentication types for OpenBPM Tasklist.
+ * Enumeration of supported authentication types for Flowset Tasklist.
  */
 export enum TasklistAuthType {
     /** Basic username/password authentication */

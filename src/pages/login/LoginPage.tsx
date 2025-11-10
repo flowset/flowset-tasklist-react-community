@@ -80,7 +80,7 @@ const LoginFormHeader = () => {
         <>
             <Space direction="horizontal" align="start">
                 <Icon component={LogoIcon} className={styles.logoIcon}/>
-                <Title level={3} className={styles.headerTitle}>OpenBPM Tasklist</Title>
+                <Title level={3} className={styles.headerTitle}>Flowset Tasklist</Title>
             </Space>
         </>
     );

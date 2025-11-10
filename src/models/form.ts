@@ -1,5 +1,5 @@
 /**
- * Representation of user task or start forms used in the OpenBPM Tasklist pages.
+ * Representation of user task or start forms used in the Flowset Tasklist pages.
  */
 export interface ProcessFormData {
     formKey?: string;
