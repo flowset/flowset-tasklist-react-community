@@ -36,7 +36,7 @@ The following Docker Compose files are provided:
    ```
    To check container status:
    ```shell
-     docker container ls -f "name=flowset-tasklist-react"
+     docker container ls -f "name=flowset-tasklist-react-community"
    ```
 6. Open Flowset Tasklist in your browser using the link [http://localhost](http://localhost).
 

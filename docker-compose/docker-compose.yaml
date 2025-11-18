@@ -1,7 +1,7 @@
 services:
   flowset-tasklist-react:
-    container_name: "flowset-tasklist-react"
-    image: flowset/flowset-tasklist-react:${FLOWSET_TASKLIST_VERSION}
+    container_name: "flowset-tasklist-react-community"
+    image: flowset/flowset-tasklist-react-community:${FLOWSET_TASKLIST_VERSION}
     build:
       context: ..
       args:

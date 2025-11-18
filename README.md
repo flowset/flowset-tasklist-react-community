@@ -356,7 +356,7 @@ You must have the following installed:
 
 1. Clone the repository:
     ```shell
-     git clone https://github.com/flowset/flowset-tasklist-react
+     git clone https://github.com/flowset/flowset-tasklist-react-community
     ```
 2. Configure a connection to the BPM engine database:
     - Create `env.local` file in the cloned project directory 
