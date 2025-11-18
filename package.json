@@ -1,7 +1,7 @@
 {
-  "name": "flowset-tasklist-react",
+  "name": "flowset-tasklist-react-community",
   "private": true,
-  "version": "1.0.0",
+  "version": "2025.0.999-SNAPSHOT",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
