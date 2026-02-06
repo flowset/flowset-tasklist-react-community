@@ -11,12 +11,6 @@
       "url": "https://flowset.io/control",
       "description": "Open-Source-Tool zur Überwachung und Verwaltung von BPM-Engines",
       "released": true
-    },
-    {
-      "name": "Flowset Workspace (demnächst)",
-      "url": "https://flowset.io/workspace",
-      "description": "Webportal zur visuellen Erstellung von BPMN- und DMN-Diagrammen sowie zur Gestaltung von Prozessformularen",
-      "released": false
     }
   ],
   "externalLinks": [
@@ -26,7 +20,7 @@
     },
     {
       "label": "Flowset Tasklist Dokumentation",
-      "url": "https://docs.flowset.io"
+      "url": "https://docs.flowset.io/flowset/tasklist"
     },
     {
       "label": "Quellcode von Flowset Tasklist",
