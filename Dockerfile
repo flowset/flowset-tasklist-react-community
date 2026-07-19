@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:20-alpine AS builder
 
 ARG VITE_APP_VERSION
 WORKDIR /app
