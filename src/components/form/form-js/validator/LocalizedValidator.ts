@@ -111,7 +111,7 @@ export class LocalizedValidator {
 
         if (typeof value === "string") {
             if (validation.pattern && value && !new RegExp(validation.pattern).test(value)) {
-                errors.push(validation.patternErrorMessage || i18n.t("fromJs:validation.notMatchPattern", {
+                errors.push(validation.patternErrorMessage || i18n.t("formJs:validation.notMatchPattern", {
                     pattern: validation.pattern
                 }));
             }
