@@ -1,0 +1,93 @@
+{
+  "tooltipType": "MuiTooltip",
+  "errorType": "MuiErrorWrapper",
+  "form": {
+    "key": "Screen",
+    "type": "Screen",
+    "children": [
+      {
+        "key": "muiStack1",
+        "type": "MuiStack",
+        "props": {
+          "spacing": {
+            "value": "16px"
+          }
+        },
+        "children": [
+          {
+            "key": "username",
+            "type": "MuiTextField",
+            "props": {
+              "label": {
+                "value": "Username"
+              },
+              "placeholder": {
+                "value": "Choose a username"
+              }
+            },
+            "schema": {
+              "validations": [
+                {
+                  "key": "required"
+                },
+                {
+                  "key": "usernameAvailable",
+                  "type": "custom"
+                }
+              ]
+            }
+          },
+          {
+            "key": "badgeColor",
+            "type": "AutoComplete",
+            "props": {
+              "label": {
+                "value": "Badge color"
+              },
+              "placeholder": {
+                "value": "Start typing a color name"
+              },
+              "url": {
+                "value": "/api/colors"
+              }
+            },
+            "schema": {
+              "validations": [
+                {
+                  "key": "required"
+                }
+              ]
+            }
+          },
+          {
+            "key": "submit",
+            "type": "MuiButton",
+            "props": {
+              "variant": {
+                "value": "contained"
+              },
+              "children": {
+                "value": "Submit"
+              }
+            },
+            "events": {
+              "onClick": [
+                {
+                  "name": "validate",
+                  "type": "common",
+                  "args": {
+                    "failOnError": true
+                  }
+                },
+                {
+                  "name": "submitForm",
+                  "type": "custom"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

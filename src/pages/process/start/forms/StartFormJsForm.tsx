@@ -6,11 +6,12 @@
 import {useCallback, useRef} from "react";
 import type {FormJsFormViewer, SubmitEventData} from "@components/form/form-js/types/FormJsFormViewer.ts";
 import {Flex, Space} from "antd";
-import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
+import {DeployedJsonForm} from "@components/form/DeployedJsonForm.tsx";
 import {StartProcessButton} from "@components/button/StartProcessButton.tsx";
 import {CancelButton} from "@components/button/CancelButton.tsx";
 import {createStyles} from "antd-style";
 import type {ProcessFormData} from "@models/form.ts";
+import {USE_DEPLOYED_FORM_STUB} from "@features/tasklist-client/stubs/deployed-form-stub.ts";
 
 const useStyles = createStyles(({css}) => ({
     formContainer: css`
@@ -46,11 +47,12 @@ export const StartFormJsForm = ({formData, onStart, startInProgress, onCancel}: 
     return (
         <>
             <Space direction="vertical" className={styles.formContainer}>
-                <FormJsForm ref={formRef} form={formData}
-                            onSubmit={handleFormJsFormSubmit}/>
+                <DeployedJsonForm ref={formRef} form={formData}
+                                  onSubmit={handleFormJsFormSubmit}/>
                 <Flex gap="middle" className={styles.formJsActionsContainer}>
-                    <StartProcessButton key="submit" type="primary" onClick={onStartButtonClick}
-                                        loading={startInProgress}/>
+                    {!USE_DEPLOYED_FORM_STUB &&
+                        <StartProcessButton key="submit" type="primary" onClick={onStartButtonClick}
+                                            loading={startInProgress}/>}
                     <CancelButton key="cancel" onClick={onCancel}/>
                 </Flex>
             </Space>

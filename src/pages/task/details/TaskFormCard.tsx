@@ -12,10 +12,11 @@ import {CustomForm} from "@components/form/CustomForm.tsx";
 import {useTranslation} from "react-i18next";
 import {CompleteTaskButton} from "@components/button/CompleteTaskButton.tsx";
 import type {FormJsFormViewer, SubmitEventData} from "@components/form/form-js/types/FormJsFormViewer.ts";
-import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
+import {DeployedJsonForm} from "@components/form/DeployedJsonForm.tsx";
 import {createStyles} from "antd-style";
 import {FormType, type InitialData, type ProcessFormData} from "@models/form.ts";
 import type {UserTask} from "@models/user-task.ts";
+import {USE_DEPLOYED_FORM_STUB} from "@features/tasklist-client/stubs/deployed-form-stub.ts";
 
 const useStyles = createStyles(({css}) => ({
     defaultActionsContainer: css`
@@ -118,10 +119,11 @@ export const FormJsFormCard = ({formData, initialData, onTaskComplete, completeI
 
     return (
         <>
-            <FormJsForm ref={formRef} form={formData}
-                        initialData={initialData}
-                        onSubmit={handleFormJsFormSubmit}/>
-            <CompleteTaskButton onClick={handleTaskComplete} loading={completeInProgress}/>
+            <DeployedJsonForm ref={formRef} form={formData}
+                              initialData={initialData}
+                              onSubmit={handleFormJsFormSubmit}/>
+            {!USE_DEPLOYED_FORM_STUB &&
+                <CompleteTaskButton onClick={handleTaskComplete} loading={completeInProgress}/>}
         </>
     );
 };

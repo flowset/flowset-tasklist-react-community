@@ -72,6 +72,7 @@ import {BaseHttpTasklistClient} from "@features/tasklist-client/http/BaseHttpTas
 import type {TaskExecutionPeriodStatistics, UserTask} from "@models/user-task.ts";
 import type {ProcessInstance, UserProcessInstance} from "@models/process.ts";
 import {FormType, type ProcessFormData} from "@models/form.ts";
+import {createDeployedFormStub, createTaskFormDataStub, USE_DEPLOYED_FORM_STUB} from "@features/tasklist-client/stubs/deployed-form-stub.ts";
 
 /**
  * Tasklist Client implementation for Camunda 7 engine and using Camunda 7 REST API.
@@ -151,6 +152,11 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
     }
 
     async getTaskFormData(params: GetTaskFormDataParams): Promise<GetTaskFormResult> {
+        if (USE_DEPLOYED_FORM_STUB) {
+            console.warn(`[stub] Skipping task form API for task ${params.taskId}; returning fixture schema`);
+            return createTaskFormDataStub();
+        }
+
         const {taskId} = params;
 
         return this.getWithResult<CamundaFormData>(`${this.taskUri}/${taskId}/form`)
@@ -241,6 +247,11 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
     }
 
     async getStartFormData(params: GetStartFormDataParams): Promise<GetStartFormResult> {
+        if (USE_DEPLOYED_FORM_STUB) {
+            console.warn(`[stub] Skipping start form API for process ${params.processDefinitionId}; returning fixture schema`);
+            return createTaskFormDataStub();
+        }
+
         const {processDefinitionId} = params;
         return this.getWithResult<CamundaFormData>(`${this.processUri}/${processDefinitionId}/startForm`)
             .then((result: CamundaFormData) => {
@@ -337,6 +348,11 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
     };
 
     protected async getDeployedForm(url: string, defaultForm: ProcessFormData) {
+        if (USE_DEPLOYED_FORM_STUB) {
+            console.warn(`[stub] Skipping deployed form request (${url}); returning fixture schema`);
+            return createDeployedFormStub(defaultForm);
+        }
+
         return this.get(url)
             .then(response => {
                 if (response.status == 400) {
