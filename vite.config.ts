@@ -8,6 +8,7 @@ import react from "@vitejs/plugin-react"
 import {getEngineConfig} from "./src/features/bpm-engine/config.ts";
 import type {BpmEngineConfig} from "./src/features/bpm-engine/types.ts";
 import path from "path";
+import {mockApiPlugin} from "./mock/vite-plugin-mock-api.ts";
 
 
 // https://vite.dev/config/
@@ -21,7 +22,7 @@ export default ({mode}: { mode: string }) => {
     const engineApiUrl = new URL(engineConfig.apiUrl);
 
     return defineConfig({
-        plugins: [react()],
+        plugins: [react(), mockApiPlugin()],
         server: {
             proxy: {
                 [`${engineApiUrl.pathname}`]: {

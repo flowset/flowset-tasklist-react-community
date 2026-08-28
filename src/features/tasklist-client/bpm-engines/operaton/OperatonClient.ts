@@ -106,8 +106,11 @@ export class OperatonClient extends CamundaPlatformClient {
                     return startForm;
                 }
 
-                return this.getDeployedForm(`${this.processUri}/${processDefinitionId}/deployed-start-form`, startForm);
-
+                return this.resolveDeployedForm(
+                    processDefinitionId,
+                    startForm,
+                    `${this.processUri}/${processDefinitionId}/deployed-start-form`,
+                );
             });
     }
 
@@ -115,12 +118,17 @@ export class OperatonClient extends CamundaPlatformClient {
         const {taskId} = params;
 
         return this.getWithResult<OperatonFormData>(`${this.taskUri}/${taskId}/form`)
-            .then((result: OperatonFormData) => {
+            .then(async (result: OperatonFormData) => {
                 const taskForm = convertOperatonFormToProcessForm(result);
                 if (!taskForm || !taskForm.formKey || taskForm.type == FormType.EMBEDDED) {
                     return taskForm;
                 }
-                return this.getDeployedForm(`${this.taskUri}/${taskId}/deployed-form`, taskForm);
+                const task = await this.getWithResult<OperatonTask>(`${this.taskUri}/${taskId}`);
+                return this.resolveDeployedForm(
+                    task.processDefinitionId,
+                    taskForm,
+                    `${this.taskUri}/${taskId}/deployed-form`,
+                );
             });
     }
 

@@ -147,7 +147,7 @@ export const convertCamundaFormToProcessForm = (camundaForm: CamundaFormData): P
 
 export const convertContentTypeToFormType = (contentType?: string | null): FormType => {
     if (contentType === "application/json") {
-        return FormType.FORM_JS_JSON;
+        return FormType.FORM_ENGINE_JSON;
     }
 
     if (contentType === "application/xhtml+xml") {

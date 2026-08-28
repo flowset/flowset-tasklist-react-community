@@ -79,6 +79,16 @@ export interface CamundaFormRef {
 }
 
 /**
+ * Deployment resource metadata from GET /deployment/{id}/resources.
+ * FormEngine schemas are shipped as {@code .json} (not Camunda Forms {@code .form}).
+ */
+export interface CamundaDeploymentResource {
+    id: string;
+    name: string;
+    deploymentId: string;
+}
+
+/**
  * Representation of a historic user task in Camunda
  */
 export interface CamundaHistoricTask {

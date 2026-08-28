@@ -13,7 +13,7 @@ export interface ProcessFormData {
  */
 export enum FormType {
     HTML = "HTML",
-    FORM_JS_JSON = "FORM_JS_JSON",
+    FORM_ENGINE_JSON = "FORM_ENGINE_JSON",
     EMBEDDED = "EMBEDDED",
     CUSTOM = "CUSTOM"
 }

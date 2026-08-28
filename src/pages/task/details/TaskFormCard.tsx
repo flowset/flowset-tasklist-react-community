@@ -5,14 +5,13 @@
 
 import {Card, Flex, notification} from "antd";
 import {useCallback, useRef} from "react";
-import "@bpmn-io/form-js-viewer/dist/assets/form-js.css";
 import {useSubmitTaskForm} from "@hooks/user-task";
 import {EmbeddedForm} from "@components/form/EmbeddedForm.tsx";
 import {CustomForm} from "@components/form/CustomForm.tsx";
 import {useTranslation} from "react-i18next";
 import {CompleteTaskButton} from "@components/button/CompleteTaskButton.tsx";
-import type {FormJsFormViewer, SubmitEventData} from "@components/form/form-js/types/FormJsFormViewer.ts";
-import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
+import type {FormViewerHandle, SubmitEventData} from "@components/form/formengine/types/FormViewerHandle.ts";
+import {DeployedJsonForm} from "@components/form/DeployedJsonForm.tsx";
 import {createStyles} from "antd-style";
 import {FormType, type InitialData, type ProcessFormData} from "@models/form.ts";
 import type {UserTask} from "@models/user-task.ts";
@@ -73,7 +72,7 @@ export const TaskFormCard = (props: TaskFormCardProps) => {
             {contextHolder}
             <Card variant={"outlined"}>
                 {formType == FormType.EMBEDDED && <EmbeddedForm/>}
-                {formType == FormType.FORM_JS_JSON && <FormJsFormCard formData={formData} initialData={initialData}
+                {formType == FormType.FORM_ENGINE_JSON && <DeployedJsonFormCard formData={formData} initialData={initialData}
                                                                       onTaskComplete={completeTaskWithVariables}
                                                                       completeInProgress={isPending}
                 />}
@@ -96,17 +95,17 @@ export const TaskFormCard = (props: TaskFormCardProps) => {
 
 };
 
-export interface FormJsFormCardProps {
+export interface DeployedJsonFormCardProps {
     formData?: ProcessFormData | null;
     initialData?: InitialData;
     onTaskComplete: (variables?: Record<string, unknown>) => void;
     completeInProgress?: boolean;
 }
 
-export const FormJsFormCard = ({formData, initialData, onTaskComplete, completeInProgress}: FormJsFormCardProps) => {
-    const formRef = useRef<FormJsFormViewer | null>(null);
+export const DeployedJsonFormCard = ({formData, initialData, onTaskComplete, completeInProgress}: DeployedJsonFormCardProps) => {
+    const formRef = useRef<FormViewerHandle | null>(null);
 
-    const handleFormJsFormSubmit = useCallback((event: SubmitEventData) => {
+    const handleFormSubmit = useCallback((event: SubmitEventData) => {
         if (!event.errors || Object.keys(event.errors).length === 0) {
             onTaskComplete(event.data);
         }
@@ -118,9 +117,9 @@ export const FormJsFormCard = ({formData, initialData, onTaskComplete, completeI
 
     return (
         <>
-            <FormJsForm ref={formRef} form={formData}
-                        initialData={initialData}
-                        onSubmit={handleFormJsFormSubmit}/>
+            <DeployedJsonForm ref={formRef} form={formData}
+                              initialData={initialData}
+                              onSubmit={handleFormSubmit}/>
             <CompleteTaskButton onClick={handleTaskComplete} loading={completeInProgress}/>
         </>
     );

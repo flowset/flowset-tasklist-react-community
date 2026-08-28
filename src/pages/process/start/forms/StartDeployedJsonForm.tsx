@@ -4,9 +4,9 @@
  */
 
 import {useCallback, useRef} from "react";
-import type {FormJsFormViewer, SubmitEventData} from "@components/form/form-js/types/FormJsFormViewer.ts";
+import type {FormViewerHandle, SubmitEventData} from "@components/form/formengine/types/FormViewerHandle.ts";
 import {Flex, Space} from "antd";
-import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
+import {DeployedJsonForm} from "@components/form/DeployedJsonForm.tsx";
 import {StartProcessButton} from "@components/button/StartProcessButton.tsx";
 import {CancelButton} from "@components/button/CancelButton.tsx";
 import {createStyles} from "antd-style";
@@ -17,23 +17,23 @@ const useStyles = createStyles(({css}) => ({
         width: 100%;
     `,
 
-    formJsActionsContainer: css`
+    formActionsContainer: css`
         width: 100%;
     `,
 }));
 
-export interface StartFormJsFormProps {
+export interface StartDeployedJsonFormProps {
     formData?: ProcessFormData;
     onStart: (variables?: Record<string, unknown>, businessKey?: string) => void;
     onCancel: () => void;
     startInProgress?: boolean;
 }
 
-export const StartFormJsForm = ({formData, onStart, startInProgress, onCancel}: StartFormJsFormProps) => {
-    const formRef = useRef<FormJsFormViewer | null>(null);
+export const StartDeployedJsonForm = ({formData, onStart, startInProgress, onCancel}: StartDeployedJsonFormProps) => {
+    const formRef = useRef<FormViewerHandle | null>(null);
     const {styles} = useStyles();
 
-    const handleFormJsFormSubmit = useCallback((event: SubmitEventData) => {
+    const handleFormSubmit = useCallback((event: SubmitEventData) => {
         if (!event.errors || Object.keys(event.errors).length === 0) {
             onStart(event.data);
         }
@@ -46,9 +46,9 @@ export const StartFormJsForm = ({formData, onStart, startInProgress, onCancel}: 
     return (
         <>
             <Space direction="vertical" className={styles.formContainer}>
-                <FormJsForm ref={formRef} form={formData}
-                            onSubmit={handleFormJsFormSubmit}/>
-                <Flex gap="middle" className={styles.formJsActionsContainer}>
+                <DeployedJsonForm ref={formRef} form={formData}
+                                  onSubmit={handleFormSubmit}/>
+                <Flex gap="middle" className={styles.formActionsContainer}>
                     <StartProcessButton key="submit" type="primary" onClick={onStartButtonClick}
                                         loading={startInProgress}/>
                     <CancelButton key="cancel" onClick={onCancel}/>
