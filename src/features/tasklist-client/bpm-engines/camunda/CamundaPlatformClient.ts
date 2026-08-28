@@ -4,6 +4,7 @@
  */
 
 import type {
+    CamundaDeploymentResource,
     CamundaFormData,
     CamundaHistoricProcessInstance,
     CamundaHistoricProcessInstanceRequest,
@@ -72,7 +73,6 @@ import {BaseHttpTasklistClient} from "@features/tasklist-client/http/BaseHttpTas
 import type {TaskExecutionPeriodStatistics, UserTask} from "@models/user-task.ts";
 import type {ProcessInstance, UserProcessInstance} from "@models/process.ts";
 import {FormType, type ProcessFormData} from "@models/form.ts";
-import {createDeployedFormStub, createTaskFormDataStub, USE_DEPLOYED_FORM_STUB} from "@features/tasklist-client/stubs/deployed-form-stub.ts";
 
 /**
  * Tasklist Client implementation for Camunda 7 engine and using Camunda 7 REST API.
@@ -152,20 +152,20 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
     }
 
     async getTaskFormData(params: GetTaskFormDataParams): Promise<GetTaskFormResult> {
-        if (USE_DEPLOYED_FORM_STUB) {
-            console.warn(`[stub] Skipping task form API for task ${params.taskId}; returning fixture schema`);
-            return createTaskFormDataStub();
-        }
-
         const {taskId} = params;
 
         return this.getWithResult<CamundaFormData>(`${this.taskUri}/${taskId}/form`)
-            .then((result: CamundaFormData) => {
+            .then(async (result: CamundaFormData) => {
                 const taskForm = convertCamundaFormToProcessForm(result);
                 if (!taskForm || !taskForm.formKey || taskForm.type == FormType.EMBEDDED) {
                     return taskForm;
                 }
-                return this.getDeployedForm(`${this.taskUri}/${taskId}/deployed-form`, taskForm);
+                const task = await this.getWithResult<CamundaTask>(`${this.taskUri}/${taskId}`);
+                return this.resolveDeployedForm(
+                    task.processDefinitionId,
+                    taskForm,
+                    `${this.taskUri}/${taskId}/deployed-form`,
+                );
             });
     }
 
@@ -247,11 +247,6 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
     }
 
     async getStartFormData(params: GetStartFormDataParams): Promise<GetStartFormResult> {
-        if (USE_DEPLOYED_FORM_STUB) {
-            console.warn(`[stub] Skipping start form API for process ${params.processDefinitionId}; returning fixture schema`);
-            return createTaskFormDataStub();
-        }
-
         const {processDefinitionId} = params;
         return this.getWithResult<CamundaFormData>(`${this.processUri}/${processDefinitionId}/startForm`)
             .then((result: CamundaFormData) => {
@@ -260,8 +255,11 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
                     return startForm;
                 }
 
-                return this.getDeployedForm(`${this.processUri}/${processDefinitionId}/deployed-start-form`, startForm);
-
+                return this.resolveDeployedForm(
+                    processDefinitionId,
+                    startForm,
+                    `${this.processUri}/${processDefinitionId}/deployed-start-form`,
+                );
             });
     }
 
@@ -347,15 +345,106 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
         return this.getWithResult<CamundaProcessDefinition[]>(url);
     };
 
-    protected async getDeployedForm(url: string, defaultForm: ProcessFormData) {
-        if (USE_DEPLOYED_FORM_STUB) {
-            console.warn(`[stub] Skipping deployed form request (${url}); returning fixture schema`);
-            return createDeployedFormStub(defaultForm);
+    /**
+     * Loads a FormEngine schema from the process deployment as a {@code .json} resource
+     * (Workspace / custom tasklist contract). Falls back to Camunda's {@code /deployed-form}
+     * API for legacy Camunda Forms {@code .form} resources.
+     */
+    protected async resolveDeployedForm(
+        processDefinitionId: string | undefined,
+        defaultForm: ProcessFormData,
+        legacyDeployedFormUrl: string,
+    ): Promise<ProcessFormData> {
+        if (processDefinitionId && defaultForm.formKey) {
+            const jsonForm = await this.tryLoadFormJsonFromDeployment(processDefinitionId, defaultForm);
+            if (jsonForm) {
+                return jsonForm;
+            }
+        }
+        return this.getDeployedForm(legacyDeployedFormUrl, defaultForm);
+    }
+
+    /**
+     * Finds a FormEngine {@code .json} resource in the same deployment as the process
+     * definition. Matches {@code {formKey}.json} by file name, otherwise any {@code .json}
+     * whose root {@code id} equals the formRef key.
+     */
+    protected async tryLoadFormJsonFromDeployment(
+        processDefinitionId: string,
+        defaultForm: ProcessFormData,
+    ): Promise<ProcessFormData | null> {
+        const formKey = defaultForm.formKey;
+        if (!formKey) {
+            return null;
         }
 
+        try {
+            const processDefinition = await this.getWithResult<CamundaProcessDefinition>(
+                `${this.processUri}/${processDefinitionId}`,
+            );
+            const deploymentId = processDefinition.deploymentId;
+            if (!deploymentId) {
+                return null;
+            }
+
+            const resources = await this.getWithResult<CamundaDeploymentResource[]>(
+                `${this.apiUrl}/deployment/${deploymentId}/resources`,
+            );
+            const jsonResources = resources.filter(resource =>
+                resource.name.toLowerCase().endsWith(".json"),
+            );
+            if (jsonResources.length === 0) {
+                return null;
+            }
+
+            const byFileName = jsonResources.find(resource => {
+                const fileName = resource.name.split(/[/\\]/).pop()?.toLowerCase();
+                return fileName === `${formKey.toLowerCase()}.json`;
+            });
+            if (byFileName) {
+                const content = await this.getDeploymentResourceText(deploymentId, byFileName.id);
+                return {
+                    ...defaultForm,
+                    type: FormType.FORM_ENGINE_JSON,
+                    content,
+                };
+            }
+
+            for (const resource of jsonResources) {
+                const content = await this.getDeploymentResourceText(deploymentId, resource.id);
+                if (isFormEngineSchemaForKey(content, formKey)) {
+                    return {
+                        ...defaultForm,
+                        type: FormType.FORM_ENGINE_JSON,
+                        content,
+                    };
+                }
+            }
+
+            return null;
+        } catch (reason) {
+            console.warn(
+                `Unable to load FormEngine JSON from deployment for process definition ${processDefinitionId}`,
+                reason,
+            );
+            return null;
+        }
+    }
+
+    protected async getDeploymentResourceText(deploymentId: string, resourceId: string): Promise<string> {
+        const response = await this.get(
+            `${this.apiUrl}/deployment/${deploymentId}/resources/${resourceId}/data`,
+        );
+        if (!response.ok) {
+            throw response;
+        }
+        return response.text();
+    }
+
+    protected async getDeployedForm(url: string, defaultForm: ProcessFormData) {
         return this.get(url)
             .then(response => {
-                if (response.status == 400) {
+                if (response.status == 400 || response.status == 404) {
                     return defaultForm;
                 }
                 if (response.ok) {
@@ -376,4 +465,13 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
             });
     }
 
+}
+
+function isFormEngineSchemaForKey(content: string, formKey: string): boolean {
+    try {
+        const parsed = JSON.parse(content) as {id?: unknown; form?: {type?: unknown}};
+        return parsed?.id === formKey && parsed?.form?.type === "Screen";
+    } catch {
+        return false;
+    }
 }

@@ -17,7 +17,7 @@ Flowset Tasklist is built using the following libraries and frameworks:
 - [React](https://react.dev/)
 - [Ant Design](https://ant.design/)
 - [react-query](https://tanstack.com/query/latest)
-- [form-js](https://bpmn.io/toolkit/form-js/)
+- [FormEngine](https://formengine.io/)
 - [Vite](http://vite.dev/)
 
 ## Table of Contents
@@ -408,7 +408,7 @@ To start a process instance immediately, click the **Start process** button for 
 Depending on what form is linked to the start event, the following content is shown in the opened dialog:
 
 1. If no form is linked — the **Business key** field.
-2. If Camunda form — the content of the deployed form.
+2. If FormEngine form — the content of the deployed form.
 3. If custom form — the content of a [registered custom form](#custom-forms-support).
 
 **Note:** Embedded and generated forms are not supported in the Flowset Tasklist.
@@ -428,7 +428,7 @@ After clicking, the panel with task details and linked form is opened on the rig
 Depending on what form is linked to the user task, the following content is shown in the user task details panel:
 
 1. If no form is linked — the **Complete** button only.
-2. If Camunda form — the content of the deployed form and the **Complete** button.
+2. If FormEngine form — the content of the deployed form and the **Complete** button.
 3. If custom form — the content of a [registered custom form](#custom-forms-support).
 
 **Note:** Embedded and generated forms are not supported in the Flowset Tasklist.

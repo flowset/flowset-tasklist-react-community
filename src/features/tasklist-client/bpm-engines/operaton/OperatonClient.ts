@@ -10,7 +10,6 @@ import {sortByField} from "@utils/sort";
 import type {TaskExecutionPeriodStatistics, UserTask} from "@models/user-task.ts";
 import type {ProcessInstance} from "@models/process.ts";
 import {FormType} from "@models/form.ts";
-import {createTaskFormDataStub, USE_DEPLOYED_FORM_STUB} from "@features/tasklist-client/stubs/deployed-form-stub.ts";
 
 import dayjs from "dayjs";
 
@@ -99,11 +98,6 @@ export class OperatonClient extends CamundaPlatformClient {
     }
 
     async getStartFormData(params: GetStartFormDataParams): Promise<GetStartFormResult> {
-        if (USE_DEPLOYED_FORM_STUB) {
-            console.warn(`[stub] Skipping start form API for process ${params.processDefinitionId}; returning fixture schema`);
-            return createTaskFormDataStub();
-        }
-
         const {processDefinitionId} = params;
         return this.getWithResult<OperatonFormData>(`${this.processUri}/${processDefinitionId}/startForm`)
             .then((result: OperatonFormData) => {
@@ -112,26 +106,29 @@ export class OperatonClient extends CamundaPlatformClient {
                     return startForm;
                 }
 
-                return this.getDeployedForm(`${this.processUri}/${processDefinitionId}/deployed-start-form`, startForm);
-
+                return this.resolveDeployedForm(
+                    processDefinitionId,
+                    startForm,
+                    `${this.processUri}/${processDefinitionId}/deployed-start-form`,
+                );
             });
     }
 
     async getTaskFormData(params: GetTaskFormDataParams): Promise<GetTaskFormResult> {
-        if (USE_DEPLOYED_FORM_STUB) {
-            console.warn(`[stub] Skipping task form API for task ${params.taskId}; returning fixture schema`);
-            return createTaskFormDataStub();
-        }
-
         const {taskId} = params;
 
         return this.getWithResult<OperatonFormData>(`${this.taskUri}/${taskId}/form`)
-            .then((result: OperatonFormData) => {
+            .then(async (result: OperatonFormData) => {
                 const taskForm = convertOperatonFormToProcessForm(result);
                 if (!taskForm || !taskForm.formKey || taskForm.type == FormType.EMBEDDED) {
                     return taskForm;
                 }
-                return this.getDeployedForm(`${this.taskUri}/${taskId}/deployed-form`, taskForm);
+                const task = await this.getWithResult<OperatonTask>(`${this.taskUri}/${taskId}`);
+                return this.resolveDeployedForm(
+                    task.processDefinitionId,
+                    taskForm,
+                    `${this.taskUri}/${taskId}/deployed-form`,
+                );
             });
     }
 

@@ -14,7 +14,7 @@ import {CustomForm} from "@components/form/CustomForm.tsx";
 import {CancelButton} from "@components/button/CancelButton.tsx";
 import {createStyles} from "antd-style";
 import {DefaultStartForm} from "./forms/DefaultStartForm.tsx";
-import {StartFormJsForm} from "./forms/StartFormJsForm.tsx";
+import {StartDeployedJsonForm} from "./forms/StartDeployedJsonForm.tsx";
 import {FormType} from "@models/form.ts";
 
 const {Title} = Typography;
@@ -104,8 +104,8 @@ export const StartProcessDialog = ({processDefinition, open, onClose, onProcessS
                     <EmbeddedForm/>
                     <CancelButton onClick={onClose} className={styles.cancelButton}/>
                 </Flex>}
-                {formType === FormType.FORM_JS_JSON && startFormData &&
-                    <StartFormJsForm formData={startFormData} onStart={startProcess}
+                {formType === FormType.FORM_ENGINE_JSON && startFormData &&
+                    <StartDeployedJsonForm formData={startFormData} onStart={startProcess}
                                      startInProgress={isStartInProgress}
                                      onCancel={onClose}
                     />}

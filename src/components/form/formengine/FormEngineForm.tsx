@@ -5,17 +5,16 @@
 
 import {forwardRef, type HTMLAttributes, useCallback, useImperativeHandle, useMemo, useRef} from "react";
 import {FormViewer, type ActionEventArgs, type IFormViewer} from "@react-form-builder/core";
+import {viewWithCss} from "@react-form-builder/components-rsuite";
 import {Typography} from "antd";
 import type {InitialData, ProcessFormData} from "@models/form.ts";
 import type {
     FormErrors,
     FormFieldValues,
-    FormJsFormViewer,
+    FormViewerHandle,
     SubmitEventData,
     SubmitEventResult
-} from "@components/form/form-js/types/FormJsFormViewer.ts";
-import {customView} from "./views/customView.ts";
-import {validators} from "./validators/usernameAvailable.ts";
+} from "./types/FormViewerHandle.ts";
 import "./FormEngineForm.css";
 
 const {Text} = Typography;
@@ -41,10 +40,9 @@ function toFormErrors(errors: Record<string, unknown>): FormErrors {
 }
 
 /**
- * Renders a FormEngine form from ProcessFormData JSON content (via FormViewer).
- * Used when `VITE_USE_DEPLOYED_FORM_STUB` is enabled.
+ * Renders a FormEngine form deployed to the BPM engine (same RSuite kit as Workspace).
  */
-export const FormEngineForm = forwardRef<FormJsFormViewer, FormEngineFormProps & Omit<HTMLAttributes<HTMLDivElement>, "id" | "ref" | "onSubmit">>(({
+export const FormEngineForm = forwardRef<FormViewerHandle, FormEngineFormProps & Omit<HTMLAttributes<HTMLDivElement>, "id" | "ref" | "onSubmit">>(({
                                                                                                                                                        form,
                                                                                                                                                        initialData,
                                                                                                                                                        readOnly,
@@ -143,9 +141,8 @@ export const FormEngineForm = forwardRef<FormJsFormViewer, FormEngineFormProps &
     return (
         <div id="formengine-form-container" {...divProps}>
             <FormViewer
-                view={customView}
+                view={viewWithCss}
                 getForm={getForm}
-                validators={validators}
                 actions={actions}
                 initialData={initialData as Record<string, unknown> | undefined}
                 readOnly={readOnly}

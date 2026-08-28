@@ -4,19 +4,14 @@
  */
 
 import {forwardRef, type ComponentProps} from "react";
-import {USE_DEPLOYED_FORM_STUB} from "@features/tasklist-client/stubs/deployed-form-stub.ts";
-import {FormJsForm} from "@components/form/form-js/FormJsForm.tsx";
 import {FormEngineForm} from "@components/form/formengine/FormEngineForm.tsx";
-import type {FormJsFormViewer} from "@components/form/form-js/types/FormJsFormViewer.ts";
+import type {FormViewerHandle} from "@components/form/formengine/types/FormViewerHandle.ts";
 
-type JsonFormProps = ComponentProps<typeof FormJsForm>;
+type JsonFormProps = ComponentProps<typeof FormEngineForm>;
 
 /**
- * Renders FormEngine when `VITE_USE_DEPLOYED_FORM_STUB` is true, otherwise form-js.
+ * Renders a JSON form schema loaded from the BPM engine deployment via FormEngine.
  */
-export const DeployedJsonForm = forwardRef<FormJsFormViewer, JsonFormProps>((props, ref) => {
-    if (USE_DEPLOYED_FORM_STUB) {
-        return <FormEngineForm ref={ref} {...props} />;
-    }
-    return <FormJsForm ref={ref} {...props} />;
+export const DeployedJsonForm = forwardRef<FormViewerHandle, JsonFormProps>((props, ref) => {
+    return <FormEngineForm ref={ref} {...props} />;
 });
