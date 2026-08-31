@@ -46,10 +46,10 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
                 data: transformData(callTimeData || paramsRef.current.data),
             })
         },
-        onSuccess: async (data, variables, context) => {
+        onSuccess: async (data, variables, onMutateResult, context) => {
             await queryClient.invalidateQueries({queryKey: ["getUserTasks"]});
             if (onSuccess) {
-                onSuccess(data, variables, context);
+                onSuccess(data, variables, onMutateResult, context);
             }
         },
         ...restOptions
