@@ -148,7 +148,7 @@ export const TaskDataTable = ({
                          rowClassName={record => record.id === selectedTaskId ? "ant-table-row-selected" : ""}
                          dataSource={data}
                          pagination={{
-                             placement: ["topRight", "none"],
+                             placement: ["topEnd", "none"],
                              total: totalElements && totalElements > 0 ? totalElements : 1, //if the total is 0, pagination is hidden
                              showTotal: (total, range) =>
                                  totalElements && totalElements > 0 ? translate("listPage.tasksTable.paginationTotal",
