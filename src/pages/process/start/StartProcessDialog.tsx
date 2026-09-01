@@ -67,7 +67,7 @@ export const StartProcessDialog = ({processDefinition, open, onClose, onProcessS
             variables
         }).then(() => {
             api.success({
-                message: translate("process:processStarted", {process: processRecordRepresentation}),
+                title: translate("process:processStarted", {process: processRecordRepresentation}),
                 placement: "top",
                 duration: 3
             });
@@ -75,7 +75,7 @@ export const StartProcessDialog = ({processDefinition, open, onClose, onProcessS
         }).catch((error: unknown) => {
             console.log("Error on process starting: ", error);
             api.error({
-                message: translate("process:processNotStarted", {process: processRecordRepresentation}),
+                title: translate("process:processNotStarted", {process: processRecordRepresentation}),
                 placement: "top",
                 duration: 3
             });

@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import {Card, Flex, List, Tooltip, Typography} from "antd";
+import {Card, Flex, Listy, Tooltip, Typography} from "antd";
 import {Link, useNavigate} from "react-router-dom";
 import {CalendarOutlined} from "@ant-design/icons";
 import {TaskPriority} from "@components/user-task/TaskPriority.tsx";
@@ -34,16 +34,14 @@ export const RecentTaskList = ({items}: RecentTaskListProps) => {
     const {styles} = useListCardStyles();
     return (
         <>
-            <List
-                itemLayout="horizontal"
-                dataSource={items}
-                renderItem={(item) => (
-                    <List.Item
-                        className={styles.listItem}>
-                        <List.Item.Meta className={styles.listItemMeta}
-                                        description={<RecentTaskCard item={item}/>}
-                        />
-                    </List.Item>
+            <Listy
+                items={items}
+                rowKey="id"
+                classNames={{item: styles.listItem}}
+                itemRender={(item) => (
+                    <div className={styles.listItemMeta}>
+                        <RecentTaskCard item={item}/>
+                    </div>
                 )}
             />
         </>

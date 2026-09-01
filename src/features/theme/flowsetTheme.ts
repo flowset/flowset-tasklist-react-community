@@ -76,7 +76,6 @@ export const flowsetTheme: ThemeConfig = {
             defaultActiveBg: "rgba(23, 98, 120, 0.2)",
 
             defaultHoverBorderColor:  "rgb(25, 110, 140)",
-            groupBorderColor:  "rgb(25, 110, 140)",
         },
         Menu: {
             darkItemBg: "rgb(16, 70, 86)",

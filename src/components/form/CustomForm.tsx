@@ -28,7 +28,7 @@ export const CustomForm = (props: CustomFormProps) => {
     const customForm = getForm(formData.formKey);
 
     if (!customForm) {
-        return <Space direction="vertical" style={{width: "100%"}}>
+        return <Space orientation="vertical" style={{width: "100%"}}>
             <Alert style={{width: "100%"}}
                    description={import.meta.env.DEV ? <Link title={translate("customFormNotConfigured.description")}
                                                             target="_blank"

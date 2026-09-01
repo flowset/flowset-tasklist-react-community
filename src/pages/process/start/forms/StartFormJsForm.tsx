@@ -45,7 +45,7 @@ export const StartFormJsForm = ({formData, onStart, startInProgress, onCancel}: 
 
     return (
         <>
-            <Space direction="vertical" className={styles.formContainer}>
+            <Space orientation="vertical" className={styles.formContainer}>
                 <FormJsForm ref={formRef} form={formData}
                             onSubmit={handleFormJsFormSubmit}/>
                 <Flex gap="middle" className={styles.formJsActionsContainer}>

@@ -8,13 +8,13 @@ import Col from "antd/es/grid/col";
 import {TaskFormCard} from "./TaskFormCard.tsx";
 import {TaskSystemInfoCard} from "./TaskSystemInfoCard.tsx";
 import Title from "antd/es/typography/Title";
-import type {DrawerStyles} from "antd/es/drawer/DrawerPanel";
+import type {DrawerSemanticType} from "antd/es/drawer/DrawerPanel";
 import {TaskErrorResult} from "./TaskErrorResult.tsx";
 import {useGetUserTaskData} from "@hooks/user-task";
 import {createStyles} from "antd-style";
 import type {UserTask} from "@models/user-task.ts";
 
-const drawerStyles: DrawerStyles = {
+const drawerStyles: NonNullable<DrawerSemanticType["styles"]> = {
     wrapper: {
         width: "100%"
     },
@@ -23,7 +23,7 @@ const drawerStyles: DrawerStyles = {
         scrollbarWidth: "thin"
     }
 };
-const loadingDrawerStyles: DrawerStyles = {
+const loadingDrawerStyles: NonNullable<DrawerSemanticType["styles"]> = {
     wrapper: {
         width: "100%"
     },
