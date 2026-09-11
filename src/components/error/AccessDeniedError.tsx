@@ -12,7 +12,7 @@ export const AccessDeniedError = (props: Omit<ResultProps, "status">) => {
     return (
         <>
             <Result
-                status={404}
+                status={403}
                 title={title || translate("error.403.title")}
                 subTitle={subTitle || translate("error.403.description")}
                 {...restProps}
