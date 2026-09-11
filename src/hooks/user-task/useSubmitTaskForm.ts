@@ -27,13 +27,14 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
         if (!data) {
             return undefined;
         }
-        Object.entries(data).forEach(([key, value]) => {
+        const transformed = {...data};
+        Object.entries(transformed).forEach(([key, value]) => {
             if (dayjs.isDayjs(value)) {
-                data[key] = formatOffsetDateTime(value);
+                transformed[key] = formatOffsetDateTime(value);
             }
         });
 
-        return data;
+        return transformed;
     };
 
     return useMutation<CompeteUserTaskResult, Error, UseSubmitTaskFormParams>({
