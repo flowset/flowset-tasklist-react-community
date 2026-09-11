@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import type {PropsWithChildren} from "react";
+import {useMemo, type PropsWithChildren} from "react";
 import {TasklistClientContext} from "./TasklistClientContext.ts";
 import {useBpmEngine} from "@hooks/useBpmEngine.ts";
 import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
@@ -26,6 +26,30 @@ export const TasklistClientProvider = ({
     const bpmEngine = useBpmEngine();
     const {getAuthHeaders} = useTasklistAuth();
 
+    const selectedEngine = bpmEngine?.selectedEngine;
+    const engineType = selectedEngine?.type;
+    const engineUrl = selectedEngine ? getEngineBaseUrl(selectedEngine) : undefined;
+
+    const engineClient = useMemo<ITasklistClient | undefined>(() => {
+        if (!engineType || !engineUrl) {
+            return undefined;
+        }
+
+        switch (engineType) {
+            case EngineType.CAMUNDA_7:
+                return new CamundaPlatformClient({
+                    apiUrl: engineUrl,
+                    headers: getAuthHeaders
+                });
+
+            case EngineType.OPERATON:
+                return new OperatonClient({
+                    apiUrl: engineUrl,
+                    headers: getAuthHeaders
+                });
+        }
+    }, [engineType, engineUrl]);
+
     if (callTimeClient) {
         const tasklistClient = typeof callTimeClient === "function" ? callTimeClient(getAuthHeaders()) : callTimeClient;
 
@@ -34,39 +58,17 @@ export const TasklistClientProvider = ({
         </TasklistClientContext.Provider>
     }
 
-    const selectedEngine = bpmEngine?.selectedEngine;
     if (!selectedEngine) {
         throw new Error("Cannot create Flowset Tasklist client because BPM engine is not configured");
     }
 
-    const engineType = selectedEngine.type;
-    let client: ITasklistClient | undefined;
-
-    const engineUrl = getEngineBaseUrl(selectedEngine);
-
-    switch (engineType) {
-        case EngineType.CAMUNDA_7:
-            client = new CamundaPlatformClient({
-                apiUrl: engineUrl,
-                headers: getAuthHeaders
-            });
-            break;
-
-        case EngineType.OPERATON:
-            client = new OperatonClient({
-                apiUrl: engineUrl,
-                headers: getAuthHeaders
-            });
-            break;
-    }
-
-    if (!client) {
+    if (!engineClient) {
         throw new Error("ITasklistClient is not created in the context or not passed as params");
     }
 
     return (
         <>
-            <TasklistClientContext.Provider value={client}>
+            <TasklistClientContext.Provider value={engineClient}>
                 {children}
             </TasklistClientContext.Provider>
         </>
