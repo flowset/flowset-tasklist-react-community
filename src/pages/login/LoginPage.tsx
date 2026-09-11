@@ -9,7 +9,7 @@ import Icon from "@ant-design/icons";
 import {LogoIcon} from "@components/LogoIcon.tsx";
 import {useTranslation} from "react-i18next";
 import type {UserCredentials} from "@features/auth/types.ts";
-import {HttpError} from "@features/auth/errors/HttpError.ts";
+import {HttpError} from "@utils/errors/HttpError.ts";
 import {useLoginPageStyles} from "./useLoginPageStyles.ts";
 
 const {Title, Text} = Typography;

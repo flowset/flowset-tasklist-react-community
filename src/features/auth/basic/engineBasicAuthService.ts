@@ -5,7 +5,7 @@
 
 import {type EngineBasicAuthService, TasklistAuthType, type User, type UserCredentials} from "../types.ts";
 import {type BpmEngineConfig, EngineType} from "@features/bpm-engine/types.ts";
-import {HttpError} from "../errors/HttpError.ts";
+import {HttpError} from "@utils/errors/HttpError.ts";
 import {sessionUtils} from "../utils/sessionUtils.ts";
 import {getEngineBaseUrl} from "@utils/bpm-engine/getEngineBaseUrl.ts";
 
