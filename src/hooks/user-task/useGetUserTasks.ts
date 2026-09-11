@@ -99,7 +99,7 @@ export const useGetUserTasks = (requestParams: UseGetUserTasksParams = {}, query
     const resultParams = {...requestParams, pagination: resultPagination, username: currentUsername};
 
     const result: UseQueryResult<GetUserTaskListResult> = useQuery<GetUserTaskListResult, Error, GetUserTaskListResult>({
-        queryKey: ["getUserTasks", pagination, sort, queryKeyFilter],
+        queryKey: ["getUserTasks", currentUsername, pagination, sort, queryKeyFilter],
         queryFn: () => taskListClient.getUserTasks(resultParams),
         ...queryOptions,
     });

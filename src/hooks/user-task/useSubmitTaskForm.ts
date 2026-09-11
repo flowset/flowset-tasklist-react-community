@@ -47,7 +47,10 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
             })
         },
         onSuccess: async (data, variables, context) => {
-            await queryClient.invalidateQueries({queryKey: ["getUserTasks"]});
+            await Promise.all([
+                queryClient.invalidateQueries({queryKey: ["getUserTasks"]}),
+                queryClient.invalidateQueries({queryKey: ["getUserTaskStatistics"]}),
+            ]);
             if (onSuccess) {
                 onSuccess(data, variables, context);
             }
