@@ -111,7 +111,7 @@ export const InstanceDataTable = ({
                          loading={loading}
                          dataSource={data}
                          pagination={{
-                             position: ["topRight", "none"],
+                             placement: ["topEnd", "none"],
                              total: totalElements && totalElements > 0 ? totalElements : 1, //if the total is 0, pagination is hidden
                              defaultCurrent: currentPageData.page,
                              current: currentPageData.page,

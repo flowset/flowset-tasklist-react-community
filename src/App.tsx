@@ -35,7 +35,7 @@ function App() {
     if (authType == TasklistAuthType.OIDC && !isAuthenticated) {
         if (hasTriedSignin || loginError) {
             return (
-                <Space direction="vertical">
+                <Space orientation="vertical">
                     <Title level={4}>{translate("unableLogin")}</Title>
                     {loginError && <Text>{loginError.message}</Text>}
                     <Button onClick={handleReloadPage}>

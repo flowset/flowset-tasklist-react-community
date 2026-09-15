@@ -4,6 +4,7 @@
  */
 
 import type {RequestHeaders} from "../types/request.ts";
+import {HttpError} from "@utils/errors/HttpError.ts";
 
 /**
  * Contains data about one request in case of running parallel requests
@@ -149,7 +150,7 @@ export const fetchParallel = async <T extends RequestDataMap>(requests: T): Prom
 const handleJsonResponse = async (response: Response) => {
     if (!response.ok) {
         console.error(`Error response: ${response.status} ${response.statusText} by URL ${response.url}`);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        throw new HttpError(response.status, response.statusText);
     }
     return response.json();
 };

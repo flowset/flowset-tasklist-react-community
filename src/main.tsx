@@ -13,7 +13,6 @@ import {flowsetTheme} from "@features/theme/flowsetTheme.ts";
 import i18n from "@features/i18n/config";
 import {I18nextProvider} from "react-i18next";
 import {getEngineConfig} from "@features/bpm-engine/config.ts";
-import "@ant-design/v5-patch-for-react-19";
 import {TasklistAdmin} from "@features/TasklistAdmin.tsx";
 import {customFormConfigs} from "@features/custom-forms/config.ts";
 import {getAntDLocale} from "@features/i18n/getAntDLocale.ts";

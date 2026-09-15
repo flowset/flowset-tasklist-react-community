@@ -3,25 +3,23 @@
  * Use is subject to license terms.
  */
 
-import {Card, List, Skeleton} from "antd";
+import {Card, Listy, Skeleton} from "antd";
 import {useListCardStyles} from "./useListCardStyles.ts";
 
 export const DashboardSkeletonTasks = () => {
     const {styles} = useListCardStyles();
     return (
         <>
-            <List
-                itemLayout="horizontal"
-                dataSource={[0, 1, 2, 3, 4]}
-                renderItem={() => (
-                    <List.Item className={styles.listItem}>
-                        <List.Item.Meta className={styles.listItemMeta}
-                                        description={<Card
-                                            className={styles.listItemCard}>
-                                            <Skeleton active={true} title={false} paragraph={{rows: 2}}/>
-                                        </Card>}
-                        />
-                    </List.Item>
+            <Listy
+                items={[0, 1, 2, 3, 4]}
+                rowKey={(item) => item}
+                classNames={{item: styles.listItem}}
+                itemRender={() => (
+                    <div className={styles.listItemMeta}>
+                        <Card className={styles.listItemCard}>
+                            <Skeleton active={true} title={false} paragraph={{rows: 2}}/>
+                        </Card>
+                    </div>
                 )}
             />
         </>
