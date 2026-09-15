@@ -66,7 +66,9 @@ export const FormJsForm = forwardRef<FormJsFormViewer, FormJsFormProps & Omit<HT
     const [importSchemaError, setImportSchemaError] = useState<unknown>();
     const {t: translate} = useTranslation(["formJs"]);
 
-    flatpickr.localize(FLATPICKR_LOCALE_MAP[APP_LOCALE]);
+    useEffect(() => {
+        flatpickr.localize(FLATPICKR_LOCALE_MAP[APP_LOCALE]);
+    }, []);
 
     useEffect(() => {
         const currentForm = (formViewerRef.current = new Form({
