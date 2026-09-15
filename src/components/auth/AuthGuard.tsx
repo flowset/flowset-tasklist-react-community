@@ -45,10 +45,6 @@ export const AuthGuard = ({children}: AuthGuardProps) => {
                 </Space>
             );
         }
-        return null
-    }
-
-    if (authType === TasklistAuthType.OIDC && !isAuthenticated && !hasTriedSignin) {
         return <SplashScreen/>
     }
 
