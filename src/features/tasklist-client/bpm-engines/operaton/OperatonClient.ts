@@ -277,11 +277,6 @@ export class OperatonClient extends CamundaPlatformClient {
         const variables = convertToInputVariablesMap(data);
 
         return this.post(`${this.taskUri}/${taskId}/submit-form`, variables)
-            .then(response => {
-                if (response.ok) {
-                    return;
-                }
-                return Promise.reject(response);
-            });
+            .then(() => undefined);
     }
 }
