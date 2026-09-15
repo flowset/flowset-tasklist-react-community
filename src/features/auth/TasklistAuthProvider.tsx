@@ -40,7 +40,7 @@ export const TasklistAuthProvider = ({children, config: configFromProps}: Taskli
     }
 
     if (authType === TasklistAuthType.OIDC) {
-        return <OidcAuthProvider config={config}>;
+        return <OidcAuthProvider config={config}>
             {children}
         </OidcAuthProvider>
     }
