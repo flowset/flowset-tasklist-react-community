@@ -105,7 +105,7 @@ export const fetchParallel = async <T extends RequestDataMap>(requests: T): Prom
     const entries = Object.entries(requests) as [keyof T, RequestData][];
     const promises = entries.map(([key, {promise, converter}]) =>
         promise
-            .then(response => response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`)))
+            .then(response => response.json())
             .then(data => ({
                 key,
                 data: converter ? converter(data) : data,
@@ -163,6 +163,7 @@ const handleJsonResponse = async (response: Response) => {
 const handleResponse = async (response: Response): Promise<Response> => {
     if (!response.ok) {
         console.error(`Error response: ${response.status} ${response.statusText} by URL ${response.url}`);
+        throw new HttpError(response.status, response.statusText);
     }
     return response;
 };
