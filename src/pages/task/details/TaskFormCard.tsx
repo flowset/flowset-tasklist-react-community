@@ -53,7 +53,7 @@ export const TaskFormCard = (props: TaskFormCardProps) => {
                 }).catch((error: Error) => {
                     console.log("Error on task complete: ", error);
                     api.error({
-                        message: translate("detailPage.taskNotCompleted", {
+                        title: translate("detailPage.taskNotCompleted", {
                             taskName: task.name
                         }),
                         placement: "top",

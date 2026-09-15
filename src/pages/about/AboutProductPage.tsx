@@ -98,7 +98,7 @@ export const AboutProductPage = () => {
                                                                 tooltips: false,
                                                                 text: `Flowset Tasklist ${APP_VERSION} (${APP_BUILD_SOURCE})`
                                                             }}>{translate("productVersion.title")}</Title>}>
-                                            <Space direction={"vertical"} size={"middle"}>
+                                            <Space orientation={"vertical"} size={"middle"}>
                                                 <Space align={"baseline"}>
                                                     <Text>{translate("product.label")}: </Text>
                                                     <Text type={"secondary"}>Flowset Tasklist</Text>
@@ -119,7 +119,7 @@ export const AboutProductPage = () => {
                                               title={<Title level={4}
                                                             className={styles.cardTitle}>
                                                   {translate("externalLinks.title")}</Title>}>
-                                            <Space direction={"vertical"} size={"middle"}
+                                            <Space orientation={"vertical"} size={"middle"}
                                                    className={styles.externalLinksContainer}>
                                                 {productMetadata.externalLinks.map((link, index) => (
                                                     <ExternalLinkListItem item={link} key={index}/>
@@ -135,7 +135,7 @@ export const AboutProductPage = () => {
                                           title={<Title level={4}
                                                         className={styles.cardTitle}>
                                               {translate("ourProducts.title")}</Title>}>
-                                        <Space direction={"vertical"} style={{
+                                        <Space orientation={"vertical"} style={{
                                             width: "100%"
                                         }}>
                                             {productMetadata.products.map((product, index) => (

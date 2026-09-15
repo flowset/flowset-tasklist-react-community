@@ -30,11 +30,10 @@ export const LoginPage = () => {
         <>
             <div className={styles.loginFormMainLayout}>
                 <div className={styles.loginFormRoot}>
-                    <Space direction="vertical" style={{height: "100%"}} wrap={true} size="large" align="center">
+                    <Space orientation="vertical" style={{height: "100%"}} wrap={true} size="large" align="center">
                         <LoginFormHeader/>
                         <Form
                             onFinish={onFinish}
-                            autoComplete="off"
                             layout="vertical">
                             <Form.Item<UserCredentials> name="username"
                                                         label={translate("username.label")}
@@ -78,7 +77,7 @@ const LoginFormHeader = () => {
     const {styles} = useLoginPageStyles();
     return (
         <>
-            <Space direction="horizontal" align="start">
+            <Space orientation="horizontal" align="start">
                 <Icon component={LogoIcon} className={styles.logoIcon}/>
                 <Title level={3} className={styles.headerTitle}>Flowset Tasklist</Title>
             </Space>

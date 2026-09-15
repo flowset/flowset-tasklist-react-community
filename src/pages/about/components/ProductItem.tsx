@@ -28,7 +28,7 @@ export const ProductItem = ({item: product}: ProductItemProps) => {
     
     return (
         <>
-            <Space direction={"vertical"}>
+            <Space orientation={"vertical"}>
                 <Text strong={true} className={styles.productTitle}>{product.name}</Text>
                 <Text type={"secondary"}>{product.description}</Text>
                 <ExternalLinkListItem item={{
