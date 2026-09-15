@@ -27,13 +27,14 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
         if (!data) {
             return undefined;
         }
-        Object.entries(data).forEach(([key, value]) => {
+        const transformed = {...data};
+        Object.entries(transformed).forEach(([key, value]) => {
             if (dayjs.isDayjs(value)) {
-                data[key] = formatOffsetDateTime(value);
+                transformed[key] = formatOffsetDateTime(value);
             }
         });
 
-        return data;
+        return transformed;
     };
 
     return useMutation<CompeteUserTaskResult, Error, UseSubmitTaskFormParams>({
@@ -46,10 +47,13 @@ export const useSubmitTaskForm = (requestParams: Partial<CompleteTaskParams> = {
                 data: transformData(callTimeData || paramsRef.current.data),
             })
         },
-        onSuccess: async (data, variables, context) => {
-            await queryClient.invalidateQueries({queryKey: ["getUserTasks"]});
+        onSuccess: async (data, variables, onMutateResult, context) => {
+            await Promise.all([
+                queryClient.invalidateQueries({queryKey: ["getUserTasks"]}),
+                queryClient.invalidateQueries({queryKey: ["getUserTaskStatistics"]}),
+            ]);
             if (onSuccess) {
-                onSuccess(data, variables, context);
+                onSuccess(data, variables, onMutateResult, context);
             }
         },
         ...restOptions

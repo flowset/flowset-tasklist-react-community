@@ -62,7 +62,7 @@ export const TaskSystemInfoCard = (props: TaskSystemInfoCardProps & CardProps) =
 
     return (
         <>
-            <Space direction="vertical">
+            <Space orientation="vertical">
                 <Card  {...rest} title={translate("detailPage.taskInformation")} variant={"outlined"}>
                     <Descriptions items={items} column={2}/>
                 </Card>

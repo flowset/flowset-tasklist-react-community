@@ -24,7 +24,6 @@
     "noImplicitAny": true,
 
     /* Aliases */
-    "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],

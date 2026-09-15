@@ -33,10 +33,10 @@ export const useStartProcess = (requestParams: Partial<StartProcessParams> = {},
                 businessKey: callBusinessKey || paramsRef.current.businessKey
             });
         },
-        onSuccess: async (data, variables, context) => {
+        onSuccess: async (data, variables, onMutateResult, context) => {
             await queryClient.invalidateQueries({queryKey: ["getUserProcessInstances"]});
             if (onSuccess) {
-                onSuccess(data, variables, context);
+                onSuccess(data, variables, onMutateResult, context);
             }
         },
         ...restOptions

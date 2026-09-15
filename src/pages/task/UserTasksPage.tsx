@@ -39,7 +39,7 @@ export const UserTasksPage = () => {
     const handleTaskComplete = (task: UserTask) => {
         resetTask();
         api.success({
-            message: translate("listPage.taskCompleted", {taskName: task?.name}),
+            title: translate("listPage.taskCompleted", {taskName: task?.name}),
             placement: "top",
             duration: 3
         });

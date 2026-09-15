@@ -59,25 +59,27 @@ export const useQueryParams = (props: UseQueryParamsProps): UseQueryParamsResult
     };
 
     const setValues = (values: Record<string, string>) => {
+        const newSearchParams = new URLSearchParams(searchParams);
         Object.entries(values).forEach(([key, value]) => {
-            searchParams.set(key, value);
+            newSearchParams.set(key, value);
         });
-        setSearchParams(searchParams);
-
+        setSearchParams(newSearchParams);
     };
 
     const removeAllValues = () => {
+        const newSearchParams = new URLSearchParams(searchParams);
         paramNames.forEach((name: string) => {
-            searchParams.delete(name);
+            newSearchParams.delete(name);
         });
-        setSearchParams(searchParams);
+        setSearchParams(newSearchParams);
     };
 
     const removeValues = (paramNames: string[]) => {
+        const newSearchParams = new URLSearchParams(searchParams);
         paramNames.forEach((name: string) => {
-            searchParams.delete(name);
+            newSearchParams.delete(name);
         });
-        setSearchParams(searchParams);
+        setSearchParams(newSearchParams);
     };
 
     return {

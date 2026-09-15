@@ -24,7 +24,7 @@ export const useGetUserTaskStatistics = (requestParams: UseGetUserTaskStatistics
 
     const query: UseQueryResult<GetUserTaskStatisticsResult> = useQuery<GetUserTaskStatisticsResult, Error, GetUserTaskStatisticsResult>(
         {
-            queryKey: ["getUserTaskStatistics"],
+            queryKey: ["getUserTaskStatistics", requestParams.username],
             queryFn: () => taskListClient.getUserTaskStatistics(requestParams),
             ...queryOptions
         }

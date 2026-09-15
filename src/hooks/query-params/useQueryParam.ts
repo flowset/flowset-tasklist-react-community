@@ -42,18 +42,19 @@ export const useQueryParam = (props: UseQueryParamProps): UseQueryParamResult =>
     const [searchParams, setSearchParams] = useSearchParams();
 
     const setValue = (value?: string | null) => {
+        const newSearchParams = new URLSearchParams(searchParams);
         if (!value) {
-            searchParams.delete(paramName);
+            newSearchParams.delete(paramName);
         } else {
-            searchParams.set(paramName, value);
+            newSearchParams.set(paramName, value);
         }
-        setSearchParams(searchParams);
-
+        setSearchParams(newSearchParams);
     };
 
     const removeValue = () => {
-        searchParams.delete(paramName);
-        setSearchParams(searchParams);
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.delete(paramName);
+        setSearchParams(newSearchParams);
     };
 
     return {

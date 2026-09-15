@@ -44,6 +44,7 @@ import {
 } from "./converters/request-converters.ts";
 import {buildUrl} from "./utils/camunda-url-builder.ts";
 import {fetchParallel, type RequestData} from "@features/tasklist-client/http/fetch-utils.ts";
+import {HttpError} from "@utils/errors/HttpError.ts";
 import type {
     CompleteTaskParams,
     GetProcessListParams,
@@ -168,12 +169,7 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
         const variables = convertToInputVariablesMap(data);
 
         return this.post(`${this.taskUri}/${taskId}/submit-form`, variables)
-            .then(value => {
-                if (value.ok) {
-                    return;
-                }
-                return Promise.reject(value);
-            });
+            .then(() => undefined);
     }
 
     async getTaskFormVariables(params: GetTaskFormVariablesParams): Promise<GetTaskFormVariablesResult> {
@@ -339,22 +335,18 @@ export class CamundaPlatformClient extends BaseHttpTasklistClient {
     protected async getDeployedForm(url: string, defaultForm: ProcessFormData) {
         return this.get(url)
             .then(response => {
-                if (response.status == 400) {
+                const formType = convertContentTypeToFormType(response.headers.get("content-type"));
+                return response.text().then(responseContent => {
+                    return {
+                        ...defaultForm,
+                        type: formType,
+                        content: responseContent
+                    }
+                });
+            }).catch(reason => {
+                if (reason instanceof HttpError && reason.status === 400) {
                     return defaultForm;
                 }
-                if (response.ok) {
-                    const formType = convertContentTypeToFormType(response.headers.get("content-type"));
-                    return response.text().then(responseContent => {
-                        return {
-                            ...defaultForm,
-                            type: formType,
-                            content: responseContent
-                        }
-                    });
-                }
-
-                return Promise.reject(response);
-            }).catch(reason => {
                 console.error(`Unable to load deployed form by url: ${url}`, reason);
                 throw reason;
             });
