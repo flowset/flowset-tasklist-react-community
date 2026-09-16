@@ -93,7 +93,7 @@ interface TaskRelativeCreateDateProps {
 }
 
 const TaskRelativeCreateDate = ({date}: TaskRelativeCreateDateProps) => {
-    const [time, setTime] = useState(Date.now());
+    const [time, setTime] = useState(() => Date.now());
     const {t: translate} = useTranslation(["dashboard"]);
 
     useEffect(() => {

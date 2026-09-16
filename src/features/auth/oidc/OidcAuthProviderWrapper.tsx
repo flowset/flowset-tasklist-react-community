@@ -75,6 +75,8 @@ export const OidcAuthProviderWrapper = ({children, config}: TasklistAuthProvider
             !oidcAuth.isLoading &&
             !hasTriedSignin
         ) {
+            // Triggers an OIDC redirect (external navigation) once auth status is known.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             login();
         }
     }, [oidcAuth, oidcAuth.isAuthenticated, oidcAuth.isLoading, hasTriedSignin, login]);

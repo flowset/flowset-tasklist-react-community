@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {type TasklistAuthProviderProps, type User, type UserCredentials} from "../types.ts";
 import {useBpmEngine} from "@hooks/useBpmEngine.ts";
 import {engineBasicAuthService} from "./engineBasicAuthService.ts";
@@ -23,6 +23,10 @@ export const EngineBasicAuthProvider = ({children, config}: TasklistAuthProvider
     const [loginError, setLoginError] = useState<Error | null>(null);
 
     const bpmEngine = useBpmEngine();
+    const userRef = useRef(user);
+    useEffect(() => {
+        userRef.current = user;
+    }, [user]);
 
     /**
      * Authenticates user with provided credentials against the BPM engine
@@ -76,18 +80,20 @@ export const EngineBasicAuthProvider = ({children, config}: TasklistAuthProvider
         const session = sessionUtils.getSession();
         const {user: storedUser, token: storedToken, authType: storedType} = session;
 
-        const isSameUser = !user || (user.id === storedUser?.id);
+        const isSameUser = !userRef.current || (userRef.current.id === storedUser?.id);
 
         if (storedToken && storedUser && isSameUser && storedType === config.type) {
             setToken(storedToken);
             setUser(storedUser);
         }
         setIsLoading(false);
-    }, [config.type, user]);
+    }, [config.type]);
 
     useEffect(() => {
+        // Restores a previously persisted session from storage on mount (sync with an external system).
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         restoreSession();
-    }, []);
+    }, [restoreSession]);
 
 
     const value = {

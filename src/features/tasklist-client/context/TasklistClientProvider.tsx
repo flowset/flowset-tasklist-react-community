@@ -48,7 +48,7 @@ export const TasklistClientProvider = ({
                     headers: getAuthHeaders
                 });
         }
-    }, [engineType, engineUrl]);
+    }, [engineType, engineUrl, getAuthHeaders]);
 
     if (callTimeClient) {
         const tasklistClient = typeof callTimeClient === "function" ? callTimeClient(getAuthHeaders()) : callTimeClient;

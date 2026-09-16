@@ -78,7 +78,7 @@ interface InstanceRelativeCreateDateProps {
 }
 
 const InstanceRelativeCreateDate = ({date}: InstanceRelativeCreateDateProps) => {
-    const [time, setTime] = useState(Date.now());
+    const [time, setTime] = useState(() => Date.now());
     const {t: translate} = useTranslation(["processInstance"]);
 
     useEffect(() => {
