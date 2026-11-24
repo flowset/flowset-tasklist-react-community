@@ -3,7 +3,7 @@
  * Use is subject to license terms.
  */
 
-import {useMemo, type PropsWithChildren} from "react";
+import {useCallback, useEffect, useMemo, useRef, type PropsWithChildren} from "react";
 import {TasklistClientContext} from "./TasklistClientContext.ts";
 import {useBpmEngine} from "@hooks/useBpmEngine.ts";
 import {useTasklistAuth} from "@hooks/useTasklistAuth.ts";
@@ -26,6 +26,15 @@ export const TasklistClientProvider = ({
     const bpmEngine = useBpmEngine();
     const {getAuthHeaders} = useTasklistAuth();
 
+    // The engine client is memoised on the engine settings, but getAuthHeaders is a new function on every
+    // render (it closes over the current access token). Keep the latest one in a ref and give the client a
+    // stable function that reads it, so requests always carry the current token (e.g. after an OIDC silent renew).
+    const authHeadersRef = useRef(getAuthHeaders);
+    useEffect(() => {
+        authHeadersRef.current = getAuthHeaders;
+    }, [getAuthHeaders]);
+    const currentAuthHeaders = useCallback(() => authHeadersRef.current(), []);
+
     const selectedEngine = bpmEngine?.selectedEngine;
     const engineType = selectedEngine?.type;
     const engineUrl = selectedEngine ? getEngineBaseUrl(selectedEngine) : undefined;
@@ -37,18 +46,20 @@ export const TasklistClientProvider = ({
 
         switch (engineType) {
             case EngineType.CAMUNDA_7:
+                // eslint-disable-next-line react-hooks/refs -- the headers function runs when a request is sent, not during render
                 return new CamundaPlatformClient({
                     apiUrl: engineUrl,
-                    headers: getAuthHeaders
+                    headers: currentAuthHeaders
                 });
 
             case EngineType.OPERATON:
+                // eslint-disable-next-line react-hooks/refs -- the headers function runs when a request is sent, not during render
                 return new OperatonClient({
                     apiUrl: engineUrl,
-                    headers: getAuthHeaders
+                    headers: currentAuthHeaders
                 });
         }
-    }, [engineType, engineUrl]);
+    }, [engineType, engineUrl, currentAuthHeaders]);
 
     if (callTimeClient) {
         const tasklistClient = typeof callTimeClient === "function" ? callTimeClient(getAuthHeaders()) : callTimeClient;
